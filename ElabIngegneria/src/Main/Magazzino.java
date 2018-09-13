@@ -78,16 +78,22 @@ public class Magazzino implements Serializable {
 
     public int loginHashCode(Utente u) throws UserNotFoundException {
 	for (Utente X : utenti) {
-            System.out.println("123:"+X.hashCode());
-            System.out.println("u" +u.hashCode());
-            System.out.println();
 	    if (u.hashCode() == X.hashCode()) {
 		return X.getTypeInt();
 	    }
 	}
-	throw new UserNotFoundException("Utente non trovato! \n Username o Password errata!");
+	throw new UserNotFoundException("Username o Password errata!");
     }
-
+    
+    //-LOGIN CHECK 
+    public int loginCheck(int xord) throws UserNotFoundException {
+    	for (Utente u: utenti) {
+    		if(u.hashCode() == xord) {
+    			return u.getTypeInt(); // ritorna il permesso dell'utente trovato
+    		}
+    	}
+    	throw new UserNotFoundException("Username o Password errata!");
+    }
     //ARTICOLI
     public void addArticolo(Articolo a) throws ArticleAlreadyExistException {
 	if (articoli.contains(a)) {

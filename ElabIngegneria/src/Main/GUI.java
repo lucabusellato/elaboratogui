@@ -3,6 +3,10 @@ package Main;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+//import delle exception
+
+import Exception.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,6 +23,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
@@ -27,11 +32,23 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 public class GUI extends JFrame {
-
-	private JPanel BGPANE;
+	//prendiamo l'istanza di magazzino -- singleton
+	private static final Magazzino warehouse = Magazzino.getInstance();
+	
+	
+	//pannelli
+	private JPanel BGPANE; // panel principale
+	private JPanel Login, menuazioni;
+	
+	//bottoni
+	private JButton btnLogin;
+	
+	//textboxes
 	private JTextField textField;
+	
+	//pass boxes
 	private JPasswordField passwordField;
-	private JPanel menuazioni;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -71,7 +88,7 @@ public class GUI extends JFrame {
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
 
-		JPanel Login = new JPanel();
+		Login = new JPanel();
 		Login.setBounds(245, 160, 293, 240);
 		BGPANE.add(Login);
 		Login.setLayout(null);
@@ -109,7 +126,7 @@ public class GUI extends JFrame {
 
 		
 		//BOTTONE LOGIN
-		JButton btnLogin = new JButton("Accedi");
+		btnLogin = new JButton("Accedi");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loginButtonActionToDo(e);
@@ -151,7 +168,7 @@ public class GUI extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel.setBounds(637, 0, 127, 91);
+		panel.setBounds(657, 0, 137, 91);
 		BGPANE.add(panel);
 
 		JButton btnNewButton_6 = new JButton("Salva");
@@ -164,7 +181,7 @@ public class GUI extends JFrame {
 		panel.add(btnNewButton_6);
 
 		JButton btnNewButton_7 = new JButton("Esci");
-		btnNewButton_7.setBounds(69, 18, 51, 23);
+		btnNewButton_7.setBounds(69, 18, 59, 23);
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -172,7 +189,7 @@ public class GUI extends JFrame {
 		panel.add(btnNewButton_7);
 
 		JButton btnNewButton_8 = new JButton("Chiudi");
-		btnNewButton_8.setBounds(32, 52, 61, 23);
+		btnNewButton_8.setBounds(33, 52, 70, 28);
 		btnNewButton_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -186,9 +203,31 @@ public class GUI extends JFrame {
 
 	//PULSANTI
 	private void loginButtonActionToDo(ActionEvent e) {
+		//System.out.println(textField.getText());
+		String user = textField.getText();
+		String pw = passwordField.getText();//	deprecato	String pass = ""+pw;
 		
-	
-	}
+		
+		
+		/*if()
+		
+		} else {*/
+		
+		
+        try {
+		int perms = warehouse.loginCheck(pw.hashCode()^user.hashCode());
+		
+		System.out.println("Loggato l' Utente "+ user + " permessi: "+perms);
+		//qui è da rendere visibile tutti i panel
+		Login.setVisible(false);
+		menuazioni.setVisible(true);
+        
+        }catch (UserNotFoundException ecc) {
+        	JOptionPane.showMessageDialog(null, "Impossibile effettuare il login,si prega di riprovare più tardi");
+        	passwordField.setText("");
+        }
+        
+      }
 }
 
 

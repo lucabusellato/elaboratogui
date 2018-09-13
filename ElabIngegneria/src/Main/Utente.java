@@ -72,6 +72,7 @@ public class Utente implements UserInterface, Comparable<Utente>, Serializable{
     /***************************************** HASHCODE *******************************************/
     @Override
     public int hashCode(){
+    	//lo utilizziamo per controllare le credenziali, la probabilità di collisione è molto bassa
 	return usr.hashCode()^pwd.hashCode();
     }
     
@@ -105,7 +106,7 @@ public class Utente implements UserInterface, Comparable<Utente>, Serializable{
     /*****************************************TO-STRING*******************************************/
     @Override
     public String toString(){//per sicurezza non passo la password in chiaro
-        return "Username: "+usr+"\nPassword: "+"********\n"+"Tipo Account: "+t+" ";
+        return "Username: "+usr+"\nPassword: "+"\n"+"Tipo Account: "+t+" ";
     }
 
 }//fine Utente
