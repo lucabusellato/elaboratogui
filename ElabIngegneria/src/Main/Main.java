@@ -82,7 +82,7 @@ public class Main implements Serializable{
 	    //ISTANZIO UN PO DI OGGETTI DA USARE COME PROVA
 	    try {
                 Magazzino m = Magazzino.getInstance();
-		m.addUser(new Utente("ingegneria-software", "magazziniere", 1));
+		m.addUser(new Utente("1", "1", 1));
                 m.addUser(new Utente("nicolocarello", "segreteria", 2));
                 m.addUser(new Utente("stefanospada", "responsabile", 3));
                 
@@ -142,7 +142,12 @@ public class Main implements Serializable{
 	}
 	
 	java.awt.EventQueue.invokeLater(() -> {
-	    new GUI().setVisible(true);
+	    try {
+			new GUI().setVisible(true);
+		} catch (ArticleDontExistInWareHouseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	});
 
     }//fine main
