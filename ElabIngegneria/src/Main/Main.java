@@ -82,9 +82,9 @@ public class Main implements Serializable{
 	    //ISTANZIO UN PO DI OGGETTI DA USARE COME PROVA
 	    try {
                 Magazzino m = Magazzino.getInstance();
-		m.addUser(new Utente("1", "1", 1));
-                m.addUser(new Utente("nicolocarello", "segreteria", 2));
-                m.addUser(new Utente("stefanospada", "responsabile", 3));
+		m.addUser(new Utente("magazziniere", "1111", 1));
+                m.addUser(new Utente("segreteria", "2222", 2));
+                m.addUser(new Utente("responsabile", "3333", 3));
                 
 		Articolo a1 = new Articolo((float) 14, new TipoArticolo("nome1", "Desrizione1", 2, 1));
 		Articolo a2 = new Articolo((float) 17, new TipoArticolo("nome2", "Desrizione2", 3, 3));
@@ -93,17 +93,17 @@ public class Main implements Serializable{
 		Articolo a5 = new Articolo((float) 15, new TipoArticolo("nome5", "Desrizione5", 7, 1));
 		Articolo a6 = new Articolo((float) 18, new TipoArticolo("nome6", "Desrizione6", 10, 4));
                 
-		Negozio n1 = new Negozio("codice fiscale1", "primo Negozio", "Indirizzo1", "City");
-		Negozio n2 = new Negozio("codice fiscale2", "secondo Negozio", "Indirizzo2", "City");
-		Negozio n3 = new Negozio("codice fiscale3", "terzo Negozio", "Indirizzo3", "City");
-		Negozio n4 = new Negozio("codice fiscale4", "quarto Negozio", "Indirizzo4", "City");
+		Negozio n1 = new Negozio("ABABABABABABABAB", "Adidas Milano", "via toi tuto", "City");
+		Negozio n2 = new Negozio("BBBBBBBBBBBBBBBB", "Snipes Malpensa", "via caveve", "City");
+		Negozio n3 = new Negozio("CCCCCCCCCCCCCCCC", "Puma EUROMA2", "via go senh", "City");
+		Negozio n4 = new Negozio("DDDDDDDDDDDDDDDD", "Foot Loocker", "via bio", "City");
                 
-		Ordine o1 = new Ordine(n1, "Corriere1");
+		Ordine o1 = new Ordine(n1, "SDA-Express");
 		o1.addArticle(a2, 10);
 		o1.addArticle(a1, 4);
 		o1.addArticle(a3, 4);
 		o1.addArticle(a4, 10);
-		Ordine o2 = new Ordine(n2, "Corriere2");
+		Ordine o2 = new Ordine(n2, "Fedex");
 		o2.addArticle(a2, 10);
 		o2.addArticle(a1, 4);
 		m.addArticolo(a1);
