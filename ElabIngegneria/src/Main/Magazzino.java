@@ -128,6 +128,12 @@ public class Magazzino implements Serializable {
 	    throw new IndexOutOfBoundsException("Indice troppo grande!");
 	}
     }
+    
+    //
+    public List<Articolo> getArticoloList(){
+    	return articoli;
+    	
+    } 
 
     public boolean articoliIsEmpty() {
 	return articoli.isEmpty();
@@ -440,7 +446,9 @@ public class Magazzino implements Serializable {
 	report.add(s);
 	return s;
     }
-
+    
+    
+    
 }//MAGAZZINO
 
 /**
