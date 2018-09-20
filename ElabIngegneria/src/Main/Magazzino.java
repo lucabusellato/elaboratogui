@@ -218,6 +218,11 @@ public class Magazzino implements Serializable {
 	negozi.remove(i);
 	Collections.sort(negozi);
     }
+    //
+    public List<Negozio> getNegozioList(){
+    	return negozi;
+    	
+    } 
 
     public boolean negoziIsEmpty() {
 	return negozi.isEmpty();
@@ -335,7 +340,7 @@ public class Magazzino implements Serializable {
 		    n.createShip();
 		    return;
 		} else {
-		    throw new OrderImpossibleToCreate("Quantit√† in magazzino insufficenti per effettuare spedire l'ordine!");
+		    throw new OrderImpossibleToCreate("Quantit‡† in magazzino insufficenti per effettuare spedire l'ordine!");
 		}
 
 	    }//if equals
