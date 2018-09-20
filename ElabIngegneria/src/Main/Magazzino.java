@@ -112,6 +112,7 @@ public class Magazzino implements Serializable {
 	return false;
     }
 
+    
     public void removeArticolo(int i) {
 	posizione.remove(articoli.get(i));
 	quantita.remove(articoli.get(i));

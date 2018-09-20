@@ -71,7 +71,6 @@ public class GUI extends JFrame {
 	//prendiamo l'istanza di magazzino -- singleton
 	private static final Magazzino warehouse = Magazzino.getInstance();
 
-
 	//pannelli
 	private JPanel BGPANE; // panel principale
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel;
