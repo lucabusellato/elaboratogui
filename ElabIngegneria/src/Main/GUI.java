@@ -67,7 +67,7 @@ public class GUI extends JFrame {
 	//pannelli
 	private JPanel BGPANE; // panel principale
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel;
-	private JPanel PanelMainArt;
+	private JPanel PanelMainArt; 
 	private List<JPanel> listaPanel = new ArrayList<>();
 
 
