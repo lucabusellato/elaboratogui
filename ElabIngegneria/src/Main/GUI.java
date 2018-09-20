@@ -67,6 +67,7 @@ public class GUI extends JFrame {
 	//pannelli
 	private JPanel BGPANE; // panel principale
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel;
+	private JPanel PanelMainArt;
 	private List<JPanel> listaPanel = new ArrayList<>();
 
 
@@ -240,172 +241,172 @@ public class GUI extends JFrame {
 		BGPANE.add(panelArticoli);
 
 		panelArticoli.setLayout(null);
-		
-				PanelCambiaPos = new JPanel();
-				PanelCambiaPos.setBounds(75, 35, 500, 500);
-				panelArticoli.add(PanelCambiaPos);
-				PanelCambiaPos.setVisible(false);
-				PanelCambiaPos.setLayout(null);
 				
-						JLabel lblNewLabel_3 = new JLabel("Dettagli Articolo");
-						lblNewLabel_3.setBackground(SystemColor.controlHighlight);
-						lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-						lblNewLabel_3.setBounds(10, 24, 132, 34);
-						lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-						PanelCambiaPos.add(lblNewLabel_3);
+						PanelCambiaPos = new JPanel();
+						PanelCambiaPos.setBounds(75, 35, 500, 500);
+						panelArticoli.add(PanelCambiaPos);
+						PanelCambiaPos.setVisible(false);
+						PanelCambiaPos.setLayout(null);
 						
-								InfoPanel = new JPanel();
-								InfoPanel.setBackground(SystemColor.controlHighlight);
-								InfoPanel.setBounds(10, 59, 480, 100);
-								PanelCambiaPos.add(InfoPanel);
-								InfoPanel.setLayout(null);
+								JLabel lblNewLabel_3 = new JLabel("Dettagli Articolo");
+								lblNewLabel_3.setBackground(SystemColor.controlHighlight);
+								lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+								lblNewLabel_3.setBounds(10, 24, 132, 34);
+								lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+								PanelCambiaPos.add(lblNewLabel_3);
 								
-										labelID = new JLabel("n/d");
-										labelID.setHorizontalAlignment(SwingConstants.CENTER);
-										labelID.setBounds(10, 11, 100, 20);
+										InfoPanel = new JPanel();
+										InfoPanel.setBackground(SystemColor.controlHighlight);
+										InfoPanel.setBounds(10, 59, 480, 100);
+										PanelCambiaPos.add(InfoPanel);
+										InfoPanel.setLayout(null);
 										
-												//labelID.setText("ciao"); test modifica
-										
-												InfoPanel.add(labelID);
+												labelID = new JLabel("n/d");
+												labelID.setHorizontalAlignment(SwingConstants.CENTER);
+												labelID.setBounds(10, 11, 100, 20);
 												
-														lblE = new JLabel("n/d");
-														lblE.setHorizontalAlignment(SwingConstants.CENTER);
-														lblE.setBounds(10, 38, 100, 20);
-														InfoPanel.add(lblE);
+														//labelID.setText("ciao"); test modifica
+												
+														InfoPanel.add(labelID);
 														
-																lblI = new JLabel("n/d");
-																lblI.setHorizontalAlignment(SwingConstants.CENTER);
-																lblI.setBounds(10, 66, 100, 20);
-																InfoPanel.add(lblI);
+																lblE = new JLabel("n/d");
+																lblE.setHorizontalAlignment(SwingConstants.CENTER);
+																lblE.setBounds(10, 38, 100, 20);
+																InfoPanel.add(lblE);
 																
-																		lblB = new JLabel("n/d");
-																		lblB.setHorizontalAlignment(SwingConstants.CENTER);
-																		lblB.setBounds(120, 14, 100, 20);
-																		InfoPanel.add(lblB);
+																		lblI = new JLabel("n/d");
+																		lblI.setHorizontalAlignment(SwingConstants.CENTER);
+																		lblI.setBounds(10, 66, 100, 20);
+																		InfoPanel.add(lblI);
 																		
-																				lblF = new JLabel("n/d");
-																				lblF.setHorizontalAlignment(SwingConstants.CENTER);
-																				lblF.setBounds(120, 41, 100, 20);
-																				InfoPanel.add(lblF);
+																				lblB = new JLabel("n/d");
+																				lblB.setHorizontalAlignment(SwingConstants.CENTER);
+																				lblB.setBounds(120, 14, 100, 20);
+																				InfoPanel.add(lblB);
 																				
-																						lblNd = new JLabel("n/d");
-																						lblNd.setHorizontalAlignment(SwingConstants.CENTER);
-																						lblNd.setBounds(120, 69, 100, 20);
-																						InfoPanel.add(lblNd);
+																						lblF = new JLabel("n/d");
+																						lblF.setHorizontalAlignment(SwingConstants.CENTER);
+																						lblF.setBounds(120, 41, 100, 20);
+																						InfoPanel.add(lblF);
 																						
-																								lblC = new JLabel("n/d");
-																								lblC.setHorizontalAlignment(SwingConstants.CENTER);
-																								lblC.setBounds(230, 14, 100, 20);
-																								InfoPanel.add(lblC);
+																								lblNd = new JLabel("n/d");
+																								lblNd.setHorizontalAlignment(SwingConstants.CENTER);
+																								lblNd.setBounds(120, 69, 100, 20);
+																								InfoPanel.add(lblNd);
 																								
-																										lblG = new JLabel("n/d");
-																										lblG.setHorizontalAlignment(SwingConstants.CENTER);
-																										lblG.setBounds(230, 41, 100, 20);
-																										InfoPanel.add(lblG);
+																										lblC = new JLabel("n/d");
+																										lblC.setHorizontalAlignment(SwingConstants.CENTER);
+																										lblC.setBounds(230, 14, 100, 20);
+																										InfoPanel.add(lblC);
 																										
-																												lblNd_1 = new JLabel("n/d");
-																												lblNd_1.setHorizontalAlignment(SwingConstants.CENTER);
-																												lblNd_1.setBounds(230, 69, 100, 20);
-																												InfoPanel.add(lblNd_1);
+																												lblG = new JLabel("n/d");
+																												lblG.setHorizontalAlignment(SwingConstants.CENTER);
+																												lblG.setBounds(230, 41, 100, 20);
+																												InfoPanel.add(lblG);
 																												
-																														lblD = new JLabel("n/d");
-																														lblD.setHorizontalAlignment(SwingConstants.CENTER);
-																														lblD.setBounds(340, 14, 100, 20);
-																														InfoPanel.add(lblD);
+																														lblNd_1 = new JLabel("n/d");
+																														lblNd_1.setHorizontalAlignment(SwingConstants.CENTER);
+																														lblNd_1.setBounds(230, 69, 100, 20);
+																														InfoPanel.add(lblNd_1);
 																														
-																																lblH = new JLabel("n/d");
-																																lblH.setHorizontalAlignment(SwingConstants.CENTER);
-																																lblH.setBounds(340, 41, 100, 20);
-																																InfoPanel.add(lblH);
+																																lblD = new JLabel("n/d");
+																																lblD.setHorizontalAlignment(SwingConstants.CENTER);
+																																lblD.setBounds(340, 14, 100, 20);
+																																InfoPanel.add(lblD);
 																																
-																																		lblNd_2 = new JLabel("n/d");
-																																		lblNd_2.setHorizontalAlignment(SwingConstants.CENTER);
-																																		lblNd_2.setBounds(340, 69, 100, 20);
-																																		InfoPanel.add(lblNd_2);
+																																		lblH = new JLabel("n/d");
+																																		lblH.setHorizontalAlignment(SwingConstants.CENTER);
+																																		lblH.setBounds(340, 41, 100, 20);
+																																		InfoPanel.add(lblH);
 																																		
-																																				JButton btnNewButton_2 = new JButton("Chiudi");
-																																				btnNewButton_2.addMouseListener(new MouseAdapter() {
-																																					@Override
-																																					public void mouseClicked(MouseEvent arg0) {
-																																						closeButtonAction("articoli");
-																																					}
-																																				});
-																																				btnNewButton_2.setBounds(193, 444, 114, 45);
-																																				PanelCambiaPos.add(btnNewButton_2);
-		
-		JPanel panelMainArt = new JPanel();
-		panelMainArt.setBounds(0, 0, 650, 571);
-		panelArticoli.add(panelMainArt);
-				panelMainArt.setLayout(null);
-		
-				TablePanel = new JPanel();
-				TablePanel.setBounds(0, 46, 650, 375);
-				panelMainArt.add(TablePanel);
-				TablePanel.setLayout(new BorderLayout(0, 0));
+																																				lblNd_2 = new JLabel("n/d");
+																																				lblNd_2.setHorizontalAlignment(SwingConstants.CENTER);
+																																				lblNd_2.setBounds(340, 69, 100, 20);
+																																				InfoPanel.add(lblNd_2);
+																																				
+																																						JButton btnNewButton_2 = new JButton("Chiudi");
+																																						btnNewButton_2.addMouseListener(new MouseAdapter() {
+																																							@Override
+																																							public void mouseClicked(MouseEvent arg0) {
+																																								closeButtonAction("articoli");
+																																							}
+																																						});
+																																						btnNewButton_2.setBounds(193, 444, 114, 45);
+																																						PanelCambiaPos.add(btnNewButton_2);
 				
+				PanelMainArt = new JPanel();
+				PanelMainArt.setBounds(0, 0, 650, 571);
+				panelArticoli.add(PanelMainArt);
+				PanelMainArt.setLayout(null);
 				
-				
-						tableArticoli = new JTable();
-						tableArticoli.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								tabellaRigaSel(false,"articoli",e); // false è l'azione, non visualizza il pannello ma mantiene solo il valore sul box debug
-							}
-						});
-						TablePanel.add(tableArticoli, BorderLayout.CENTER);
-						TablePanel.add(tableArticoli.getTableHeader(), BorderLayout.NORTH);
-						tableArticoli.setAlignmentY(Component.TOP_ALIGNMENT);
-						tableArticoli.setRowHeight(25);
-						tableArticoli.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-						tableArticoli.setFont(new Font("Arial", Font.PLAIN, 13));
-						tableArticoli.setShowVerticalLines(false);
-						tableArticoli.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-						tableArticoli.setFillsViewportHeight(true);
-						tableArticoli.setCellSelectionEnabled(true);
-						tableArticoli.setBackground(Color.LIGHT_GRAY);
-						tableArticoli.setModel(new DefaultTableModel(
-								new Object[][] {
-								},
-								new String[] {
-										"ID", "Nome", "Prezzo", "Sport", "Data inserimento", "Materiale", "Q.ta", "Posizione"
-								}
-								) {
-							Class[] types = new Class [] {
-									java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class
-							};
-
-							boolean[] columnEditables = new boolean[] {
-									false, false, false, false, false, false, false, false
-							};
-							public boolean isCellEditable(int row, int column) {
-								return columnEditables[column];
-							}
-						});
-						tableArticoli.getColumnModel().getColumn(0).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(1).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(2).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(3).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(4).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(5).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(6).setResizable(false);
-						tableArticoli.getColumnModel().getColumn(7).setResizable(false);
-						tableArticoli.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+						TablePanel = new JPanel();
+						TablePanel.setBounds(0, 46, 650, 375);
+						PanelMainArt.add(TablePanel);
+						TablePanel.setLayout(new BorderLayout(0, 0));
 						
-								JLabel lblArticoli = new JLabel("Articoli");
-								lblArticoli.setBounds(279, 0, 91, 35);
-								panelMainArt.add(lblArticoli);
-								lblArticoli.setFont(new Font("Arial", Font.ITALIC, 30));
-								lblArticoli.setHorizontalAlignment(SwingConstants.CENTER);
-								lblArticoli.setBackground(SystemColor.window);
+						
+						
+								tableArticoli = new JTable();
+								tableArticoli.addMouseListener(new MouseAdapter() {
+									@Override
+									public void mouseClicked(MouseEvent e) {
+										tabellaRigaSel(false,"articoli",e); // false è l'azione, non visualizza il pannello ma mantiene solo il valore sul box debug
+									}
+								});
+								TablePanel.add(tableArticoli, BorderLayout.CENTER);
+								TablePanel.add(tableArticoli.getTableHeader(), BorderLayout.NORTH);
+								tableArticoli.setAlignmentY(Component.TOP_ALIGNMENT);
+								tableArticoli.setRowHeight(25);
+								tableArticoli.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+								tableArticoli.setFont(new Font("Arial", Font.PLAIN, 13));
+								tableArticoli.setShowVerticalLines(false);
+								tableArticoli.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+								tableArticoli.setFillsViewportHeight(true);
+								tableArticoli.setCellSelectionEnabled(true);
+								tableArticoli.setBackground(Color.LIGHT_GRAY);
+								tableArticoli.setModel(new DefaultTableModel(
+										new Object[][] {
+										},
+										new String[] {
+												"ID", "Nome", "Prezzo", "Sport", "Data inserimento", "Materiale", "Q.ta", "Posizione"
+										}
+										) {
+									Class[] types = new Class [] {
+											java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class
+									};
+
+									boolean[] columnEditables = new boolean[] {
+											false, false, false, false, false, false, false, false
+									};
+									public boolean isCellEditable(int row, int column) {
+										return columnEditables[column];
+									}
+								});
+								tableArticoli.getColumnModel().getColumn(0).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(1).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(2).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(3).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(4).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(5).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(6).setResizable(false);
+								tableArticoli.getColumnModel().getColumn(7).setResizable(false);
+								tableArticoli.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 								
-										JButton btnNewButton = new JButton("Cambia Posizione");
-										btnNewButton.setBounds(10, 434, 220, 50);
-										panelMainArt.add(btnNewButton);
-										btnNewButton.setBackground(SystemColor.control);
-										btnNewButton.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+										JLabel lblArticoli = new JLabel("Articoli");
+										lblArticoli.setBounds(279, 0, 91, 35);
+										PanelMainArt.add(lblArticoli);
+										lblArticoli.setFont(new Font("Arial", Font.ITALIC, 30));
+										lblArticoli.setHorizontalAlignment(SwingConstants.CENTER);
+										lblArticoli.setBackground(SystemColor.window);
+										
+												JButton btnNewButton = new JButton("Cambia Posizione");
+												btnNewButton.setBounds(10, 434, 220, 50);
+												PanelMainArt.add(btnNewButton);
+												btnNewButton.setBackground(SystemColor.control);
+												btnNewButton.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 												JButton btnDettagli = new JButton("Dettagli");
 												btnDettagli.setBounds(240, 434, 140, 100);
-												panelMainArt.add(btnDettagli);
+												PanelMainArt.add(btnDettagli);
 												btnDettagli.addMouseListener(new MouseAdapter() {
 													@Override
 													public void mouseClicked(MouseEvent arg0) {
@@ -414,18 +415,18 @@ public class GUI extends JFrame {
 												});
 												btnDettagli.setBackground(SystemColor.control);
 												btnDettagli.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-										
-												JButton btnNewButton_1 = new JButton("Aggiungi Prodotto");
-												btnNewButton_1.setBounds(390, 434, 220, 50);
-												panelMainArt.add(btnNewButton_1);
-												btnNewButton_1.setBackground(SystemColor.control);
-												btnNewButton_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-										btnNewButton.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent arg0) {
-											}
-										});
-						//
-						DefaultTableModel model = (DefaultTableModel) tableArticoli.getModel();
+												
+														JButton btnNewButton_1 = new JButton("Aggiungi Prodotto");
+														btnNewButton_1.setBounds(390, 434, 220, 50);
+														PanelMainArt.add(btnNewButton_1);
+														btnNewButton_1.setBackground(SystemColor.control);
+														btnNewButton_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+														btnNewButton.addActionListener(new ActionListener() {
+															public void actionPerformed(ActionEvent arg0) {
+															}
+														});
+														//
+														DefaultTableModel model = (DefaultTableModel) tableArticoli.getModel();
 
 		panelNegozi = new JPanel();
 		panelNegozi.setBackground(SystemColor.controlHighlight);
@@ -588,7 +589,7 @@ public class GUI extends JFrame {
 		switch(panel) {
 		case "articoli":
 			PanelCambiaPos.setVisible(false); //
-			panelArticoli.setVisible(true);
+			PanelMainArt.setVisible(true);
 			break;
 
 		}
@@ -661,7 +662,7 @@ public class GUI extends JFrame {
 		//act -- se è 1 visualizza il box, se 0 salva solo la riga selezionata
 		if(act == true) {
 			PanelCambiaPos.setVisible(true);
-			panelArticoli.setVisible(false);
+			PanelMainArt.setVisible(false);
 
 
 

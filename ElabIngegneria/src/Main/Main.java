@@ -21,10 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author nicolocarello
- */
+
 public class Main implements Serializable{
 
     public static void main(String args[]) {
