@@ -74,7 +74,7 @@ public class GUI extends JFrame {
 	//pannelli
 	private JPanel BGPANE; // panel principale
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel;
-	private JPanel PanelMainArt; 
+	private JPanel PanelMainArt;
 	private List<JPanel> listaPanel = new ArrayList<>();
 
 
@@ -206,7 +206,7 @@ public class GUI extends JFrame {
 		btnAnnullaArticolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				closePanel(e);
+				closeButtonAction((JPanel)e.getComponent().getParent(),"articoli");
 			}
 		});
 		btnAnnullaArticolo.setBounds(375, 509, 100, 50);
@@ -441,7 +441,7 @@ public class GUI extends JFrame {
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				closeButtonAction("articoli");
+				closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
 			}
 		});
 		btnNewButton_2.setBounds(193, 444, 114, 45);
@@ -814,11 +814,11 @@ public class GUI extends JFrame {
 		}
 
 	}
-
-	private void closeButtonAction(String panel) { // gestisce tutti i pulsanti di chiusura ! forse pattern
+	//chiude il pannello, apre il box di prima.
+	private void closeButtonAction(JPanel pannello,String panel) { // gestisce tutti i pulsanti di chiusura ! forse pattern
 		switch(panel) {
 		case "articoli":
-			PanelDettagli.setVisible(false); //
+			pannello.setVisible(false); //
 			PanelMainArt.setVisible(true);
 			break;
 
@@ -1012,25 +1012,6 @@ public class GUI extends JFrame {
 		PanelMainArt.setVisible(false);
 		PanelAggiungiArticolo.setVisible(true);
 		}
-	
-	//CHIUDE IL PANNELLO CHE CONTIENE IL PULSANTE
-	private void closePanel(MouseEvent e) {
-		Component temp = e.getComponent();
-		Component t = temp.getParent();
-		if(t instanceof javax.swing.JPanel) {
-			t.setVisible(false);
-			(t.getParent()).setVisible(true);
-		}
-		
-		/*
-		 * Component o = temp.getParent();
-		
-		if(o instanceof JPanel) {
-			((JPanel) temp).setVisible(false);
-			temp.getParent().setVisible(true);
-		}
-		*/
-	}
 	
 }
 
