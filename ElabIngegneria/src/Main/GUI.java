@@ -127,6 +127,9 @@ public class GUI extends JFrame {
 	private JTextField txtQuantit;
 	private JTextField txtDescrizioneArticolo;
 
+	
+	ButtonGroup group_btn;
+	
 	/**
 	 * Create the frame.
 	 * @throws ArticleDontExistInWareHouseException 
@@ -196,6 +199,12 @@ public class GUI extends JFrame {
 		PanelAggiungiArticolo.add(lblGenArticolo);
 
 		btnArticoloReset = new JButton("Reset");
+		btnArticoloReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				clearTexts(arg0);
+			}
+		});
 		btnArticoloReset.setBounds(25, 509, 100, 50);
 		PanelAggiungiArticolo.add(btnArticoloReset);
 
@@ -314,7 +323,7 @@ public class GUI extends JFrame {
 		lblMateriale.setBounds(10, 322, 235, 160);
 		PanelAggiungiArticolo.add(lblMateriale);
 		
-		ButtonGroup group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
+		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
 		
 		
 		JRadioButton rdbtnPoliestere = new JRadioButton("Poliestere");
@@ -1023,6 +1032,27 @@ public class GUI extends JFrame {
 		PanelMainArt.setVisible(false);
 		PanelAggiungiArticolo.setVisible(true);
 		}
+	
+	private void clearTexts(MouseEvent arg0) {
+		if(arg0.getSource() instanceof JButton) {
+			JButton btn = (JButton) arg0.getSource();	
+			Component[] compList =  btn.getParent().getComponents();
+			
+			for(Component c: compList) {
+				if(c instanceof JTextField)
+					((JTextField) c).setText("");
+			
+				if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())
+					group_btn.clearSelection();
+				
+				if(c instanceof JComboBox)
+					(JComboBox)c.setSelectedIndex(0);
+					
+				}
+		}
+	}
+	
+	
 	
 }
 
