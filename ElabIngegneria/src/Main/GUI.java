@@ -33,6 +33,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JPasswordField;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ButtonGroup;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static java.lang.Math.abs;
@@ -312,35 +313,45 @@ public class GUI extends JFrame {
 		lblMateriale.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMateriale.setBounds(10, 322, 235, 160);
 		PanelAggiungiArticolo.add(lblMateriale);
-
+		
+		ButtonGroup group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
+		
+		
 		JRadioButton rdbtnPoliestere = new JRadioButton("Poliestere");
 		rdbtnPoliestere.setBounds(25, 340, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPoliestere);
-
+		group_btn.add(rdbtnPoliestere);
+		
 		JRadioButton rdbtnSilicone = new JRadioButton("Silicone");
 		rdbtnSilicone.setBounds(25, 368, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnSilicone);
-
+		group_btn.add(rdbtnSilicone);
+		
 		JRadioButton rdbtnPelleSintetica = new JRadioButton("Pelle Sintetica");
 		rdbtnPelleSintetica.setBounds(25, 396, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPelleSintetica);
-
+		group_btn.add(rdbtnPelleSintetica);
+		
 		JRadioButton rdbtnGoretex = new JRadioButton("Gore-Tex");
 		rdbtnGoretex.setBounds(25, 424, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnGoretex);
-
+		group_btn.add(rdbtnGoretex);
+		
 		JRadioButton rdbtnElastan = new JRadioButton("Elastan");
 		rdbtnElastan.setBounds(125, 340, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnElastan);
-
+		group_btn.add(rdbtnElastan);
+		
 		JRadioButton rdbtnPolietilene = new JRadioButton("Polietilene");
 		rdbtnPolietilene.setBounds(125, 368, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPolietilene);
-
+		group_btn.add(rdbtnPolietilene);
+		
 		JRadioButton rdbtnPoliammide = new JRadioButton("Poliammide");
 		rdbtnPoliammide.setBounds(125, 396, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPoliammide);
-
+		group_btn.add(rdbtnPoliammide);
+		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Atletica", "Basket", "Calcio", "Ciclismo", "Danza", "Hockey", "Golf", "Nuoto", "Palestra", "Pallavolo", "Rufting", "Rugby", "Scii", "Tennis"}));
 		comboBox.setBounds(275, 378, 200, 30);
