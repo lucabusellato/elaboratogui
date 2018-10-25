@@ -97,7 +97,7 @@ public class Magazzino implements Serializable {
     //ARTICOLI
     public void addArticolo(Articolo a) throws ArticleAlreadyExistException {
 	if (articoli.contains(a)) {
-	    throw new ArticleAlreadyExistException("L'articolo è già presente nella lista!");
+	    throw new ArticleAlreadyExistException("L'articolo e' gia'�presente!");
 	}
 	articoli.add(a);
 	posizione.put(a, 0);

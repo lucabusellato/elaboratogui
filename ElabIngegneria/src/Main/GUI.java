@@ -209,6 +209,12 @@ public class GUI extends JFrame {
 		PanelAggiungiArticolo.add(btnArticoloReset);
 
 		btnUpdateArticolo = new JButton("Aggiorna");
+		btnUpdateArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 		btnUpdateArticolo.setBounds(135, 509, 230, 50);
 		PanelAggiungiArticolo.add(btnUpdateArticolo);
 
@@ -1005,7 +1011,7 @@ public class GUI extends JFrame {
 				try {
 					model.addRow(new Object[]{abs(a.getID()), a.getTipoArticolo().getName(), a.getPrezzo() + " €", a.getTipoArticolo().getSports(), a.getDataInString() , a.getTipoArticolo().getMaterial(), warehouse.getQuantita(a), warehouse.getPosition(a)});
 				} catch (ArticleDontExistInWareHouseException ex) {
-					System.out.println("Eccezione, l'articolo non esiste nel magazzino");
+					System.out.println("Eccezione, l'articolo non nel magazzino");
 				}
 			}
 			btnCambiaPos.setEnabled(false);
@@ -1045,14 +1051,13 @@ public class GUI extends JFrame {
 				if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())
 					group_btn.clearSelection();
 				
-				if(c instanceof JComboBox)
-					(JComboBox)c.setSelectedIndex(0);
+				if(c instanceof JComboBox) {
+					JComboBox a = (JComboBox)c;
+					a.setSelectedIndex(0);
 					
 				}
+			}
 		}
 	}
-	
-	
-	
 }
 

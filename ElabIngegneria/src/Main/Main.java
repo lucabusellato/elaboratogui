@@ -36,8 +36,8 @@ public class Main implements Serializable{
 	    java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
 
-	Object[] options = {"Carica file", "Crea nuovo"};
-	int buttonPressed = JOptionPane.showOptionDialog(null, "Caricare un Magazzino già esistente o crearne uno nuovo?", "Messaggio d'apertura", 0, JOptionPane.QUESTION_MESSAGE, null, options, null);
+	Object[] options = {"Importa DB", "Inizializza"};
+	int buttonPressed = JOptionPane.showOptionDialog(null, "Seleziona un' opzione per continuare?", "", 0, JOptionPane.WARNING_MESSAGE, null, options, null);
 
 	if (buttonPressed == 0) {
 	    
@@ -55,11 +55,11 @@ public class Main implements Serializable{
 			ObjectInputStream fileIn = new ObjectInputStream(new FileInputStream((file)));
 			Magazzino.uploadInstance(fileIn);
 			fileIn.close();
-			JOptionPane.showMessageDialog(null, "Caricamento riuscito");
+			//JOptionPane.showMessageDialog(null, "Caricamento riuscito");
                         
 		    } catch (HeadlessException | IOException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
-			JOptionPane.showMessageDialog(null, "Caricamento non riuscito");
+			JOptionPane.showMessageDialog(null, "Errore nel caricamento del DB");
 			System.exit(0);
 		    } catch(Exception e){
 			System.out.println("Exception "+e.getMessage());
