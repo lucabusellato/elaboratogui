@@ -212,6 +212,7 @@ public class GUI extends JFrame {
 		btnUpdateArticolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				aggiungiAlDB(arg0,"articolo");
 				
 			}
 		});
@@ -1058,6 +1059,32 @@ public class GUI extends JFrame {
 				}
 			}
 		}
+	}
+	
+	private void aggiungiAlDB(MouseEvent e, String tipo) {
+		if(e.getSource() instanceof JButton) {
+			JButton btn = (JButton) e.getSource();	
+			Component[] compList =  btn.getParent().getComponents();
+			
+			String[] p = new String[7];
+			int i=0;
+			
+			for(Component c: compList) {
+				if(c instanceof JTextField)
+					p[i++] = ((JTextField) c).getText();
+				if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())					
+					p[i++] = ((JRadioButton)c).getText();
+				if(c instanceof JComboBox)
+					p[i++] = ((JComboBox)c).getSelectedItem().toString();
+					
+			}
+		
+		/*	for(String ev: p)
+				System.out.println(ev);*/
+			
+			//DA CREARE L'ARTICOLO NUOVO
+		} 
+	
 	}
 }
 
