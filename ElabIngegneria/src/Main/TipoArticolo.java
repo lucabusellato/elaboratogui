@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 public class TipoArticolo implements Comparable<TipoArticolo>, Serializable{
     
-    public final String sportArray[]= {"Nuoto", "Calcio", "Palestra", "Tennis", "Scii", "Basket", "Rafting", "Ciclismo", "Rugby", "Atletica", "Hockey", "Golf", "Pallavolo", "Danza"};
-    public final String arrayMateriali[] = {"Poliestere", "Silicone", "Finta Pelle", "GORE-TEX", "Elastan", "Polietilene", "Poliammide"};
+    public static final String sportArray[]= {"Nuoto", "Calcio", "Palestra", "Tennis", "Scii", "Basket", "Rafting", "Ciclismo", "Rugby", "Atletica", "Hockey", "Golf", "Pallavolo", "Danza"};
+    public static final String arrayMateriali[] = {"Poliestere", "Silicone", "Finta Pelle", "GORE-TEX", "Elastan", "Polietilene", "Poliammide"};
             
     private String nome;
     private String descrizione;
@@ -20,6 +20,7 @@ public class TipoArticolo implements Comparable<TipoArticolo>, Serializable{
                     this.numSport = numberOfSport;
                     this.numMateriali = numberOfMaterial;
     }//Costruttore
+   
 
     
     
@@ -101,6 +102,24 @@ public class TipoArticolo implements Comparable<TipoArticolo>, Serializable{
     @Override
     public String toString(){
         return "Nome: "+ nome + "\nDescrizione: "+ descrizione + "\nSport: "+ this.arrayMateriali[numSport] + "/nMateriali: " + this.arrayMateriali[numMateriali];
+    }
+    
+    public static int sportArray2Num(String toEvaluate) {
+    	int i=0;
+    	for(String ev : sportArray) {
+    		if(toEvaluate.equals(ev)) return i;
+    	i++;
+    	}
+    	return -1;
+    }
+    
+    public static int materialArray2Num(String toEvaluate) {
+    	int i=0;
+    	for(String ev : arrayMateriali) {
+    		if(toEvaluate.equals(ev)) return i;
+    	i++;
+    	}
+    	return -1;
     }
     
 }//ARTICOLO

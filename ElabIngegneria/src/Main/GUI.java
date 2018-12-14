@@ -212,9 +212,16 @@ public class GUI extends JFrame {
 		btnUpdateArticolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				aggiungiAlDB(arg0,"articolo");
-				
+				try {
+					aggiungiAlDB(arg0,"articolo");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
 			}
+			
+			
 		});
 		btnUpdateArticolo.setBounds(135, 509, 230, 50);
 		PanelAggiungiArticolo.add(btnUpdateArticolo);
@@ -1061,11 +1068,10 @@ public class GUI extends JFrame {
 		}
 	}
 	
-	private void aggiungiAlDB(MouseEvent e, String tipo) {
+	private void aggiungiAlDB(MouseEvent e, String tipo) throws ArticleAlreadyExistException, NumberFormatException, ArticleDontExistInWareHouseException {
 		if(e.getSource() instanceof JButton) {
 			JButton btn = (JButton) e.getSource();	
 			Component[] compList =  btn.getParent().getComponents();
-			
 			String[] p = new String[7];
 			int i=0;
 			
@@ -1078,11 +1084,21 @@ public class GUI extends JFrame {
 					p[i++] = ((JComboBox)c).getSelectedItem().toString();
 					
 			}
-		
-		/*	for(String ev: p)
-				System.out.println(ev);*/
 			
+		
+			for(String ev: p)
+				System.out.println(ev);
+			
+			
+			//System.out.println("NUM SPORT: " +TipoArticolo.sportArray2Num(p[6])+"NUM MAT: "+TipoArticolo.materialArray2Num(p[5]));
 			//DA CREARE L'ARTICOLO NUOVO
+			//Articolo daAggiungere, vedi costruttore Articolo
+			
+			TipoArticolo tempTipo = new TipoArticolo(p[0], p[4], TipoArticolo.sportArray2Num(p[6]), TipoArticolo.materialArray2Num(p[5]));
+			String[] split = p[2].split("/");
+			Articolo temp = new Articolo(Float.parseFloat(p[1]),Integer.valueOf(split[0]),Integer.valueOf(split[1]),Integer.valueOf(split[2]), tempTipo);
+			warehouse.addArticolo(temp);
+			warehouse.setQuantity(temp,Integer.valueOf(p[3]));
 		} 
 	
 	}
