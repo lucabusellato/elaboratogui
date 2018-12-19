@@ -575,6 +575,14 @@ public class GUI extends JFrame {
 		btnModificaArticolo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		btnModificaArticolo.setBounds(10, 495, 220, 50);
 		PanelMainArt.add(btnModificaArticolo);
+		
+		
+		btnModificaArticolo.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				ModArticlePanel(tableArticoli.getSelectedRow()); // passo la riga della tabella che è stata selezionata
+			}
+		});
+		
 
 		//
 		fillTable("articoli",(DefaultTableModel) tableArticoli.getModel()); // riempe la tabella
@@ -1068,6 +1076,41 @@ public class GUI extends JFrame {
 		}
 	}
 	
+	public void ModArticlePanel(int nrow) throws ArticleDontExistInWareHouseException {
+		PanelMainArt.setVisible(false);
+		PanelAggiungiArticolo.setVisible(true);
+		
+		Component[] comp = PanelAggiungiArticolo.getComponents();
+
+		Articolo temp = warehouse.getArticolo(nrow); 
+		
+		String[] sAll = new String[5];
+		sAll[0] = temp.getTipoArticolo().getName();
+		sAll[1] = temp.getDataInString();
+		sAll[2] = ""+temp.getPrezzo();
+		sAll[3] = ""+warehouse.getQuantita(temp);
+		sAll[4] = temp.getTipoArticolo().getDescription();
+		
+		
+		for(Component c: comp) {
+			if(c instanceof JTextField)
+				((JTextField) c).setText(""+temp.getTipoArticolo().getName());
+			if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())					
+				((JRadioButton)c).setText(""+temp.getTipoArticolo().getMaterial());
+			if(c instanceof JComboBox)
+				((JComboBox)c).setSelectedIndex(TipoArticolo.sportArray2Num(temp.getTipoArticolo().getSports()));
+		}
+		
+		
+		
+		//cancelliamo l'articolo perchè l'hash cambia se cambia la data o prezzo
+		warehouse.
+	}
+	
+	
+	
+	
+	
 	private void aggiungiAlDB(MouseEvent e, String tipo) throws ArticleAlreadyExistException, NumberFormatException, ArticleDontExistInWareHouseException {
 		if(e.getSource() instanceof JButton) {
 			JButton btn = (JButton) e.getSource();	
@@ -1086,8 +1129,8 @@ public class GUI extends JFrame {
 			}
 			
 		
-			for(String ev: p)
-				System.out.println(ev);
+			//for(String ev: p)
+				//System.out.println(ev);
 			
 			
 			//System.out.println("NUM SPORT: " +TipoArticolo.sportArray2Num(p[6])+"NUM MAT: "+TipoArticolo.materialArray2Num(p[5]));
@@ -1099,8 +1142,8 @@ public class GUI extends JFrame {
 			Articolo temp = new Articolo(Float.parseFloat(p[1]),Integer.valueOf(split[0]),Integer.valueOf(split[1]),Integer.valueOf(split[2]), tempTipo);
 			warehouse.addArticolo(temp);
 			warehouse.setQuantity(temp,Integer.valueOf(p[3]));
-		} 
-	
+		}
+		
 	}
 }
 
