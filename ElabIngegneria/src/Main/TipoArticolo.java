@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class TipoArticolo implements Comparable<TipoArticolo>, Serializable{
     
     public static final String sportArray[]= {"Nuoto", "Calcio", "Palestra", "Tennis", "Scii", "Basket", "Rafting", "Ciclismo", "Rugby", "Atletica", "Hockey", "Golf", "Pallavolo", "Danza"};
-    public static final String arrayMateriali[] = {"Poliestere", "Silicone", "Finta Pelle", "GORE-TEX", "Elastan", "Polietilene", "Poliammide"};
+    public static final String arrayMateriali[] = {"Poliestere", "Silicone", "Finta Pelle", "Gore-Tex", "Elastan", "Polietilene", "Poliammide"};
             
     private String nome;
     private String descrizione;

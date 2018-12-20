@@ -71,7 +71,9 @@ import javax.swing.DefaultComboBoxModel;
 public class GUI extends JFrame {
 	//prendiamo l'istanza di magazzino -- singleton
 	private static final Magazzino warehouse = Magazzino.getInstance();
-
+	private int varflag;
+	private Articolo temp;
+	
 	//pannelli
 	private JPanel BGPANE; // panel principale
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel;
@@ -82,6 +84,7 @@ public class GUI extends JFrame {
 	//bottoni
 	private JButton btnLogin,btnArticoli,btnNegozi,btnOrdini,btnIngressi,btnFineMese,btnStorico;
 	private JButton btnCambiaPos,btnDettagli;
+	private JButton btnEliminaArt;
 
 	//textboxes
 	private JTextField textField;
@@ -91,7 +94,6 @@ public class GUI extends JFrame {
 
 	//jlabels
 	private JLabel DEBUG;
-
 
 
 
@@ -126,9 +128,18 @@ public class GUI extends JFrame {
 	private JTextField txtData;
 	private JTextField txtQuantit;
 	private JTextField txtDescrizioneArticolo;
-
 	
-	ButtonGroup group_btn;
+	
+	//radio btns
+	 private JRadioButton rdbtnPoliestere;
+	 private JRadioButton rdbtnSilicone;
+	 private JRadioButton rdbtnPelleSintetica; 
+	 private JRadioButton rdbtnGoretex;  
+	 private JRadioButton rdbtnElastan; 
+	 private JRadioButton rdbtnPolietilene; 
+	 private JRadioButton rdbtnPoliammide;
+	
+	 ButtonGroup group_btn;
 	
 	/**
 	 * Create the frame.
@@ -214,7 +225,11 @@ public class GUI extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					aggiungiAlDB(arg0,"articolo");
+					if(varflag==1) {//cancelliamo l'articolo perchè l'hash cambia se cambia la data o prezzo
+						warehouse.removeArticolo(temp);
+					}
 					clearTexts(arg0);
+					closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -341,37 +356,37 @@ public class GUI extends JFrame {
 		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
 		
 		
-		JRadioButton rdbtnPoliestere = new JRadioButton("Poliestere");
+		rdbtnPoliestere = new JRadioButton("Poliestere");
 		rdbtnPoliestere.setBounds(25, 340, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPoliestere);
 		group_btn.add(rdbtnPoliestere);
 		
-		JRadioButton rdbtnSilicone = new JRadioButton("Silicone");
+		rdbtnSilicone = new JRadioButton("Silicone");
 		rdbtnSilicone.setBounds(25, 368, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnSilicone);
 		group_btn.add(rdbtnSilicone);
 		
-		JRadioButton rdbtnPelleSintetica = new JRadioButton("Pelle Sintetica");
+		rdbtnPelleSintetica = new JRadioButton("Finta Pelle");
 		rdbtnPelleSintetica.setBounds(25, 396, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPelleSintetica);
 		group_btn.add(rdbtnPelleSintetica);
 		
-		JRadioButton rdbtnGoretex = new JRadioButton("Gore-Tex");
+		rdbtnGoretex = new JRadioButton("Gore-Tex");
 		rdbtnGoretex.setBounds(25, 424, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnGoretex);
 		group_btn.add(rdbtnGoretex);
 		
-		JRadioButton rdbtnElastan = new JRadioButton("Elastan");
+		rdbtnElastan = new JRadioButton("Elastan");
 		rdbtnElastan.setBounds(125, 340, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnElastan);
 		group_btn.add(rdbtnElastan);
 		
-		JRadioButton rdbtnPolietilene = new JRadioButton("Polietilene");
+		rdbtnPolietilene = new JRadioButton("Polietilene");
 		rdbtnPolietilene.setBounds(125, 368, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPolietilene);
 		group_btn.add(rdbtnPolietilene);
 		
-		JRadioButton rdbtnPoliammide = new JRadioButton("Poliammide");
+		rdbtnPoliammide = new JRadioButton("Poliammide");
 		rdbtnPoliammide.setBounds(125, 396, 100, 25);
 		PanelAggiungiArticolo.add(rdbtnPoliammide);
 		group_btn.add(rdbtnPoliammide);
@@ -565,6 +580,7 @@ public class GUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				addArticlePanel();
+				varflag = 0;
 			}
 		});
 		btnAggiungiArticolo.setBounds(390, 434, 220, 50);
@@ -589,6 +605,18 @@ public class GUI extends JFrame {
 			}
 		});
 		
+		btnEliminaArt = new JButton("Elimina");
+		btnEliminaArt.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		btnEliminaArt.setBounds(390, 495, 220, 49);
+		PanelMainArt.add(btnEliminaArt);
+		
+		btnEliminaArt.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				warehouse.removeArticolo(warehouse.getArticolo(tableArticoli.getSelectedRow()));
+				fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
+				
+			}
+		});
 
 		//
 		fillTable("articoli",(DefaultTableModel) tableArticoli.getModel()); // riempe la tabella
@@ -663,6 +691,7 @@ public class GUI extends JFrame {
 				panelArticoli.setVisible(true);
 				btnCambiaPos.setEnabled(false);
 				btnDettagli.setEnabled(false);
+				btnEliminaArt.setEnabled(false);
 			}
 		});
 		btnArticoli.setBackground(SystemColor.control);
@@ -939,6 +968,7 @@ public class GUI extends JFrame {
 			btnCambiaPos.setEnabled(true);
 			btnDettagli.setEnabled(true);
 			btnModificaArticolo.setEnabled(true);
+			btnEliminaArt.setEnabled(true);
 			break;
 
 		case "negozi":
@@ -1006,7 +1036,7 @@ public class GUI extends JFrame {
 		do {
 			do {
 				s = JOptionPane.showInputDialog("Nuova posizione: ");
-			} while (s.equals(" ") && s.equals(""));
+			} while (s.equals(" ") || s.equals(""));
 			newPosition = Integer.parseInt(s);
 		} while (newPosition < 0);
 
@@ -1037,7 +1067,8 @@ public class GUI extends JFrame {
 				}
 			}
 			btnCambiaPos.setEnabled(false);
-			btnDettagli.setEnabled(false);
+			btnDettagli.setEnabled(false);;
+			btnEliminaArt.setEnabled(false);
 			btnModificaArticolo.setEnabled(false);
 			break;
 
@@ -1088,7 +1119,7 @@ public class GUI extends JFrame {
 		
 		Component[] comp = PanelAggiungiArticolo.getComponents();
 
-		Articolo temp = warehouse.getArticolo(nrow); 
+		temp = warehouse.getArticolo(nrow); 
 		
 		String[] sAll = new String[5];
 		sAll[0] = temp.getTipoArticolo().getName();
@@ -1101,8 +1132,34 @@ public class GUI extends JFrame {
 		for(Component c: comp) {
 			if(c instanceof JTextField)
 				((JTextField) c).setText(""+(sAll[i++]));
-			if(c instanceof JRadioButton && ((JRadioButton) c).getText().equal(getMaterial()));					
-				((JRadioButton)c).set
+			if(c instanceof JRadioButton  && ((JRadioButton) c).getText().equals(temp.getTipoArticolo().getMaterial())){					
+					switch(temp.getTipoArticolo().getMaterial()){
+					case "Poliestere":
+						rdbtnPoliestere.setSelected(true);
+		                break;
+		            case "Silicone":
+		            	rdbtnSilicone.setSelected(true);
+		                break;
+		            case "Finta Pelle":
+		            	rdbtnPelleSintetica.setSelected(true);
+		                break;
+		            case "Gore-Tex":
+		            	rdbtnGoretex.setSelected(true);
+		                break;
+		            case "Elastan":
+		            	rdbtnElastan.setSelected(true);
+		                break;
+		            case "Polietilene":
+		            	rdbtnPolietilene.setSelected(true);
+		                break;
+		            case "Poliammide":
+		            	rdbtnPoliammide.setSelected(true);
+		                break;
+		        }
+						
+						
+						}
+					
 			if(c instanceof JComboBox)
 				((JComboBox)c).setSelectedIndex(TipoArticolo.sportArray2Num(temp.getTipoArticolo().getSports()));
 			DEBUG.setText("Sport "+temp.getTipoArticolo().getMaterial());
@@ -1110,15 +1167,15 @@ public class GUI extends JFrame {
 		
 		
 		
-		//cancelliamo l'articolo perchè l'hash cambia se cambia la data o prezzo
-		warehouse.removeArticolo(temp);
+		varflag=1; // settiamo varflag = 1 cioè è la modifica dell'articolo
 	}
 	
 	
 	
 	
 	
-	private void aggiungiAlDB(MouseEvent e, String tipo) throws ArticleAlreadyExistException, NumberFormatException, ArticleDontExistInWareHouseException {
+	private int aggiungiAlDB(MouseEvent e, String tipo) throws ArticleAlreadyExistException, NumberFormatException, ArticleDontExistInWareHouseException {
+
 		if(e.getSource() instanceof JButton) {
 			JButton btn = (JButton) e.getSource();	
 			Component[] compList =  btn.getParent().getComponents();
@@ -1134,7 +1191,7 @@ public class GUI extends JFrame {
 					p[i++] = ((JComboBox)c).getSelectedItem().toString();
 					
 			}
-			
+			if(p[0].equals("")) return 0;
 		
 			//for(String ev: p)
 				//System.out.println(ev);
@@ -1149,7 +1206,9 @@ public class GUI extends JFrame {
 			Articolo temp = new Articolo(Float.parseFloat(p[1]),Integer.valueOf(split[0]),Integer.valueOf(split[1]),Integer.valueOf(split[2]), tempTipo);
 			warehouse.addArticolo(temp);
 			warehouse.setQuantity(temp,Integer.valueOf(p[3]));
+			return 1;
 		}
+		return 0;
 		
 	}
 }
