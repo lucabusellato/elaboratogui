@@ -214,6 +214,7 @@ public class GUI extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					aggiungiAlDB(arg0,"articolo");
+					clearTexts(arg0);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -579,7 +580,12 @@ public class GUI extends JFrame {
 		
 		btnModificaArticolo.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e) {
-				ModArticlePanel(tableArticoli.getSelectedRow()); // passo la riga della tabella che è stata selezionata
+				try {
+					ModArticlePanel(tableArticoli.getSelectedRow());
+				} catch (ArticleDontExistInWareHouseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} // passo la riga della tabella che è stata selezionata
 			}
 		});
 		
@@ -1086,25 +1092,26 @@ public class GUI extends JFrame {
 		
 		String[] sAll = new String[5];
 		sAll[0] = temp.getTipoArticolo().getName();
-		sAll[1] = temp.getDataInString();
-		sAll[2] = ""+temp.getPrezzo();
+		sAll[2] = temp.getDataInString();
+		sAll[1] = ""+temp.getPrezzo();
 		sAll[3] = ""+warehouse.getQuantita(temp);
 		sAll[4] = temp.getTipoArticolo().getDescription();
 		
-		
+		int i= 0;
 		for(Component c: comp) {
 			if(c instanceof JTextField)
-				((JTextField) c).setText(""+temp.getTipoArticolo().getName());
-			if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())					
-				((JRadioButton)c).setText(""+temp.getTipoArticolo().getMaterial());
+				((JTextField) c).setText(""+(sAll[i++]));
+			if(c instanceof JRadioButton && ((JRadioButton) c).getText().equal(getMaterial()));					
+				((JRadioButton)c).set
 			if(c instanceof JComboBox)
 				((JComboBox)c).setSelectedIndex(TipoArticolo.sportArray2Num(temp.getTipoArticolo().getSports()));
+			DEBUG.setText("Sport "+temp.getTipoArticolo().getMaterial());
 		}
 		
 		
 		
 		//cancelliamo l'articolo perchè l'hash cambia se cambia la data o prezzo
-		warehouse.
+		warehouse.removeArticolo(temp);
 	}
 	
 	
