@@ -73,6 +73,7 @@ public class GUI extends JFrame {
 	private static final Magazzino warehouse = Magazzino.getInstance();
 	private int varflag;
 	private Articolo temp;
+	private Negozio tempNegozio;
 	
 	//pannelli
 	private JPanel BGPANE; // panel principale
@@ -143,7 +144,7 @@ public class GUI extends JFrame {
 	 private JButton btnModNegozio;
 	 private JButton btnEliminaNegozio;
 	 private JButton btnCreaNegozio;
-	 private JPanel panelAggiungiNegozio;
+	 private JPanel PanelAggiungiNegozio;
 	 private JTextField txtCFNegozio;
 	 private JTextField txtNomeNegozio;
 	 private JTextField txtIndNegozio;
@@ -183,6 +184,7 @@ public class GUI extends JFrame {
 
 
 	private void startGUI() throws ArticleDontExistInWareHouseException {
+		int selnegozio;
 		//INIT GUI DESIGN
 		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
 		BGPANE = new JPanel();
@@ -258,6 +260,8 @@ public class GUI extends JFrame {
 													public void actionPerformed(ActionEvent arg0) {
 														nascondiPannelli();
 														panelNegozi.setVisible(true);
+														btnModNegozio.setEnabled(false);
+														btnEliminaNegozio.setEnabled(false);
 													}
 												});
 												
@@ -739,91 +743,104 @@ public class GUI extends JFrame {
 				panelNegozi.setBounds(147, 0, 650, 570);
 				BGPANE.add(panelNegozi);
 				panelNegozi.setLayout(null);
-						
-						panelAggiungiNegozio = new JPanel();
-						panelAggiungiNegozio.setBounds(0, 0, 500, 570);
-						panelNegozi.add(panelAggiungiNegozio);
-						panelAggiungiNegozio.setLayout(null);
-						
-						JLabel lblNewLabel_4 = new JLabel("Aggiungi Negozio");
-						lblNewLabel_4.setFont(new Font("Arial", Font.ITALIC, 29));
-						lblNewLabel_4.setBounds(136, 0, 227, 46);
-						panelAggiungiNegozio.add(lblNewLabel_4);
-						
-						txtCFNegozio = new JTextField();
-						txtCFNegozio.setHorizontalAlignment(SwingConstants.CENTER);
-						txtCFNegozio.setText("Codice Fiscale");
-						txtCFNegozio.setForeground(Color.GRAY);
-						txtCFNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
-						txtCFNegozio.setBounds(150, 105, 200, 35);
-						panelAggiungiNegozio.add(txtCFNegozio);
-						txtCFNegozio.setColumns(10);
-						
-						txtNomeNegozio = new JTextField();
-						txtNomeNegozio.setText("Nome");
-						txtNomeNegozio.setHorizontalAlignment(SwingConstants.CENTER);
-						txtNomeNegozio.setForeground(Color.GRAY);
-						txtNomeNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
-						txtNomeNegozio.setColumns(10);
-						txtNomeNegozio.setBounds(150, 151, 200, 35);
-						panelAggiungiNegozio.add(txtNomeNegozio);
-						
-						txtIndNegozio = new JTextField();
-						txtIndNegozio.setText("Indirizzo");
-						txtIndNegozio.setHorizontalAlignment(SwingConstants.CENTER);
-						txtIndNegozio.setForeground(Color.GRAY);
-						txtIndNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
-						txtIndNegozio.setColumns(10);
-						txtIndNegozio.setBounds(150, 197, 200, 35);
-						panelAggiungiNegozio.add(txtIndNegozio);
-						
-						txtCitNegozio = new JTextField();
-						txtCitNegozio.setHorizontalAlignment(SwingConstants.CENTER);
-						txtCitNegozio.setText("Citt\u00E0");
-						txtCitNegozio.setForeground(Color.GRAY);
-						txtCitNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
-						txtCitNegozio.setColumns(10);
-						txtCitNegozio.setBounds(150, 243, 200, 35);
-						panelAggiungiNegozio.add(txtCitNegozio);
-						
-						JSeparator separator_2 = new JSeparator();
-						separator_2.setBounds(10, 496, 480, 2);
-						panelAggiungiNegozio.add(separator_2);
-						
-						JButton btnReset = new JButton("Reset");
-						btnReset.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent arg0) {
-								clearTexts(arg0);
+				
+				PanelAggiungiNegozio = new JPanel();
+				PanelAggiungiNegozio.setVisible(false);
+				PanelAggiungiNegozio.setBounds(0, 0, 500, 570);
+				panelNegozi.add(PanelAggiungiNegozio);
+				PanelAggiungiNegozio.setLayout(null);
+				
+				JLabel lblNewLabel_4 = new JLabel("Aggiungi Negozio");
+				lblNewLabel_4.setFont(new Font("Arial", Font.ITALIC, 29));
+				lblNewLabel_4.setBounds(136, 0, 227, 46);
+				PanelAggiungiNegozio.add(lblNewLabel_4);
+				
+				txtCFNegozio = new JTextField();
+				txtCFNegozio.setHorizontalAlignment(SwingConstants.CENTER);
+				txtCFNegozio.setText("Codice Fiscale");
+				txtCFNegozio.setForeground(Color.GRAY);
+				txtCFNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
+				txtCFNegozio.setBounds(150, 105, 200, 35);
+				PanelAggiungiNegozio.add(txtCFNegozio);
+				txtCFNegozio.setColumns(10);
+				
+				txtNomeNegozio = new JTextField();
+				txtNomeNegozio.setText("Nome");
+				txtNomeNegozio.setHorizontalAlignment(SwingConstants.CENTER);
+				txtNomeNegozio.setForeground(Color.GRAY);
+				txtNomeNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
+				txtNomeNegozio.setColumns(10);
+				txtNomeNegozio.setBounds(150, 151, 200, 35);
+				PanelAggiungiNegozio.add(txtNomeNegozio);
+				
+				txtIndNegozio = new JTextField();
+				txtIndNegozio.setText("Indirizzo");
+				txtIndNegozio.setHorizontalAlignment(SwingConstants.CENTER);
+				txtIndNegozio.setForeground(Color.GRAY);
+				txtIndNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
+				txtIndNegozio.setColumns(10);
+				txtIndNegozio.setBounds(150, 197, 200, 35);
+				PanelAggiungiNegozio.add(txtIndNegozio);
+				
+				txtCitNegozio = new JTextField();
+				txtCitNegozio.setHorizontalAlignment(SwingConstants.CENTER);
+				txtCitNegozio.setText("Citt\u00E0");
+				txtCitNegozio.setForeground(Color.GRAY);
+				txtCitNegozio.setFont(new Font("Arial", Font.PLAIN, 13));
+				txtCitNegozio.setColumns(10);
+				txtCitNegozio.setBounds(150, 243, 200, 35);
+				PanelAggiungiNegozio.add(txtCitNegozio);
+				
+				JSeparator separator_2 = new JSeparator();
+				separator_2.setBounds(10, 496, 480, 2);
+				PanelAggiungiNegozio.add(separator_2);
+				
+				JButton btnReset = new JButton("Reset");
+				btnReset.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						clearTexts(arg0);
+					}
+				});
+				btnReset.setBounds(17, 509, 100, 50);
+				PanelAggiungiNegozio.add(btnReset);
+				
+				JButton btnUpdateNegozio = new JButton("Aggiorna");
+				btnUpdateNegozio.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						try {
+							aggiungiAlDB(e,"negozio");
+							if(varflag==1) {
+								warehouse.removeNegozio(tempNegozio);
 							}
-						});
-						btnReset.setBounds(17, 509, 100, 50);
-						panelAggiungiNegozio.add(btnReset);
+							clearTexts(e);
+							closeButtonAction((JPanel)e.getComponent().getParent(),"negozi");
+						} catch (Exception ex) {
+							// TODO Auto-generated catch block
+							ex.printStackTrace();
+						}
+						fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
 						
-						JButton btnUpdateNegozio = new JButton("Aggiorna");
-						btnUpdateNegozio.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								
-							}
-						});
-						btnUpdateNegozio.setBounds(134, 509, 230, 50);
-						panelAggiungiNegozio.add(btnUpdateNegozio);
-						
-						JButton btnAnnulla = new JButton("Annulla");
-						btnAnnulla.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								closeButtonAction((JPanel)e.getComponent().getParent(),"negozi");
-							}
-						});
-						btnAnnulla.setBounds(381, 509, 100, 50);
-						panelAggiungiNegozio.add(btnAnnulla);
-						
-						PanelMainNeg = new JPanel();
-						PanelMainNeg.setBounds(0, 0, 650, 570);
-						panelNegozi.add(PanelMainNeg);
-						PanelMainNeg.setLayout(null);
+					}
+				});
+				btnUpdateNegozio.setBounds(134, 509, 230, 50);
+				PanelAggiungiNegozio.add(btnUpdateNegozio);
+				
+				JButton btnAnnulla = new JButton("Annulla");
+				btnAnnulla.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						closeButtonAction((JPanel)e.getComponent().getParent(),"negozi");
+					}
+				});
+				btnAnnulla.setBounds(381, 509, 100, 50);
+				PanelAggiungiNegozio.add(btnAnnulla);
+				
+				PanelMainNeg = new JPanel();
+				PanelMainNeg.setBounds(0, 0, 650, 570);
+				panelNegozi.add(PanelMainNeg);
+				PanelMainNeg.setLayout(null);
 				
 						TablePanelNegozi = new JPanel();
 						TablePanelNegozi.setBounds(0, 46, 650, 375);
@@ -878,25 +895,46 @@ public class GUI extends JFrame {
 												labelNegozi.setBackground(Color.WHITE);
 												
 												btnModNegozio = new JButton("Modifica");
+												btnModNegozio.addMouseListener(new MouseAdapter() {
+													@Override
+													public void mouseClicked(MouseEvent e) {
+															ModNegoziPanel(tableNegozi.getSelectedRow());
+														}
+													});
 												btnModNegozio.setBackground(SystemColor.control);
 												btnModNegozio.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 												btnModNegozio.setBounds(10, 434, 220, 50);
 												PanelMainNeg.add(btnModNegozio);
 												
 												btnEliminaNegozio = new JButton("Elimina");
+												btnEliminaNegozio.addMouseListener(new MouseAdapter() {
+													@Override
+													public void mouseClicked(MouseEvent e) {
+														warehouse.removeNegozio(warehouse.getNegozio(tableArticoli.getSelectedRow()));
+														fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
+														
+													}
+												});
 												btnEliminaNegozio.setBackground(SystemColor.control);
 												btnEliminaNegozio.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 												btnEliminaNegozio.setBounds(390, 434, 220, 50);
 												PanelMainNeg.add(btnEliminaNegozio);
 												
 												btnCreaNegozio = new JButton("Crea");
+												btnCreaNegozio.addMouseListener(new MouseAdapter() {
+													@Override
+													public void mouseClicked(MouseEvent arg0) {
+														addNegozioPanel();
+														
+													}
+												});
 												btnCreaNegozio.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 												btnCreaNegozio.setBackground(SystemColor.control);
 												btnCreaNegozio.setBounds(240, 434, 140, 110);
 												PanelMainNeg.add(btnCreaNegozio);
-										
-												//
-												fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
+												
+														//
+														fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
 		
 		
 
@@ -1076,7 +1114,8 @@ public class GUI extends JFrame {
 	//TABELLA EVENTS
 
 	private void tabellaRigaSel(boolean act, String type, MouseEvent e){
-
+		//funzione che abilita i bottoni giusti se viene selezionata una riga della tabella
+		
 		switch(type) {
 		case "articoli":
 			dettaglioArticolo(act, tableArticoli.getSelectedRow()); // prende la riga dell'articolo selezionato, solo 1 alla volta
@@ -1088,6 +1127,8 @@ public class GUI extends JFrame {
 
 		case "negozi":
 			dettaglioNegozio(act, tableNegozi.getSelectedRow());
+			btnModNegozio.setEnabled(true);
+			btnEliminaNegozio.setEnabled(true);
 			break;
 		}
 
@@ -1207,7 +1248,15 @@ public class GUI extends JFrame {
 		//int row = tableArticoli.getSelectedRow();
 		PanelMainArt.setVisible(false);
 		PanelAggiungiArticolo.setVisible(true);
+		varflag = 0;
 		}
+	
+	private void addNegozioPanel() {
+		PanelMainNeg.setVisible(false);
+		PanelAggiungiNegozio.setVisible(true);
+		varflag = 0;
+	}
+	
 	
 	private void clearTexts(MouseEvent arg0) {
 		if(arg0.getSource() instanceof JButton) {
@@ -1288,45 +1337,79 @@ public class GUI extends JFrame {
 	}
 	
 	
+	private void ModNegoziPanel(int nrow) {
+		PanelMainNeg.setVisible(false);
+		PanelAggiungiNegozio.setVisible(true);
+		
+		
+		Component[] comp = PanelAggiungiNegozio.getComponents();
+
+		tempNegozio = warehouse.getNegozio(nrow);
+		
+		String[] sAll = new String[4];
+		sAll[0] = tempNegozio.getCodiceFiscale();
+		sAll[1] = tempNegozio.getNome();
+		sAll[2] = tempNegozio.getindirizzo();
+		sAll[3] = tempNegozio.getCitta();
+		
+		int i = 0;
+		// per ogni componente (in questo caso sono text box) riempe con i dati del negozio 
+		for(Component c: comp) {
+			if(c instanceof JTextField)
+				((JTextField) c).setText(""+(sAll[i++]));
+		}
+		
+		varflag=1;// siamo in modifica, non in creazione del negozio
+	}
 	
 	
 	
-	private int aggiungiAlDB(MouseEvent e, String tipo) throws ArticleAlreadyExistException, NumberFormatException, ArticleDontExistInWareHouseException {
+	
+	
+	private void aggiungiAlDB(MouseEvent e, String tipo) throws ArticleAlreadyExistException, NumberFormatException, ArticleDontExistInWareHouseException, ShopAlreadyExistException {
 
 		if(e.getSource() instanceof JButton) {
 			JButton btn = (JButton) e.getSource();	
 			Component[] compList =  btn.getParent().getComponents();
-			String[] p = new String[7];
-			int i=0;
-			
-			for(Component c: compList) {
-				if(c instanceof JTextField)
-					p[i++] = ((JTextField) c).getText();
-				if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())					
-					p[i++] = ((JRadioButton)c).getText();
-				if(c instanceof JComboBox)
-					p[i++] = ((JComboBox)c).getSelectedItem().toString();
-					
+			String p[];
+			int i = 0;
+			switch(tipo) {
+			case "articolo":
+
+				p = new String[7];
+				//prendo i valori (testi, quale radio button ecc..) e li metto dentro l'array p
+				for(Component c: compList) {
+					if(c instanceof JTextField)
+						p[i++] = ((JTextField) c).getText();
+					if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())					
+						p[i++] = ((JRadioButton)c).getText();
+					if(c instanceof JComboBox)
+						p[i++] = ((JComboBox)c).getSelectedItem().toString();
+
+				}
+				//if(p[0].equals("")) return 0; // se il nome dell' articolo è vuoto non va bene, torno 0
+
+				TipoArticolo tempTipo = new TipoArticolo(p[0], p[4], TipoArticolo.sportArray2Num(p[6]), TipoArticolo.materialArray2Num(p[5]));
+				String[] split = p[2].split("/"); // per avere giorno, mese, anno divisi
+				Articolo temp = new Articolo(Float.parseFloat(p[1]),Integer.valueOf(split[0]),Integer.valueOf(split[1]),Integer.valueOf(split[2]), tempTipo);
+				warehouse.addArticolo(temp); // aggiungo l'articolo
+				warehouse.setQuantity(temp,Integer.valueOf(p[3])); // setto la quantità
+				break;
+
+			case "negozio":
+				p = new String[4];
+				for(Component c: compList) {
+					if(c instanceof JTextField)
+						p[i++] = ((JTextField) c).getText();
+
+					Negozio tempNeg = new Negozio(p[0], p[1], p[2], p[3]);
+					warehouse.addNegozi(tempNeg);
+
+					break;
+
+				}
 			}
-			if(p[0].equals("")) return 0;
-		
-			//for(String ev: p)
-				//System.out.println(ev);
-			
-			
-			//System.out.println("NUM SPORT: " +TipoArticolo.sportArray2Num(p[6])+"NUM MAT: "+TipoArticolo.materialArray2Num(p[5]));
-			//DA CREARE L'ARTICOLO NUOVO
-			//Articolo daAggiungere, vedi costruttore Articolo
-			
-			TipoArticolo tempTipo = new TipoArticolo(p[0], p[4], TipoArticolo.sportArray2Num(p[6]), TipoArticolo.materialArray2Num(p[5]));
-			String[] split = p[2].split("/");
-			Articolo temp = new Articolo(Float.parseFloat(p[1]),Integer.valueOf(split[0]),Integer.valueOf(split[1]),Integer.valueOf(split[2]), tempTipo);
-			warehouse.addArticolo(temp);
-			warehouse.setQuantity(temp,Integer.valueOf(p[3]));
-			return 1;
 		}
-		return 0;
-		
 	}
 }
-
+		

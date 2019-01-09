@@ -105,12 +105,21 @@ public class Magazzino implements Serializable {
 	Collections.sort(articoli);
     }
 
+    //-
     public boolean removeArticolo(Articolo u) {
 	if (articoli.contains(u)) {
 	    return articoli.remove(u);
 	}
 	return false;
     }
+    
+    //-
+    public boolean removeNegozio(Negozio n) {
+    	if (negozi.contains(n)) {
+    	    return negozi.remove(n);
+    	}
+    	return false;
+        }
 
     
     public void removeArticolo(int i) {
@@ -190,11 +199,11 @@ public class Magazzino implements Serializable {
 
     //NEGOZI
     public boolean addNegozi(Negozio i) throws ShopAlreadyExistException {
-	for (Negozio X : negozi) {
+	/*for (Negozio X : negozi) {
 	    if (X.equals(i)) {
 		throw new ShopAlreadyExistException("Il negozio non esiste nel Database!");
 	    }
-	}
+	}*/
 	Collections.sort(negozi);
 	return negozi.add(i);
     }
