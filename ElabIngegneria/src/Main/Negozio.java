@@ -79,7 +79,7 @@ public class Negozio implements Comparable<Negozio>, Serializable{
     
     @Override
     public boolean equals(Object other){
-        return other instanceof Negozio && ((Negozio) other).citta.equals(citta) && ((Negozio) other).codiceFiscale.equals(codiceFiscale) && ((Negozio) other).indirizzo.equals(indirizzo) && ((Negozio) other).nome.equals(nome);
+        return other instanceof Negozio && ((Negozio) other).citta.equals(citta	) && ((Negozio) other).codiceFiscale.equals(codiceFiscale) && ((Negozio) other).indirizzo.equals(indirizzo) && ((Negozio) other).nome.equals(nome);
     }
     
     
