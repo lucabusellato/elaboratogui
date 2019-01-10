@@ -61,6 +61,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
@@ -241,6 +244,7 @@ public class GUI extends JFrame {
 		panelNuovoIngresso.add(button);
 		
 		JButton button_1 = new JButton("Crea Ingresso");
+
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button_1.setBounds(212, 445, 180, 35);
 		panelNuovoIngresso.add(button_1);
@@ -399,7 +403,28 @@ public class GUI extends JFrame {
 		textField_31.setBounds(307, 369, 116, 22);
 		panelNuovoIngresso.add(textField_31);
 		textField_31.setColumns(10);
-		
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Map<Articolo, Integer> posizioni = new TreeMap<>();
+	            Map<Articolo, Integer> quantita = new TreeMap<>();
+	            //dichiaro le variabili intere
+	            int quantita1, quantita2, quantita3, quantita4, quantita5, quantita6, quantita7, quantita8, quantita9, quantita10;
+	            int posizione1, posizione2, posizione3, posizione4, posizione5, posizione6, posizione7, posizione8, posizione9, posizione10;
+	           //mi prendo l'articolo in base alla selezione
+	            String Articolo1 = (String) textField_2.getSelectedText();
+	            String Articolo2 = (String) textField_3.getSelectedText();
+	            String Articolo3 = (String) textField_4.getSelectedText();
+	            String Articolo4 = (String) textField_5.getSelectedText();
+	            String Articolo5 = (String) textField_6.getSelectedText();
+	            String Articolo6 = (String) textField_7.getSelectedText();
+	            String Articolo7 = (String) textField_8.getSelectedText();
+	            String Articolo8 = (String) textField_9.getSelectedText();
+	            String Articolo9 = (String) textField_10.getSelectedText();
+	            String Articolo10 = (String) textField_11.getSelectedText();
+	            //mi prendo gli articolo in base al nome del textBox riga 3500
+			}
+		});
 		JLabel lblPosizioni = new JLabel("Posizioni");
 		lblPosizioni.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblPosizioni.setBounds(193, 127, 80, 16);
