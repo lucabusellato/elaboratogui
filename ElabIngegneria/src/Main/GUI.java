@@ -910,7 +910,7 @@ public class GUI extends JFrame {
 		btnEliminaNegozio.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				warehouse.removeNegozio(warehouse.getNegozio(tableArticoli.getSelectedRow()));
+				warehouse.removeNegozio(warehouse.getNegozio(tableNegozi.getSelectedRow()));
 				fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
 
 			}
