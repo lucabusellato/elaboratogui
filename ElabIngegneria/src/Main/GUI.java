@@ -1,5 +1,6 @@
 package Main;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -60,6 +61,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -74,6 +76,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 public class GUI extends JFrame {
+	
+    static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;
 	//prendiamo l'istanza di magazzino -- singleton
 	private static final Magazzino warehouse = Magazzino.getInstance();
 	private int varflag;
@@ -145,7 +149,7 @@ public class GUI extends JFrame {
 	 private JRadioButton rdbtnPoliammide;
 	
 	 ButtonGroup group_btn;
-	 private JTextField textFieldData;
+	 private JTextField textFieldGiorno;
 	 private JTextField textField_2;
 	 private JTextField textField_3;
 	 private JTextField textField_4;
@@ -176,6 +180,8 @@ public class GUI extends JFrame {
 	 private JTextField textField_29;
 	 private JTextField textField_30;
 	 private JTextField textField_31;
+	 private JTextField textFieldMese;
+	 private JTextField textFieldAnno;
 	
 	/**
 	 * Create the frame.
@@ -197,8 +203,14 @@ public class GUI extends JFrame {
 		hideGUI();
 
 	}
-
-
+	private void nascondiPannelli() {
+		panelArticoli.setVisible(false);
+		panelNegozi.setVisible(false);
+		//panelOrdini.setVisible(false);
+		//panelIngressi.setVisible(false);
+		//panelFineMese.setVisible(false);
+		//panelStorico.setVisible(false);
+	}
 
 
 	public final void hideGUI() {
@@ -207,7 +219,33 @@ public class GUI extends JFrame {
 		nascondiPannelli();
 
 	}
-
+	void ingressi() {/*
+        if (warehouse.ingressiIsEmpty()) {
+            ingressiIDLabel_VisualizzaIngressiPanel.setText("");
+            searchFieldIngressiPanel.setText("");
+            indietroButton_IngressiPanel.setEnabled(false);
+            avantiButton_IngressiPanel.setEnabled(false);
+            newIngressoButton_IngressiPanel.setEnabled(true);
+            articoliQuantitaPosizioneIngressiPanel.setText("NESSUN INGRESSO DISPONIBILE NEL DATABASE");
+            //JOptionPane.showMessageDialog(null, "Nessun ordine ancora presente nel Database, premi 'crea ordine ora' per crearne uno nuovo subito");
+        } else {
+            if (indexIngressi == 0) {
+                indietroButton_IngressiPanel.setEnabled(false);
+            } else {
+                indietroButton_IngressiPanel.setEnabled(true);
+            }
+            if (indexIngressi == m.ingressiSize() - 1) {
+                avantiButton_IngressiPanel.setEnabled(false);
+            } else {
+                avantiButton_IngressiPanel.setEnabled(true);
+            }
+            dataLabel_VisualizzaIngressiPanel.setText(m.getIngresso(indexIngressi).getDataInString());
+            searchFieldIngressiPanel.setText("" + (indexIngressi + 1));
+            ingressiIDLabel_VisualizzaIngressiPanel.setText("" + abs(m.getIngresso(indexIngressi).getID()));
+            articoliQuantitaPosizioneIngressiPanel.setText("" + m.getIngresso(indexIngressi).toString());
+        }
+*/
+    }
 
 
 	private void startGUI() throws ArticleDontExistInWareHouseException {
@@ -233,12 +271,43 @@ public class GUI extends JFrame {
 		label_1.setBounds(175, 13, 289, 35);
 		panelNuovoIngresso.add(label_1);
 		
-		textFieldData = new JTextField();
-		textFieldData.setColumns(10);
-		textFieldData.setBounds(232, 84, 117, 23);
-		panelNuovoIngresso.add(textFieldData);
+		textFieldGiorno = new JTextField();
+		textFieldGiorno.setColumns(10);
+		textFieldGiorno.setBounds(232, 84, 30, 23);
+		panelNuovoIngresso.add(textFieldGiorno);
+		
+		JLabel lblPosizioni = new JLabel("Posizioni");
+		lblPosizioni.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblPosizioni.setBounds(193, 127, 80, 16);
+		panelNuovoIngresso.add(lblPosizioni);
+		
+		JLabel lblQuantit = new JLabel("Quantit\u00E0");
+		lblQuantit.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblQuantit.setBounds(307, 127, 85, 16);
+		panelNuovoIngresso.add(lblQuantit);
+		
+		JLabel lblNewLabel_4 = new JLabel("/");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_4.setBounds(267, 85, 17, 16);
+		panelNuovoIngresso.add(lblNewLabel_4);
+		
+		textFieldMese = new JTextField();
+		textFieldMese.setBounds(279, 84, 30, 22);
+		panelNuovoIngresso.add(textFieldMese);
+		textFieldMese.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("/");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_5.setBounds(309, 85, 17, 16);
+		panelNuovoIngresso.add(lblNewLabel_5);
+		
+		textFieldAnno = new JTextField();
+		textFieldAnno.setBounds(321, 84, 80, 22);
+		panelNuovoIngresso.add(textFieldAnno);
+		textFieldAnno.setColumns(10);
 		
 		JButton button = new JButton("Chiudi");
+		
 		button.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button.setBounds(232, 499, 145, 35);
 		panelNuovoIngresso.add(button);
@@ -403,37 +472,6 @@ public class GUI extends JFrame {
 		textField_31.setBounds(307, 369, 116, 22);
 		panelNuovoIngresso.add(textField_31);
 		textField_31.setColumns(10);
-		button_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Map<Articolo, Integer> posizioni = new TreeMap<>();
-	            Map<Articolo, Integer> quantita = new TreeMap<>();
-	            //dichiaro le variabili intere
-	            int quantita1, quantita2, quantita3, quantita4, quantita5, quantita6, quantita7, quantita8, quantita9, quantita10;
-	            int posizione1, posizione2, posizione3, posizione4, posizione5, posizione6, posizione7, posizione8, posizione9, posizione10;
-	           //mi prendo l'articolo in base alla selezione
-	            String Articolo1 = (String) textField_2.getSelectedText();
-	            String Articolo2 = (String) textField_3.getSelectedText();
-	            String Articolo3 = (String) textField_4.getSelectedText();
-	            String Articolo4 = (String) textField_5.getSelectedText();
-	            String Articolo5 = (String) textField_6.getSelectedText();
-	            String Articolo6 = (String) textField_7.getSelectedText();
-	            String Articolo7 = (String) textField_8.getSelectedText();
-	            String Articolo8 = (String) textField_9.getSelectedText();
-	            String Articolo9 = (String) textField_10.getSelectedText();
-	            String Articolo10 = (String) textField_11.getSelectedText();
-	            //mi prendo gli articolo in base al nome del textBox riga 3500
-			}
-		});
-		JLabel lblPosizioni = new JLabel("Posizioni");
-		lblPosizioni.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPosizioni.setBounds(193, 127, 80, 16);
-		panelNuovoIngresso.add(lblPosizioni);
-		
-		JLabel lblQuantit = new JLabel("Quantit\u00E0");
-		lblQuantit.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblQuantit.setBounds(307, 127, 85, 16);
-		panelNuovoIngresso.add(lblQuantit);
 		
 		JPanel panelIngressi = new JPanel();
 		panelIngressi.setBounds(147, 0, 650, 565);
@@ -491,6 +529,281 @@ public class GUI extends JFrame {
 		btnChiudiIngressi.setBounds(195, 496, 193, 35);
 		panelIngressi.add(btnChiudiIngressi);
 		
+		//button crea nuovo ingresso
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					Map<Articolo, Integer> posizioni = new TreeMap<>();
+		            Map<Articolo, Integer> quantita = new TreeMap<>();
+		            //dichiaro le variabili intere
+		            int quantita1, quantita2, quantita3, quantita4, quantita5, quantita6, quantita7, quantita8, quantita9, quantita10;
+		            int posizione1, posizione2, posizione3, posizione4, posizione5, posizione6, posizione7, posizione8, posizione9, posizione10;
+		           //mi prendo l'articolo in base alla selezione
+		            String Articolo1 = (String) textField_2.getSelectedText();
+		            String Articolo2 = (String) textField_3.getSelectedText();
+		            String Articolo3 = (String) textField_4.getSelectedText();
+		            String Articolo4 = (String) textField_5.getSelectedText();
+		            String Articolo5 = (String) textField_6.getSelectedText();
+		            String Articolo6 = (String) textField_7.getSelectedText();
+		            String Articolo7 = (String) textField_8.getSelectedText();
+		            String Articolo8 = (String) textField_9.getSelectedText();
+		            String Articolo9 = (String) textField_10.getSelectedText();
+		            String Articolo10 = (String) textField_11.getSelectedText();
+		           
+		            //mi prendo gli articolo in base al nome del textBox riga 3500
+		           
+		            Articolo a1 = warehouse.articoloContainedByName(Articolo1);
+			        Articolo a2 = warehouse.articoloContainedByName(Articolo2);
+			        Articolo a3 = warehouse.articoloContainedByName(Articolo3);
+			        Articolo a4 = warehouse.articoloContainedByName(Articolo4);
+			        Articolo a5 = warehouse.articoloContainedByName(Articolo5);
+			        Articolo a6 = warehouse.articoloContainedByName(Articolo6);
+			        Articolo a7 = warehouse.articoloContainedByName(Articolo7);
+			        Articolo a8 = warehouse.articoloContainedByName(Articolo8);
+			        Articolo a9 = warehouse.articoloContainedByName(Articolo9);
+			        Articolo a10 = warehouse.articoloContainedByName(Articolo10);
+			        
+			        //mi prendo o mi setto i valori di quantita e posizione
+		            quantita1 = textField_22.getText().equals("") || textField_22.getText().equals(" ") ? 0 : Integer.parseInt(textField_22.getText());
+		            quantita2 = textField_23.getText().equals("") || textField_23.getText().equals(" ") ? 0 : Integer.parseInt(textField_23.getText());
+		            quantita3 = textField_24.getText().equals("") || textField_24.getText().equals(" ") ? 0 : Integer.parseInt(textField_24.getText());
+		            quantita4 = textField_25.getText().equals("") || textField_25.getText().equals(" ") ? 0 : Integer.parseInt(textField_25.getText());
+		            quantita5 = textField_26.getText().equals("") || textField_26.getText().equals(" ") ? 0 : Integer.parseInt(textField_26.getText());
+		            quantita6 = textField_27.getText().equals("") || textField_27.getText().equals(" ") ? 0 : Integer.parseInt(textField_27.getText());
+		            quantita7 = textField_28.getText().equals("") || textField_28.getText().equals(" ") ? 0 : Integer.parseInt(textField_28.getText());
+		            quantita8 = textField_29.getText().equals("") || textField_29.getText().equals(" ") ? 0 : Integer.parseInt(textField_29.getText());
+		            quantita9 = textField_30.getText().equals("") || textField_30.getText().equals(" ") ? 0 : Integer.parseInt(textField_30.getText());
+		            quantita10 = textField_31.getText().equals("") || textField_31.getText().equals(" ") ? 0 : Integer.parseInt(textField_31.getText());
+	
+		            posizione1 = textField_12.getText().equals("") || textField_12.getText().equals(" ") ? 0 : Integer.parseInt(textField_12.getText());
+		            posizione2 = textField_13.getText().equals("") || textField_13.getText().equals(" ") ? 0 : Integer.parseInt(textField_13.getText());
+		            posizione3 = textField_14.getText().equals("") || textField_14.getText().equals(" ") ? 0 : Integer.parseInt(textField_14.getText());
+		            posizione4 = textField_15.getText().equals("") || textField_15.getText().equals(" ") ? 0 : Integer.parseInt(textField_15.getText());
+		            posizione5 = textField_16.getText().equals("") || textField_16.getText().equals(" ") ? 0 : Integer.parseInt(textField_16.getText());
+		            posizione6 = textField_17.getText().equals("") || textField_17.getText().equals(" ") ? 0 : Integer.parseInt(textField_17.getText());
+		            posizione7 = textField_18.getText().equals("") || textField_18.getText().equals(" ") ? 0 : Integer.parseInt(textField_18.getText());
+		            posizione8 = textField_19.getText().equals("") || textField_19.getText().equals(" ") ? 0 : Integer.parseInt(textField_19.getText());
+		            posizione9 = textField_20.getText().equals("") || textField_20.getText().equals(" ") ? 0 : Integer.parseInt(textField_20.getText());
+		            posizione10 = textField_21.getText().equals("") || textField_21.getText().equals(" ") ? 0 : Integer.parseInt(textField_21.getText());
+					
+		          //ora devo solo controllare che l'utente non mi abbia selezionato lo stesso articolo, in tal caso prensdo le quantità e le sommo
+		            //le posizioni invece prendo solo l'ultima
+		            switch (ingressoArticleSelected) {
+		                case 10:
+		                    if (quantita10 == 0 || posizione10 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a10)) {
+		                        quantita.put(a10, quantita.get(a10) + quantita10);
+		                    } else {
+		                        quantita.put(a10, quantita10);
+		                    }
+		                    posizioni.put(a10, posizione10);
+
+		                case 9:
+
+		                    if (quantita9 == 0 || posizione9 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a9)) {
+		                        quantita.put(a9, quantita.get(a9) + quantita9);
+		                    } else {
+		                        quantita.put(a9, quantita9);
+		                    }
+		                    posizioni.put(a9, posizione9);
+
+		                case 8:
+		                    if (quantita8 == 0 || posizione8 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a8)) {
+		                        quantita.put(a8, quantita.get(a8) + quantita8);
+		                    } else {
+		                        quantita.put(a8, quantita8);
+		                    }
+		                    posizioni.put(a8, posizione8);
+
+		                case 7:
+		                    if (quantita7 == 0 || posizione7 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a7)) {
+		                        quantita.put(a7, quantita.get(a7) + quantita7);
+		                    } else {
+		                        quantita.put(a7, quantita7);
+		                    }
+		                    posizioni.put(a7, posizione7);
+
+		                case 6:
+		                    if (quantita6 == 0 || posizione6 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a6)) {
+		                        quantita.put(a6, quantita.get(a6) + quantita6);
+		                    } else {
+		                        quantita.put(a6, quantita6);
+		                    }
+		                    posizioni.put(a6, posizione6);
+
+		                case 5:
+		                    if (quantita5 == 0 || posizione5 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a5)) {
+		                        quantita.put(a10, quantita.get(a5) + quantita5);
+		                    } else {
+		                        quantita.put(a5, quantita5);
+		                    }
+		                    posizioni.put(a5, posizione5);
+
+		                case 4:
+		                    if (quantita4 == 0 || posizione4 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a4)) {
+		                        quantita.put(a4, quantita.get(a4) + quantita4);
+		                    } else {
+		                        quantita.put(a4, quantita4);
+		                    }
+		                    posizioni.put(a4, posizione4);
+
+		                case 3:
+		                    if (quantita3 == 0 || posizione3 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a3)) {
+		                        quantita.put(a3, quantita.get(a3) + quantita3);
+		                    } else {
+		                        quantita.put(a3, quantita3);
+		                    }
+		                    posizioni.put(a3, posizione3);
+
+		                case 2:
+		                    if (quantita2 == 0 || posizione2 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a2)) {
+		                        quantita.put(a2, quantita.get(a2) + quantita2);
+		                    } else {
+		                        quantita.put(a2, quantita2);
+		                    }
+		                    posizioni.put(a2, posizione2);
+
+		                case 1:
+		                    if (quantita1 == 0 || posizione1 == 0) {
+		                        JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+		                        return;
+		                    }
+
+		                    if (quantita.containsKey(a1)) {
+		                        quantita.put(a1, quantita.get(a1) + quantita2);
+		                    } else {
+		                        quantita.put(a1, quantita1);
+		                    }
+		                    posizioni.put(a1, posizione1);
+		            }
+		            
+		            int day = Integer.parseInt(textFieldGiorno.getText());
+		            int month = Integer.parseInt(textFieldMese.getText());
+		            int year = Integer.parseInt(textFieldAnno.getText());
+		            GregorianCalendar c = new GregorianCalendar(year, month, day);
+
+		            if (posizioni.isEmpty() && quantita.isEmpty()) {  //forzo il controllo su entrambe le mappe anche se non dovrebbe essere necessario visto che devono essere identiche
+		                //se le mappe sono identiche ignoro l'inserimento 
+		                nascondiPannelli();
+		                ingressi();
+		                panelIngressi.setVisible(true);
+		                return;
+		            }
+		            
+		            //ora posso aggiungere l'ingresso
+		            warehouse.addIngresso(quantita, posizioni, c);
+		            indexIngressi = warehouse.ingressiSize() - 1;
+		            nascondiPannelli();
+	                ingressi();
+	                panelIngressi.setVisible(true);
+		            
+	              //resetto le stringhe
+	                textField_12.setText("");
+	                textField_22.setText("");
+	                textField_13.setText("");
+	                textField_23.setText("");
+	                textField_14.setText("");
+	                textField_24.setText("");
+	                textField_15.setText("");
+	                textField_25.setText("");
+	                textField_16.setText("");
+	                textField_26.setText("");
+	                textField_17.setText("");
+	                textField_27.setText("");
+	                textField_18.setText("");
+	                textField_28.setText("");
+	                textField_19.setText("");
+	                textField_29.setText("");
+	                textField_20.setText("");
+	                textField_30.setText("");
+	                textField_21.setText("");
+	                textField_31.setText("");
+
+		            
+				} catch (Exception ex) {
+		            Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, ex);
+		        }
+			}
+		});
+	    //chiudi pannello Inserisci nuovo ingresso
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textFieldGiorno.setText("");
+				textFieldMese.setText("");
+				textFieldAnno.setText("");
+				textField_12.setText("");
+				textField_13.setText("");
+				textField_14.setText("");
+				textField_15.setText("");
+				textField_16.setText("");
+				textField_17.setText("");
+				textField_18.setText("");
+				textField_19.setText("");
+				textField_20.setText("");
+				textField_21.setText("");
+				textField_22.setText("");
+				textField_23.setText("");
+				textField_24.setText("");
+				textField_25.setText("");
+				textField_26.setText("");
+				textField_27.setText("");
+				textField_28.setText("");
+				textField_29.setText("");
+				textField_30.setText("");
+				textField_31.setText("");
+	            nascondiPannelli();
+		        panelIngressi.setVisible(true);
+			}
+		});
+		
+		
+		//da ingressi a crea nuovo ingresso
 		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -1255,16 +1568,6 @@ public class GUI extends JFrame {
 		//panelArticoli.setVisible(true); al click del bottone
 		panelGenerale.setVisible(true);
 
-	}
-
-
-	private void nascondiPannelli() {
-		panelArticoli.setVisible(false);
-		panelNegozi.setVisible(false);
-		//panelOrdini.setVisible(false);
-		//panelIngressi.setVisible(false);
-		//panelFineMese.setVisible(false);
-		//panelStorico.setVisible(false);
 	}
 
 
