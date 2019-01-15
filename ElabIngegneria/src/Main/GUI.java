@@ -90,10 +90,10 @@ public class GUI extends JFrame {
 	private JPanel BGPANE; // panel principale
 
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel,panelIngressi,panelNuovoIngresso;
-	private JPanel PanelMainArt,PanelMainNeg;
+	private JPanel PanelMainArt,PanelMainNeg,panelFineMese;
 	private List<JPanel> listaPanel = new ArrayList<>();
-
-
+	
+	
 	//bottoni
 	private JButton btnLogin,btnArticoli,btnNegozi,btnOrdini,btnIngressi,btnFineMese,btnStorico;
 	private JButton btnCambiaPos,btnDettagli;
@@ -202,6 +202,11 @@ public class GUI extends JFrame {
 	private JTextField textField_31;
 	private JTextField textFieldMese;
 	private JTextField textFieldAnno;
+	private JPanel panelOut;
+	private JSeparator separator_3;
+	private JSeparator separator_4;
+	private JPanel InContent;
+	private JPanel OutContent;
 
 	/**
 	 * Create the frame.
@@ -216,6 +221,7 @@ public class GUI extends JFrame {
 		listaPanel.add(panelNegozi);
 		listaPanel.add(panelNuovoIngresso);
 		listaPanel.add(panelIngressi);
+		listaPanel.add(panelFineMese);
 
 
 		//inizializza i componenti
@@ -230,7 +236,7 @@ public class GUI extends JFrame {
 		//panelOrdini.setVisible(false);
 		panelIngressi.setVisible(false);
 		panelNuovoIngresso.setVisible(false);
-		//panelFineMese.setVisible(false);
+		panelFineMese.setVisible(false);
 		//panelStorico.setVisible(false);
 	}
 
@@ -275,6 +281,54 @@ public class GUI extends JFrame {
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
+		
+		panelFineMese = new JPanel();
+		panelFineMese.setBackground(UIManager.getColor("TabbedPane.highlight"));
+		panelFineMese.setBounds(147, 0, 650, 570);
+		BGPANE.add(panelFineMese);
+		panelFineMese.setLayout(null);
+		
+		JPanel panelIn = new JPanel();
+		panelIn.setBackground(UIManager.getColor("TabbedPane.light"));
+		panelIn.setBounds(0, 0, 315, 550);
+		panelFineMese.add(panelIn);
+		panelIn.setLayout(null);
+		
+		JLabel lblIngressi = new JLabel("Ingressi");
+		lblIngressi.setBounds(104, 10, 106, 32);
+		panelIn.add(lblIngressi);
+		lblIngressi.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIngressi.setFont(new Font("Valken", Font.BOLD, 25));
+		
+		separator_3 = new JSeparator();
+		separator_3.setBounds(10, 53, 295, 2);
+		panelIn.add(separator_3);
+		
+		InContent = new JPanel();
+		InContent.setBackground(SystemColor.controlHighlight);
+		InContent.setBounds(0, 53, 315, 500);
+		panelIn.add(InContent);
+		
+		panelOut = new JPanel();
+		panelOut.setBackground(UIManager.getColor("TabbedPane.light"));
+		panelOut.setBounds(335, 0, 315, 550);
+		panelFineMese.add(panelOut);
+		panelOut.setLayout(null);
+		
+		JLabel lblUscite = new JLabel("Uscite");
+		lblUscite.setBounds(115, 10, 85, 32);
+		panelOut.add(lblUscite);
+		lblUscite.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUscite.setFont(new Font("Valken", Font.BOLD, 25));
+		
+		separator_4 = new JSeparator();
+		separator_4.setBounds(10, 53, 295, 2);
+		panelOut.add(separator_4);
+		
+		OutContent = new JPanel();
+		OutContent.setBackground(SystemColor.controlHighlight);
+		OutContent.setBounds(0, 49, 315, 500);
+		panelOut.add(OutContent);
 
 
 		Login = new JPanel();
@@ -425,6 +479,12 @@ public class GUI extends JFrame {
 		menuazioni.add(btnIngressi);
 
 		btnFineMese = new JButton("Fine Mese");
+		btnFineMese.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				generateMonthlyStats(arg0);
+			}
+		});
 		btnFineMese.setBackground(SystemColor.control);
 		menuazioni.add(btnFineMese);
 
@@ -2114,7 +2174,15 @@ public class GUI extends JFrame {
 				warehouse.addNegozi(tempNeg);
 				break;
 			}
+			
+			
 		}
+	}
+	
+	public void generateMonthlyStats(MouseEvent arg0){
+		warehouse.chiusuraMensile();
+		warehouse.getReportMensile(i)
+		
 	}
 }
 
