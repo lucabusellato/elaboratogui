@@ -72,9 +72,11 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.DefaultComboBoxModel;
-
+import javax.swing.DefaultListModel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JScrollBar;
+import javax.swing.AbstractListModel;
 
 
 public class GUI extends JFrame {
@@ -207,7 +209,8 @@ public class GUI extends JFrame {
 	private JSeparator separator_4;
 	private JPanel InContent;
 	private JPanel OutContent;
-
+	private DefaultListModel<String> listModel;
+	private JList Ingressi;
 	/**
 	 * Create the frame.
 	 * @throws ArticleDontExistInWareHouseException 
@@ -276,6 +279,7 @@ public class GUI extends JFrame {
 		int selnegozio;
 		//INIT GUI DESIGN
 		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
+		listModel = new DefaultListModel<String>();
 		BGPANE = new JPanel();
 		BGPANE.setBackground(SystemColor.controlHighlight);
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -308,6 +312,26 @@ public class GUI extends JFrame {
 		InContent.setBackground(SystemColor.controlHighlight);
 		InContent.setBounds(0, 53, 315, 500);
 		panelIn.add(InContent);
+		InContent.setLayout(null);
+		
+		
+		listModel.addElement("USA");
+		Ingressi = new JList(new AbstractListModel() {
+			String[] values = new String[] {};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		Ingressi.setBounds(10, 490, 295, -480);
+		InContent.add(Ingressi);
+		
+		
+		
+		
+		
 		
 		panelOut = new JPanel();
 		panelOut.setBackground(UIManager.getColor("TabbedPane.light"));
@@ -329,6 +353,13 @@ public class GUI extends JFrame {
 		OutContent.setBackground(SystemColor.controlHighlight);
 		OutContent.setBounds(0, 49, 315, 500);
 		panelOut.add(OutContent);
+		OutContent.setLayout(null);
+		
+		java.awt.List Uscite = new java.awt.List();
+		Uscite.setMultipleSelections(true);
+		Uscite.setMultipleMode(true);
+		Uscite.setBounds(10, 10, 295, 480);
+		OutContent.add(Uscite);
 
 
 		Login = new JPanel();
@@ -2180,8 +2211,10 @@ public class GUI extends JFrame {
 	}
 	
 	public void generateMonthlyStats(MouseEvent arg0){
-		warehouse.chiusuraMensile();
-		warehouse.getReportMensile(i)
+		//warehouse.chiusuraMensile();
+		panelFineMese.setVisible(true);
+		JOptionPane.showMessageDialog(null, warehouse.chiusuraMensile());
+		
 		
 	}
 }
