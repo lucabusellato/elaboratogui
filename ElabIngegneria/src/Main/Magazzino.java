@@ -16,7 +16,7 @@ public class Magazzino implements Serializable {
     private List<Ingresso> ingressi;
     private List<Negozio> negozi;
     private List<Utente> utenti;
-    private List<String> report;
+    private List<String> reportingressi, reportuscite,report;
     private Map<Articolo, Integer> quantita, posizione;
     private Map<Articolo, Integer> ingressiMensili, usciteMensili;
 
@@ -34,6 +34,8 @@ public class Magazzino implements Serializable {
 	this.posizione = new TreeMap<>();
 	this.ingressiMensili = new TreeMap<>();
 	this.usciteMensili = new TreeMap<>();
+	this.reportingressi = new ArrayList();
+	this.reportuscite = new ArrayList();
 	this.report = new ArrayList();
     }
 
@@ -448,19 +450,42 @@ public class Magazzino implements Serializable {
     public String chiusuraMensile() {
 	GregorianCalendar dataOdierna = new GregorianCalendar();
 	String s = "Report mensile riferito al " + dataOdierna.get(GregorianCalendar.MONTH) + "" + dataOdierna.get(GregorianCalendar.YEAR) + "\n";
+	String ingressi= "", uscite= ""; // ingressiMese, usciteMese
+	
 	s = "Ingressi:\n";
 	for (Articolo X : ingressiMensili.keySet()) {
-	    s += "Nome Articolo: " + X.getTipoArticolo().getName() + "\t" + ingressiMensili.get(X) + "pezzi\n";
+	    s += "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + ingressiMensili.get(X) + " pezzi\n";
+	    ingressi = "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + ingressiMensili.get(X) + " pezzi\n";
+	    reportingressi.add(ingressi);
 	}
+	
+	
+	// [OK] aggiunte liste diverse
+ 	
 	s += "\n\nUscite: \n";
 	for (Articolo X : usciteMensili.keySet()) {
-	    s += "Nome Articolo" + X.getTipoArticolo().getName() + "\t" + usciteMensili.get(X) + "pezzi\n";
+	    s += "Nome Articolo" + X.getTipoArticolo().getName() + " - " + usciteMensili.get(X) + " pezzi\n";
+	    uscite = "Nome Articolo" + X.getTipoArticolo().getName() + " - " + usciteMensili.get(X) + " pezzi\n";
+	    reportuscite.add(uscite);
 	}
+	
+	
 	ingressiMensili.clear();
 	usciteMensili.clear();
 	report.add(s);
 	return s;
     }
+    
+    //-
+    public List<String> getReportIngressiList() {
+    	return reportingressi;
+    }
+    //-
+    public List<String> getReportUsciteList() {
+    	return reportuscite;
+    	
+    }
+    
     
     
     

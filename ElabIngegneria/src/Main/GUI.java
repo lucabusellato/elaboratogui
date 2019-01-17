@@ -209,7 +209,7 @@ public class GUI extends JFrame {
 	private JSeparator separator_4;
 	private JPanel InContent;
 	private JPanel OutContent;
-	private DefaultListModel<String> listModel;
+	private DefaultListModel<String> listModel, listModelOut;
 	private JList Ingressi;
 	/**
 	 * Create the frame.
@@ -236,10 +236,10 @@ public class GUI extends JFrame {
 	private void nascondiPannelli() {
 		panelArticoli.setVisible(false);
 		panelNegozi.setVisible(false);
-		//panelOrdini.setVisible(false);
+		//panelOrdini.setVisible(false); -- TO COMPLETE
 		panelIngressi.setVisible(false);
 		panelNuovoIngresso.setVisible(false);
-		panelFineMese.setVisible(false);
+		panelFineMese.setVisible(false); 
 		//panelStorico.setVisible(false);
 	}
 
@@ -280,6 +280,7 @@ public class GUI extends JFrame {
 		//INIT GUI DESIGN
 		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
 		listModel = new DefaultListModel<String>();
+		listModelOut = new DefaultListModel<String>();
 		BGPANE = new JPanel();
 		BGPANE.setBackground(SystemColor.controlHighlight);
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -309,29 +310,29 @@ public class GUI extends JFrame {
 		panelIn.add(separator_3);
 		
 		InContent = new JPanel();
+		InContent.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		InContent.setBackground(SystemColor.controlHighlight);
 		InContent.setBounds(0, 53, 315, 500);
 		panelIn.add(InContent);
 		InContent.setLayout(null);
 		
-		
-		listModel.addElement("USA");
-		Ingressi = new JList(new AbstractListModel() {
-			String[] values = new String[] {};
+
+		Ingressi = new JList(listModel/*new AbstractListModel() {
+			/*String[] values = new String[] {"ASD", "ASD", "ASD"}; // lista degli elementi del JList
 			public int getSize() {
 				return values.length;
 			}
 			public Object getElementAt(int index) {
 				return values[index];
 			}
-		});
-		Ingressi.setBounds(10, 490, 295, -480);
+		}*/);
+		Ingressi.setVisibleRowCount(16);
+		Ingressi.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		Ingressi.setBounds(0, 5, 315, 484);
+		Ingressi.setBackground(SystemColor.text);
+		Ingressi.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		Ingressi.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		InContent.add(Ingressi);
-		
-		
-		
-		
-		
 		
 		panelOut = new JPanel();
 		panelOut.setBackground(UIManager.getColor("TabbedPane.light"));
@@ -350,15 +351,13 @@ public class GUI extends JFrame {
 		panelOut.add(separator_4);
 		
 		OutContent = new JPanel();
-		OutContent.setBackground(SystemColor.controlHighlight);
-		OutContent.setBounds(0, 49, 315, 500);
+		OutContent.setBackground(SystemColor.textHighlightText);
+		OutContent.setBounds(0, 60, 315, 479);
 		panelOut.add(OutContent);
 		OutContent.setLayout(null);
 		
-		java.awt.List Uscite = new java.awt.List();
-		Uscite.setMultipleSelections(true);
-		Uscite.setMultipleMode(true);
-		Uscite.setBounds(10, 10, 295, 480);
+		JList Uscite = new JList(listModelOut);
+		Uscite.setBounds(10, 493, 315, -475);
 		OutContent.add(Uscite);
 
 
@@ -510,9 +509,14 @@ public class GUI extends JFrame {
 		menuazioni.add(btnIngressi);
 
 		btnFineMese = new JButton("Fine Mese");
+		btnFineMese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnFineMese.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
 				generateMonthlyStats(arg0);
 			}
 		});
@@ -520,6 +524,10 @@ public class GUI extends JFrame {
 		menuazioni.add(btnFineMese);
 
 		btnStorico = new JButton("Storico Mensile");
+		btnStorico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnStorico.setBackground(SystemColor.control);
 		menuazioni.add(btnStorico);
 
@@ -2199,7 +2207,7 @@ public class GUI extends JFrame {
 						p[i++] = ((JTextField) c).getText();
 					}
 				}
-				Negozio tempNeg = new Negozio(p[0], p[1], p[2], p[3]);
+				Negozio tempNeg = new Negozio(p[0], p[1], p[2], p[3]);	
 				System.out.println("NEGOZIO in : "+ p[0] + " " + p[1] +" " + p[2] +" " + p[3]);
 
 				warehouse.addNegozi(tempNeg);
@@ -2211,11 +2219,28 @@ public class GUI extends JFrame {
 	}
 	
 	public void generateMonthlyStats(MouseEvent arg0){
-		//warehouse.chiusuraMensile();
+
+		String call_del;
+		List<String> call_temp_el = warehouse.getReportIngressiList();
+		call_del= warehouse.chiusuraMensile();
+
+		String[] ingressi, uscite;
+
+		for(String ev_s: warehouse.getReportIngressiList()) {
+				listModel.addElement(ev_s);
+		}
+
+		for(String ev_s: warehouse.getReportUsciteList()) {
+				listModelOut.addElement(ev_s);
+		}
+
+
+
+
 		panelFineMese.setVisible(true);
-		JOptionPane.showMessageDialog(null, warehouse.chiusuraMensile());
-		
-		
+		//JOptionPane.showMessageDialog(null, warehouse.chiusuraMensile());
+
+
 	}
 }
 

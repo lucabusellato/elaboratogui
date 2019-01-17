@@ -75,6 +75,7 @@ public final class Articolo extends WarehouseMovement implements Comparable<Arti
     @Override
     public int hashCode() {
         return tipoArticolo.hashCode() ^ (int) prezzo ^ data.hashCode();
+        // ! TO FIX NEG NUMBER OF ID
     }
 
     @Override
