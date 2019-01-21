@@ -48,7 +48,11 @@ public class Magazzino implements Serializable {
     public static void uploadInstance(ObjectInputStream ois) throws IOException, ClassNotFoundException{
 	INSTANCE = (Magazzino) ois.readObject();
     }
-    
+    //
+    public List<Ordine> getOrdiniList(){
+    	return ordini;
+    	
+    } 
     
     
     public void addUser(Utente u) throws UserAlreadyExist {
