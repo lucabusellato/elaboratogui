@@ -124,6 +124,8 @@ public class Main implements Serializable{
 		p.put(a4, 4);
 		m.addIngresso(q, p, new GregorianCalendar());
 
+		m.addIngresso(q, p, new GregorianCalendar());
+
 		m.addNegozi(n1);
 		m.addNegozi(n2);
 		m.addNegozi(n3);

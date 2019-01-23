@@ -146,10 +146,13 @@ public class GUI extends JFrame {
 
 	//ingressi
 	private JLabel labelViewId ;
-	private JSpinner spinner;
 	private JButton btnNuovoIngresso;
 	private JLabel lblViewData;
 	private JTextPane textPane;
+	private JButton buttonIngressiIndietro;
+	private JLabel labelCountIngressi;
+	private JButton buttonIngressiAvanti;
+	private JButton btnChiudiIngressi;
 
 	//radio btns
 
@@ -253,22 +256,23 @@ public class GUI extends JFrame {
 	void ingressi() {
 		if (warehouse.ingressiIsEmpty()) {
 			labelViewId.setText("");
-			//spinner.resetKeyboardActions();//non so se è giusto
+			labelCountIngressi.setText("");
 			btnNuovoIngresso.setEnabled(true);
-			//JOptionPane.showMessageDialog(null, "Nessun ordine ancora presente nel Database, premi 'crea ordine ora' per crearne uno nuovo subito");
-		} else {/*
+        	buttonIngressiIndietro.setVisible(false);
+        	buttonIngressiAvanti.setVisible(false);			
+		} else {
             if (indexIngressi == 0) {
-                indietroButton_IngressiPanel.setEnabled(false);
-            } else {
-                indietroButton_IngressiPanel.setEnabled(true);
+            	buttonIngressiIndietro.setEnabled(false);
+            }else {
+            	buttonIngressiIndietro.setEnabled(true);
             }
-            if (indexIngressi == m.ingressiSize() - 1) {
-                avantiButton_IngressiPanel.setEnabled(false);
+            if (indexIngressi == warehouse.ingressiSize() - 1) {
+            	buttonIngressiAvanti.setEnabled(false);
             } else {
-                avantiButton_IngressiPanel.setEnabled(true);
-            }*/
+            	buttonIngressiAvanti.setEnabled(true);
+            }
 			lblViewData.setText(warehouse.getIngresso(indexIngressi).getDataInString());
-			spinner.setValue(indexIngressi + 1);
+			labelCountIngressi.setText(""+ (indexIngressi + 1));
 			labelViewId.setText("" + abs(warehouse.getIngresso(indexIngressi).getID()));
 			textPane.setText("" + warehouse.getIngresso(indexIngressi).toString());
 		}
@@ -286,6 +290,156 @@ public class GUI extends JFrame {
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
+		
+				panelIngressi = new JPanel();
+				panelIngressi.setBounds(147, 0, 650, 565);
+				BGPANE.add(panelIngressi);
+				panelIngressi.setLayout(null);
+				
+						JLabel lblId = new JLabel("ID:");
+						lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+						lblId.setBounds(45, 72, 25, 26);
+						panelIngressi.add(lblId);
+						
+								JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
+								lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
+								lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
+								panelIngressi.add(lblVisualizzaIngressi);
+								
+										labelViewId = new JLabel("");
+										labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+										labelViewId.setBounds(77, 78, 56, 16);
+										panelIngressi.add(labelViewId);
+										
+												JLabel lblData = new JLabel("Data ingresso:");
+												lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+												lblData.setBounds(195, 77, 94, 16);
+												panelIngressi.add(lblData);
+												
+														lblViewData = new JLabel("");
+														lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+														lblViewData.setBounds(295, 78, 56, 16);
+														panelIngressi.add(lblViewData);
+														
+																textPane = new JTextPane();
+																textPane.setBounds(45, 112, 550, 307);
+																panelIngressi.add(textPane);
+																
+																		JLabel lblN = new JLabel("Ingresso n:");
+																		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																		lblN.setBounds(409, 78, 75, 16);
+																		panelIngressi.add(lblN);
+																				
+																						btnNuovoIngresso = new JButton("Nuovo ingresso");				
+																						btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																						btnNuovoIngresso.setBounds(231, 432, 133, 35);
+																						panelIngressi.add(btnNuovoIngresso);
+																						
+																								btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
+																								btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																								btnChiudiIngressi.setBounds(195, 496, 193, 35);
+																								panelIngressi.add(btnChiudiIngressi);
+																								
+																								buttonIngressiIndietro = new JButton("<");
+																								buttonIngressiIndietro.addMouseListener(new MouseAdapter() {
+																									@Override
+																									public void mouseClicked(MouseEvent arg0) {
+																										indexIngressi--;
+																										ingressi();
+																									}
+																								});
+																								buttonIngressiIndietro.setBounds(485, 74, 41, 25);
+																								panelIngressi.add(buttonIngressiIndietro);
+																								
+																								labelCountIngressi = new JLabel("");
+																								labelCountIngressi.setBounds(528, 78, 25, 16);
+																								panelIngressi.add(labelCountIngressi);
+																								
+																								buttonIngressiAvanti = new JButton(">");
+																								buttonIngressiAvanti.setBounds(553, 74, 41, 25);
+																								panelIngressi.add(buttonIngressiAvanti);
+																								buttonIngressiAvanti.addMouseListener(new MouseAdapter() {
+																									@Override
+																									public void mouseClicked(MouseEvent arg0) {
+																										indexIngressi++;
+																										ingressi();
+																									}
+																								});
+																								
+																								
+																										//da ingressi a crea nuovo ingresso
+																										btnNuovoIngresso.addMouseListener(new MouseAdapter() {
+																											@Override
+																											public void mouseClicked(MouseEvent arg0) {
+																												nascondiPannelli();
+																												panelNuovoIngresso.setVisible(true);
+																												textField_2.setText("");
+																												textField_3.setText("");
+																												textField_4.setText("");
+																												textField_5.setText("");
+																												textField_6.setText("");
+																												textField_7.setText("");
+																												textField_8.setText("");
+																												textField_9.setText("");
+																												textField_10.setText("");
+																												textField_11.setText("");
+																												textField_12.setText("");
+																												textField_13.setText("");
+																												textField_14.setText("");
+																												textField_15.setText("");
+																												textField_16.setText("");
+																												textField_17.setText("");
+																												textField_18.setText("");
+																												textField_19.setText("");
+																												textField_20.setText("");
+																												textField_21.setText("");
+																												textField_22.setText("");
+																												textField_23.setText("");
+																												textField_24.setText("");
+																												textField_25.setText("");
+																												textField_26.setText("");
+																												textField_27.setText("");
+																												textField_28.setText("");
+																												textField_29.setText("");
+																												textField_30.setText("");
+																												textField_31.setText("");
+																												textField_3.setEnabled(false);
+																												textField_4.setEnabled(false);
+																												textField_5.setEnabled(false);
+																												textField_6.setEnabled(false);
+																												textField_7.setEnabled(false);
+																												textField_8.setEnabled(false);
+																												textField_9.setEnabled(false);
+																												textField_10.setEnabled(false);
+																												textField_11.setEnabled(false);
+																												textField_13.setEditable(false);
+																												textField_14.setEditable(false);
+																												textField_15.setEditable(false);
+																												textField_16.setEditable(false);
+																												textField_17.setEditable(false);
+																												textField_18.setEditable(false);
+																												textField_19.setEditable(false);
+																												textField_20.setEditable(false);
+																												textField_21.setEditable(false);
+																												textField_23.setEditable(false);
+																												textField_24.setEditable(false);
+																												textField_25.setEditable(false);
+																												textField_26.setEditable(false);
+																												textField_27.setEditable(false);
+																												textField_28.setEditable(false);
+																												textField_29.setEditable(false);
+																												textField_30.setEditable(false);
+																												textField_31.setEditable(false);
+																											}
+																								
+																								
+																										});
+																										btnChiudiIngressi.addActionListener(new ActionListener() {
+																											public void actionPerformed(ActionEvent e) {
+																												nascondiPannelli();
+																												menuazioni.setVisible(true);
+																											}
+																										});
 		
 		panelFineMese = new JPanel();
 		panelFineMese.setBackground(UIManager.getColor("TabbedPane.highlight"));
@@ -1181,135 +1335,6 @@ public class GUI extends JFrame {
 
 		//
 		fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
-
-		panelIngressi = new JPanel();
-		panelIngressi.setBounds(147, 0, 650, 565);
-		BGPANE.add(panelIngressi);
-		panelIngressi.setLayout(null);
-
-		JLabel lblId = new JLabel("ID:");
-		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblId.setBounds(45, 72, 25, 26);
-		panelIngressi.add(lblId);
-
-		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
-		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
-		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
-		panelIngressi.add(lblVisualizzaIngressi);
-
-		labelViewId = new JLabel("");
-		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelViewId.setBounds(77, 78, 56, 16);
-		panelIngressi.add(labelViewId);
-
-		JLabel lblData = new JLabel("Data ingresso:");
-		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblData.setBounds(195, 77, 94, 16);
-		panelIngressi.add(lblData);
-
-		lblViewData = new JLabel("");
-		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblViewData.setBounds(295, 78, 56, 16);
-		panelIngressi.add(lblViewData);
-
-		textPane = new JTextPane();
-		textPane.setBounds(45, 112, 550, 307);
-		panelIngressi.add(textPane);
-
-		JLabel lblN = new JLabel("Ingresso n:");
-		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblN.setBounds(409, 78, 75, 16);
-		panelIngressi.add(lblN);
-
-		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(new Integer(1), null, null, new Integer(1)));
-		spinner.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		spinner.setBounds(499, 75, 30, 22);
-		panelIngressi.add(spinner);
-
-		btnNuovoIngresso = new JButton("Nuovo ingresso");				
-		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNuovoIngresso.setBounds(231, 432, 133, 35);
-		panelIngressi.add(btnNuovoIngresso);
-
-		JButton btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
-		btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChiudiIngressi.setBounds(195, 496, 193, 35);
-		panelIngressi.add(btnChiudiIngressi);
-
-		//da ingressi a crea nuovo ingresso
-		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				panelNuovoIngresso.setVisible(true);
-				textField_2.setText("");
-				textField_3.setText("");
-				textField_4.setText("");
-				textField_5.setText("");
-				textField_6.setText("");
-				textField_7.setText("");
-				textField_8.setText("");
-				textField_9.setText("");
-				textField_10.setText("");
-				textField_11.setText("");
-				textField_12.setText("");
-				textField_13.setText("");
-				textField_14.setText("");
-				textField_15.setText("");
-				textField_16.setText("");
-				textField_17.setText("");
-				textField_18.setText("");
-				textField_19.setText("");
-				textField_20.setText("");
-				textField_21.setText("");
-				textField_22.setText("");
-				textField_23.setText("");
-				textField_24.setText("");
-				textField_25.setText("");
-				textField_26.setText("");
-				textField_27.setText("");
-				textField_28.setText("");
-				textField_29.setText("");
-				textField_30.setText("");
-				textField_31.setText("");
-				textField_3.setEnabled(false);
-				textField_4.setEnabled(false);
-				textField_5.setEnabled(false);
-				textField_6.setEnabled(false);
-				textField_7.setEnabled(false);
-				textField_8.setEnabled(false);
-				textField_9.setEnabled(false);
-				textField_10.setEnabled(false);
-				textField_11.setEnabled(false);
-				textField_13.setEditable(false);
-				textField_14.setEditable(false);
-				textField_15.setEditable(false);
-				textField_16.setEditable(false);
-				textField_17.setEditable(false);
-				textField_18.setEditable(false);
-				textField_19.setEditable(false);
-				textField_20.setEditable(false);
-				textField_21.setEditable(false);
-				textField_23.setEditable(false);
-				textField_24.setEditable(false);
-				textField_25.setEditable(false);
-				textField_26.setEditable(false);
-				textField_27.setEditable(false);
-				textField_28.setEditable(false);
-				textField_29.setEditable(false);
-				textField_30.setEditable(false);
-				textField_31.setEditable(false);
-			}
-
-
-		});
-		btnChiudiIngressi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nascondiPannelli();
-				menuazioni.setVisible(true);
-			}
-		});
 
 		panelNuovoIngresso = new JPanel();
 		panelNuovoIngresso.setBounds(147, 0, 635, 565);
