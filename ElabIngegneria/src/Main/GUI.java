@@ -290,235 +290,235 @@ public class GUI extends JFrame {
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
-						
-								panelIngressi = new JPanel();
-								panelIngressi.setBounds(147, 0, 650, 565);
-								BGPANE.add(panelIngressi);
-								panelIngressi.setLayout(null);
-								
-										JLabel lblId = new JLabel("ID:");
-										lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-										lblId.setBounds(45, 72, 25, 26);
-										panelIngressi.add(lblId);
-										
-												JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
-												lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
-												lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
-												panelIngressi.add(lblVisualizzaIngressi);
-												
-														labelViewId = new JLabel("");
-														labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-														labelViewId.setBounds(77, 78, 106, 16);
-														panelIngressi.add(labelViewId);
-														
-																JLabel lblData = new JLabel("Data ingresso:");
-																lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																lblData.setBounds(195, 77, 94, 16);
-																panelIngressi.add(lblData);
-																
-																		lblViewData = new JLabel("");
-																		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		lblViewData.setBounds(295, 78, 106, 16);
-																		panelIngressi.add(lblViewData);
-																		
-																				textPane = new JTextPane();
-																				textPane.setEditable(false);
-																				textPane.setBounds(45, 112, 550, 307);
-																				panelIngressi.add(textPane);
-																				
-																						JLabel lblN = new JLabel("Ingresso n:");
-																						lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																						lblN.setBounds(409, 78, 75, 16);
-																						panelIngressi.add(lblN);
-																						
-																								btnNuovoIngresso = new JButton("Nuovo ingresso");				
-																								btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																								btnNuovoIngresso.setBounds(231, 432, 133, 35);
-																								panelIngressi.add(btnNuovoIngresso);
-																								
-																										btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
-																										btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																										btnChiudiIngressi.setBounds(195, 496, 193, 35);
-																										panelIngressi.add(btnChiudiIngressi);
-																										
-																												buttonIngressiIndietro = new JButton("<");
-																												buttonIngressiIndietro.addMouseListener(new MouseAdapter() {
-																													@Override
-																													public void mouseClicked(MouseEvent arg0) {
-																														indexIngressi--;
-																														ingressi();
-																													}
-																												});
-																												buttonIngressiIndietro.setBounds(485, 74, 41, 25);
-																												panelIngressi.add(buttonIngressiIndietro);
-																												
-																														labelCountIngressi = new JLabel("");
-																														labelCountIngressi.setBounds(528, 78, 25, 16);
-																														panelIngressi.add(labelCountIngressi);
-																														
-																																buttonIngressiAvanti = new JButton(">");
-																																buttonIngressiAvanti.setBounds(553, 74, 41, 25);
-																																panelIngressi.add(buttonIngressiAvanti);
-																																buttonIngressiAvanti.addMouseListener(new MouseAdapter() {
-																																	@Override
-																																	public void mouseClicked(MouseEvent arg0) {
-																																		indexIngressi++;
-																																		ingressi();
-																																	}
-																																});
-																																
-																																
-																																		//da ingressi a crea nuovo ingresso
-																																		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
-																																			@Override
-																																			public void mouseClicked(MouseEvent arg0) {
-																																				nascondiPannelli();
-																																				panelNuovoIngresso.setVisible(true);
-																																				textField_2.setText("");
-																																				textField_3.setText("");
-																																				textField_4.setText("");
-																																				textField_5.setText("");
-																																				textField_6.setText("");
-																																				textField_7.setText("");
-																																				textField_8.setText("");
-																																				textField_9.setText("");
-																																				textField_10.setText("");
-																																				textField_11.setText("");
-																																				textField_12.setText("");
-																																				textField_13.setText("");
-																																				textField_14.setText("");
-																																				textField_15.setText("");
-																																				textField_16.setText("");
-																																				textField_17.setText("");
-																																				textField_18.setText("");
-																																				textField_19.setText("");
-																																				textField_20.setText("");
-																																				textField_21.setText("");
-																																				textField_22.setText("");
-																																				textField_23.setText("");
-																																				textField_24.setText("");
-																																				textField_25.setText("");
-																																				textField_26.setText("");
-																																				textField_27.setText("");
-																																				textField_28.setText("");
-																																				textField_29.setText("");
-																																				textField_30.setText("");
-																																				textField_31.setText("");
-																																				textField_3.setEnabled(false);
-																																				textField_4.setEnabled(false);
-																																				textField_5.setEnabled(false);
-																																				textField_6.setEnabled(false);
-																																				textField_7.setEnabled(false);
-																																				textField_8.setEnabled(false);
-																																				textField_9.setEnabled(false);
-																																				textField_10.setEnabled(false);
-																																				textField_11.setEnabled(false);
-																																				textField_13.setEditable(false);
-																																				textField_14.setEditable(false);
-																																				textField_15.setEditable(false);
-																																				textField_16.setEditable(false);
-																																				textField_17.setEditable(false);
-																																				textField_18.setEditable(false);
-																																				textField_19.setEditable(false);
-																																				textField_20.setEditable(false);
-																																				textField_21.setEditable(false);
-																																				textField_23.setEditable(false);
-																																				textField_24.setEditable(false);
-																																				textField_25.setEditable(false);
-																																				textField_26.setEditable(false);
-																																				textField_27.setEditable(false);
-																																				textField_28.setEditable(false);
-																																				textField_29.setEditable(false);
-																																				textField_30.setEditable(false);
-																																				textField_31.setEditable(false);
-																																			}
-																																
-																																
-																																		});
-																																		btnChiudiIngressi.addActionListener(new ActionListener() {
-																																			public void actionPerformed(ActionEvent e) {
-																																				nascondiPannelli();
-																																				menuazioni.setVisible(true);
-																																			}
-																																		});
-				
-				
-				
-				
-						menuazioni = new JPanel();
-						menuazioni.setForeground(new Color(0, 0, 0));
-						menuazioni.setBorder(new TitledBorder(new MatteBorder(1, 1, 3, 3, (Color) new Color(192, 192, 192)), "Azioni", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
-						menuazioni.setBackground(SystemColor.controlHighlight);
-						menuazioni.setBounds(0, 0, 147, 425);
-						BGPANE.add(menuazioni);
-						
-								btnArticoli = new JButton("Articoli");
-								btnArticoli.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										nascondiPannelli();
-										panelArticoli.setVisible(true);
-										btnCambiaPos.setEnabled(false);
-										btnDettagli.setEnabled(false);
-										btnEliminaArt.setEnabled(false);
-									}
-								});
-								btnArticoli.setBackground(SystemColor.control);
-								menuazioni.add(btnArticoli);
-								
-										btnNegozi = new JButton("Negozi");
-										btnNegozi.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent arg0) {
-												nascondiPannelli();
-												panelNegozi.setVisible(true);
-												btnModNegozio.setEnabled(false);
-												btnEliminaNegozio.setEnabled(false);
-											}
-										});
-										
-										
-												btnNegozi.setBackground(SystemColor.control);
-												menuazioni.add(btnNegozi);
-												
-														btnOrdini = new JButton("Ordini");
-														btnOrdini.setBackground(SystemColor.control);
-														menuazioni.add(btnOrdini);
-														
-																btnIngressi = new JButton("Ingressi");
-																btnIngressi.addMouseListener(new MouseAdapter() {
-																	@Override
-																	public void mouseClicked(MouseEvent arg0) {
-																		nascondiPannelli();
-																		panelIngressi.setVisible(true);
-																		indexIngressi = 0;
-																		ingressi();
 
-																	}
-																});
-																btnIngressi.setBackground(SystemColor.control);
-																menuazioni.add(btnIngressi);
-																
-																		btnFineMese = new JButton("Fine Mese");
-																		btnFineMese.addActionListener(new ActionListener() {
-																			public void actionPerformed(ActionEvent arg0) {
-																			}
-																		});
-																		btnFineMese.addMouseListener(new MouseAdapter() {
-																			@Override
-																			public void mouseClicked(MouseEvent arg0) {
-																				nascondiPannelli();
-																				generateMonthlyStats(arg0);
-																			}
-																		});
-																		btnFineMese.setBackground(SystemColor.control);
-																		menuazioni.add(btnFineMese);
-																		
-																				btnStorico = new JButton("Storico Mensile");
-																				btnStorico.addActionListener(new ActionListener() {
-																					public void actionPerformed(ActionEvent arg0) {
-																					}
-																				});
-																				btnStorico.setBackground(SystemColor.control);
-																				menuazioni.add(btnStorico);
+		panelIngressi = new JPanel();
+		panelIngressi.setBounds(147, 0, 650, 565);
+		BGPANE.add(panelIngressi);
+		panelIngressi.setLayout(null);
+
+		JLabel lblId = new JLabel("ID:");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblId.setBounds(45, 72, 25, 26);
+		panelIngressi.add(lblId);
+
+		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
+		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
+		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
+		panelIngressi.add(lblVisualizzaIngressi);
+
+		labelViewId = new JLabel("");
+		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		labelViewId.setBounds(77, 78, 106, 16);
+		panelIngressi.add(labelViewId);
+
+		JLabel lblData = new JLabel("Data ingresso:");
+		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblData.setBounds(195, 77, 94, 16);
+		panelIngressi.add(lblData);
+
+		lblViewData = new JLabel("");
+		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblViewData.setBounds(295, 78, 106, 16);
+		panelIngressi.add(lblViewData);
+
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBounds(45, 112, 550, 307);
+		panelIngressi.add(textPane);
+
+		JLabel lblN = new JLabel("Ingresso n:");
+		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblN.setBounds(409, 78, 75, 16);
+		panelIngressi.add(lblN);
+
+		btnNuovoIngresso = new JButton("Nuovo ingresso");				
+		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNuovoIngresso.setBounds(231, 432, 133, 35);
+		panelIngressi.add(btnNuovoIngresso);
+
+		btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
+		btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnChiudiIngressi.setBounds(195, 496, 193, 35);
+		panelIngressi.add(btnChiudiIngressi);
+
+		buttonIngressiIndietro = new JButton("<");
+		buttonIngressiIndietro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				indexIngressi--;
+				ingressi();
+			}
+		});
+		buttonIngressiIndietro.setBounds(485, 74, 41, 25);
+		panelIngressi.add(buttonIngressiIndietro);
+
+		labelCountIngressi = new JLabel("");
+		labelCountIngressi.setBounds(528, 78, 25, 16);
+		panelIngressi.add(labelCountIngressi);
+
+		buttonIngressiAvanti = new JButton(">");
+		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
+		panelIngressi.add(buttonIngressiAvanti);
+		buttonIngressiAvanti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				indexIngressi++;
+				ingressi();
+			}
+		});
+
+
+		//da ingressi a crea nuovo ingresso
+		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				panelNuovoIngresso.setVisible(true);
+				textField_2.setText("");
+				textField_3.setText("");
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+				textField_7.setText("");
+				textField_8.setText("");
+				textField_9.setText("");
+				textField_10.setText("");
+				textField_11.setText("");
+				textField_12.setText("");
+				textField_13.setText("");
+				textField_14.setText("");
+				textField_15.setText("");
+				textField_16.setText("");
+				textField_17.setText("");
+				textField_18.setText("");
+				textField_19.setText("");
+				textField_20.setText("");
+				textField_21.setText("");
+				textField_22.setText("");
+				textField_23.setText("");
+				textField_24.setText("");
+				textField_25.setText("");
+				textField_26.setText("");
+				textField_27.setText("");
+				textField_28.setText("");
+				textField_29.setText("");
+				textField_30.setText("");
+				textField_31.setText("");
+				textField_3.setEnabled(false);
+				textField_4.setEnabled(false);
+				textField_5.setEnabled(false);
+				textField_6.setEnabled(false);
+				textField_7.setEnabled(false);
+				textField_8.setEnabled(false);
+				textField_9.setEnabled(false);
+				textField_10.setEnabled(false);
+				textField_11.setEnabled(false);
+				textField_13.setEditable(false);
+				textField_14.setEditable(false);
+				textField_15.setEditable(false);
+				textField_16.setEditable(false);
+				textField_17.setEditable(false);
+				textField_18.setEditable(false);
+				textField_19.setEditable(false);
+				textField_20.setEditable(false);
+				textField_21.setEditable(false);
+				textField_23.setEditable(false);
+				textField_24.setEditable(false);
+				textField_25.setEditable(false);
+				textField_26.setEditable(false);
+				textField_27.setEditable(false);
+				textField_28.setEditable(false);
+				textField_29.setEditable(false);
+				textField_30.setEditable(false);
+				textField_31.setEditable(false);
+			}
+
+
+		});
+		btnChiudiIngressi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nascondiPannelli();
+				menuazioni.setVisible(true);
+			}
+		});
+
+
+
+
+		menuazioni = new JPanel();
+		menuazioni.setForeground(new Color(0, 0, 0));
+		menuazioni.setBorder(new TitledBorder(new MatteBorder(1, 1, 3, 3, (Color) new Color(192, 192, 192)), "Azioni", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		menuazioni.setBackground(SystemColor.controlHighlight);
+		menuazioni.setBounds(0, 0, 147, 425);
+		BGPANE.add(menuazioni);
+
+		btnArticoli = new JButton("Articoli");
+		btnArticoli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelArticoli.setVisible(true);
+				btnCambiaPos.setEnabled(false);
+				btnDettagli.setEnabled(false);
+				btnEliminaArt.setEnabled(false);
+			}
+		});
+		btnArticoli.setBackground(SystemColor.control);
+		menuazioni.add(btnArticoli);
+
+		btnNegozi = new JButton("Negozi");
+		btnNegozi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelNegozi.setVisible(true);
+				btnModNegozio.setEnabled(false);
+				btnEliminaNegozio.setEnabled(false);
+			}
+		});
+
+
+		btnNegozi.setBackground(SystemColor.control);
+		menuazioni.add(btnNegozi);
+
+		btnOrdini = new JButton("Ordini");
+		btnOrdini.setBackground(SystemColor.control);
+		menuazioni.add(btnOrdini);
+
+		btnIngressi = new JButton("Ingressi");
+		btnIngressi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				panelIngressi.setVisible(true);
+				indexIngressi = 0;
+				ingressi();
+
+			}
+		});
+		btnIngressi.setBackground(SystemColor.control);
+		menuazioni.add(btnIngressi);
+
+		btnFineMese = new JButton("Fine Mese");
+		btnFineMese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnFineMese.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				generateMonthlyStats(arg0);
+			}
+		});
+		btnFineMese.setBackground(SystemColor.control);
+		menuazioni.add(btnFineMese);
+
+		btnStorico = new JButton("Storico Mensile");
+		btnStorico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnStorico.setBackground(SystemColor.control);
+		menuazioni.add(btnStorico);
 
 		panelNuovoIngresso = new JPanel();
 		panelNuovoIngresso.setBounds(147, 0, 635, 565);
@@ -767,7 +767,7 @@ public class GUI extends JFrame {
 					Articolo10 = (String) textField_11.getText();
 
 					//controllo gli articoli entrati
-					
+
 					if(!(Articolo1.equals("")))
 						a1 = warehouse.articoloContainedByName(Articolo1);
 					if(!(Articolo2.equals("")))
@@ -1007,147 +1007,147 @@ public class GUI extends JFrame {
 		buttonCheckNuovaRiga.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("finally")
 			public void mouseClicked(MouseEvent arg0) {
-				 switch (ingressoArticleSelected) {
-		            case 1:
-		                try {
-		                    if ((Integer.parseInt(textField_22.getText()) > 0) && (Integer.parseInt(textField_12.getText()) > 0)) {
-		                    	textField_3.setEnabled(true);
-		                        textField_13.setEditable(true);
-		                        textField_23.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
+				switch (ingressoArticleSelected) {
+				case 1:
+					try {
+						if ((Integer.parseInt(textField_22.getText()) > 0) && (Integer.parseInt(textField_12.getText()) > 0)) {
+							textField_3.setEnabled(true);
+							textField_13.setEditable(true);
+							textField_23.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
 
-		            case 2:
-		                try {
-		                    if ((Integer.parseInt(textField_23.getText()) > 0) && (Integer.parseInt(textField_13.getText()) > 0)) {
-		                    	textField_4.setEnabled(true);
-		                    	textField_14.setEditable(true);
-		                    	textField_24.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");	                    
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 3:
-		                try {
-		                    if ((Integer.parseInt(textField_24.getText()) > 0) && (Integer.parseInt(textField_14.getText()) > 0)) {
-		                    	textField_5.setEnabled(true);
-		                    	textField_15.setEditable(true);
-		                    	textField_25.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 4:
-		                try {
-		                    if ((Integer.parseInt(textField_25.getText()) > 0) && (Integer.parseInt(textField_15.getText()) > 0)) {
-		                    	textField_6.setEnabled(true);
-		                    	textField_16.setEditable(true);
-		                    	textField_26.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 5:
-		                try {
-		                    if ((Integer.parseInt(textField_26.getText()) > 0) && (Integer.parseInt(textField_16.getText()) > 0)) {
-		                    	textField_7.setEnabled(true);
-		                    	textField_17.setEditable(true);
-		                    	textField_27.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 6:
-		                try {
-		                    if ((Integer.parseInt(textField_27.getText()) > 0) && (Integer.parseInt(textField_17.getText()) > 0)) {
-		                    	textField_8.setEnabled(true);
-		                    	textField_18.setEditable(true);
-		                    	textField_28.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 7:
-		                try {
-		                    if ((Integer.parseInt(textField_28.getText()) > 0) && (Integer.parseInt(textField_18.getText()) > 0)) {
-		                    	textField_9.setEnabled(true);
-		                    	textField_19.setEditable(true);
-		                    	textField_29.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 8:
-		                try {
-		                    if ((Integer.parseInt(textField_29.getText()) > 0) && (Integer.parseInt(textField_19.getText()) > 0)) {
-		                    	textField_10.setEnabled(true);
-		                    	textField_20.setEditable(true);
-		                    	textField_30.setEditable(true);
-		                        ingressoArticleSelected++;
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
-		            case 9:
-		                try {
-		                    if ((Integer.parseInt(textField_30.getText()) > 0) && (Integer.parseInt(textField_20.getText()) > 0)) {
-		                    	textField_11.setEnabled(true);
-		                    	textField_21.setEditable(true);
-		                    	textField_31.setEditable(true);
-		                        ingressoArticleSelected++;
-		                        //finite le righe
-		                        buttonCheckNuovaRiga.setEnabled(false);
-		                    } else {
-		                        JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-		                    }
-		                } catch (NumberFormatException e) {
-		                    JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-		                } finally {
-		                    break;
-		                }
+				case 2:
+					try {
+						if ((Integer.parseInt(textField_23.getText()) > 0) && (Integer.parseInt(textField_13.getText()) > 0)) {
+							textField_4.setEnabled(true);
+							textField_14.setEditable(true);
+							textField_24.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");	                    
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 3:
+					try {
+						if ((Integer.parseInt(textField_24.getText()) > 0) && (Integer.parseInt(textField_14.getText()) > 0)) {
+							textField_5.setEnabled(true);
+							textField_15.setEditable(true);
+							textField_25.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 4:
+					try {
+						if ((Integer.parseInt(textField_25.getText()) > 0) && (Integer.parseInt(textField_15.getText()) > 0)) {
+							textField_6.setEnabled(true);
+							textField_16.setEditable(true);
+							textField_26.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 5:
+					try {
+						if ((Integer.parseInt(textField_26.getText()) > 0) && (Integer.parseInt(textField_16.getText()) > 0)) {
+							textField_7.setEnabled(true);
+							textField_17.setEditable(true);
+							textField_27.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 6:
+					try {
+						if ((Integer.parseInt(textField_27.getText()) > 0) && (Integer.parseInt(textField_17.getText()) > 0)) {
+							textField_8.setEnabled(true);
+							textField_18.setEditable(true);
+							textField_28.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 7:
+					try {
+						if ((Integer.parseInt(textField_28.getText()) > 0) && (Integer.parseInt(textField_18.getText()) > 0)) {
+							textField_9.setEnabled(true);
+							textField_19.setEditable(true);
+							textField_29.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 8:
+					try {
+						if ((Integer.parseInt(textField_29.getText()) > 0) && (Integer.parseInt(textField_19.getText()) > 0)) {
+							textField_10.setEnabled(true);
+							textField_20.setEditable(true);
+							textField_30.setEditable(true);
+							ingressoArticleSelected++;
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
+				case 9:
+					try {
+						if ((Integer.parseInt(textField_30.getText()) > 0) && (Integer.parseInt(textField_20.getText()) > 0)) {
+							textField_11.setEnabled(true);
+							textField_21.setEditable(true);
+							textField_31.setEditable(true);
+							ingressoArticleSelected++;
+							//finite le righe
+							buttonCheckNuovaRiga.setEnabled(false);
+						} else {
+							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
+						}
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
+					} finally {
+						break;
+					}
 
-		        }
+				}
 			}
 		});
 		//chiudi pannello Inserisci nuovo ingresso
@@ -2423,7 +2423,8 @@ public class GUI extends JFrame {
 	}
 
 	public void generateMonthlyStats(MouseEvent arg0){
-
+		listModel.clear();
+		listModelOut.clear();
 		String call_del;
 		List<String> call_temp_el = warehouse.getReportIngressiList();
 		call_del= warehouse.chiusuraMensile();
