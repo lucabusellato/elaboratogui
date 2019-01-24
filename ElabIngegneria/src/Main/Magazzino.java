@@ -405,7 +405,7 @@ public class Magazzino implements Serializable {
 
 
     /**
-     * SAVE DATA IN FILE
+     * salvataggio database
      */
     public void save() {
 	
@@ -420,6 +420,11 @@ public class Magazzino implements Serializable {
 
 		try {
 		    file = jfc.getSelectedFile();
+		    if(!file.getPath().contains(".dat")) {
+		    	String filename = jfc.getSelectedFile().getName();
+		    	filename += ".dat";
+		    	file = new File(filename);
+		    }
 		    ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream((file)));
 		    fileOut.writeObject(INSTANCE);
 		    fileOut.flush();
