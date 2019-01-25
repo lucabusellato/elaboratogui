@@ -1,6 +1,7 @@
 package Main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.LoggingPermission;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -1332,22 +1333,24 @@ public class GUI extends JFrame {
 		panelGenerale.add(btnNewButton_6);
 
 		JButton btnNewButton_7 = new JButton("Esci");
+		btnNewButton_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				hideGUI();
+				Login.setVisible(true);
+			}
+		});
 		btnNewButton_7.setBackground(SystemColor.control);
 		btnNewButton_7.setBounds(69, 18, 59, 23);
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
+		
+		
+		
 		panelGenerale.add(btnNewButton_7);
-
-		JButton btnNewButton_8 = new JButton("Chiudi");
-		btnNewButton_8.setBackground(SystemColor.control);
-		btnNewButton_8.setBounds(33, 52, 70, 28);
-		btnNewButton_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		panelGenerale.add(btnNewButton_8);
 
 		DEBUG = new JLabel("DBG");
 		DEBUG.setHorizontalAlignment(SwingConstants.CENTER);
@@ -2079,6 +2082,7 @@ public class GUI extends JFrame {
 
 	private void panelMagazziniere(){
 		panelComuni();
+		btnIngressi.setEnabled(false);
 
 
 	}
@@ -2104,7 +2108,7 @@ public class GUI extends JFrame {
 		menuazioni.setVisible(true);
 		//panelArticoli.setVisible(true); al click del bottone
 		panelGenerale.setVisible(true);
-
+		
 	}
 
 
