@@ -171,7 +171,7 @@ public class GUI extends JFrame {
 
 		startGUI();
 
-		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
+		
 
 		//inizializza i componenti
 		hideGUI();
@@ -192,567 +192,568 @@ public class GUI extends JFrame {
 
 	private void startGUI() throws ArticleDontExistInWareHouseException {
 		//INIT GUI DESIGN
+		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
 		BGPANE = new JPanel();
 		BGPANE.setBackground(SystemColor.controlHighlight);
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
-						
-						
-								Login = new JPanel();
-								Login.setBackground(SystemColor.controlHighlight);
-								Login.setBounds(245, 160, 293, 240);
-								BGPANE.add(Login);
-								Login.setLayout(null);		
-								
-										JLabel lblNewLabel = new JLabel("Login");
-										lblNewLabel.setBackground(SystemColor.controlHighlight);
-										lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-										lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-										lblNewLabel.setBounds(0, 0, 293, 66);
-										Login.add(lblNewLabel);
-										
-												JPanel panel_1 = new JPanel();
-												panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-												panel_1.setBounds(0, 65, 293, 175);
-												Login.add(panel_1);
-												panel_1.setLayout(null);
-												
-														JLabel lblNewLabel_1 = new JLabel("Username");
-														lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 13));
-														lblNewLabel_1.setBounds(24, 41, 80, 30);
-														panel_1.add(lblNewLabel_1);
-														
-																textField = new JTextField();
-																textField.setBounds(89, 41, 141, 30);
-																panel_1.add(textField);
-																textField.setColumns(10);
-																textField.setText("magazziniere"); // loginuser
-																
-																		JLabel lblNewLabel_2 = new JLabel("Password");
-																		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 13));
-																		lblNewLabel_2.setBounds(24, 82, 80, 30);
-																		panel_1.add(lblNewLabel_2);
-																		
-																				passwordField = new JPasswordField();
-																				passwordField.setBounds(89, 82, 141, 30);
-																				panel_1.add(passwordField);
-																				passwordField.setText("1111");
-																				
-																				
-																						//BOTTONE LOGIN
-																						btnLogin = new JButton("Accedi");
-																						btnLogin.addActionListener(new ActionListener() {
-																							public void actionPerformed(ActionEvent e) {
-																								loginButtonActionToDo(e);
-																							}
-																						});
-																						
-																						
-																								btnLogin.setBounds(90, 123, 112, 41);
-																								panel_1.add(btnLogin);
-				
-				
-				
-				
-						menuazioni = new JPanel();
-						menuazioni.setForeground(new Color(0, 0, 0));
-						menuazioni.setBorder(new TitledBorder(new MatteBorder(1, 1, 3, 3, (Color) new Color(192, 192, 192)), "Azioni", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
-						menuazioni.setBackground(SystemColor.controlHighlight);
-						menuazioni.setBounds(0, 0, 147, 425);
-						BGPANE.add(menuazioni);
-						
-								btnArticoli = new JButton("Articoli");
-								btnArticoli.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										nascondiPannelli();
-										panelArticoli.setVisible(true);
-										btnCambiaPos.setEnabled(false);
-										btnDettagli.setEnabled(false);
-										btnEliminaArt.setEnabled(false);
-									}
-								});
-								btnArticoli.setBackground(SystemColor.control);
-								menuazioni.add(btnArticoli);
-								
-										btnNegozi = new JButton("Negozi");
-										btnNegozi.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent arg0) {
-												nascondiPannelli();
-												panelNegozi.setVisible(true);
-											}
-										});
-										
-										
-												btnNegozi.setBackground(SystemColor.control);
-												menuazioni.add(btnNegozi);
-												
-														btnOrdini = new JButton("Ordini");
-														btnOrdini.setBackground(SystemColor.control);
-														menuazioni.add(btnOrdini);
-														
-																btnIngressi = new JButton("Ingressi");
-																btnIngressi.setBackground(SystemColor.control);
-																menuazioni.add(btnIngressi);
-																
-																		btnFineMese = new JButton("Fine Mese");
-																		btnFineMese.setBackground(SystemColor.control);
-																		menuazioni.add(btnFineMese);
-																		
-																				btnStorico = new JButton("Storico Mensile");
-																				btnStorico.setBackground(SystemColor.control);
-																				menuazioni.add(btnStorico);
-		
-				panelArticoli = new JPanel();
-				panelArticoli.setBackground(SystemColor.controlHighlight);
-				panelArticoli.setBounds(147, 0, 650, 570);
-				BGPANE.add(panelArticoli);
-				
-						panelArticoli.setLayout(null);
-						
-						
-						
-								PanelAggiungiArticolo = new JPanel();
-								PanelAggiungiArticolo.setBounds(0, 0, 500, 570);
-								panelArticoli.add(PanelAggiungiArticolo);
-								PanelAggiungiArticolo.setVisible(false);
-								PanelAggiungiArticolo.setLayout(null);
-								
-										lblGestioneArticolo = new JLabel("Gestione Articolo");
-										lblGestioneArticolo.setHorizontalAlignment(SwingConstants.CENTER);
-										lblGestioneArticolo.setFont(new Font("Arial", Font.ITALIC, 29));
-										lblGestioneArticolo.setBounds(125, 0, 250, 50);
-										PanelAggiungiArticolo.add(lblGestioneArticolo);
-										
-												lblGenArticolo = new JLabel("Info Generali");
-												lblGenArticolo.setHorizontalAlignment(SwingConstants.CENTER);
-												lblGenArticolo.setFont(new Font("Arial", Font.BOLD, 13));
-												lblGenArticolo.setBounds(192, 54, 115, 29);
-												PanelAggiungiArticolo.add(lblGenArticolo);
-												
-														btnArticoloReset = new JButton("Reset");
-														btnArticoloReset.addMouseListener(new MouseAdapter() {
-															@Override
-															public void mouseClicked(MouseEvent arg0) {
-																clearTexts(arg0);
-															}
-														});
-														btnArticoloReset.setBounds(25, 509, 100, 50);
-														PanelAggiungiArticolo.add(btnArticoloReset);
-														
-																btnUpdateArticolo = new JButton("Aggiorna");
-																btnUpdateArticolo.addMouseListener(new MouseAdapter() {
-																	@Override
-																	public void mouseClicked(MouseEvent arg0) {
-																		try {
-																			aggiungiAlDB(arg0,"articolo");
-																			if(varflag==1) {//cancelliamo l'articolo perchè l'hash cambia se cambia la data o prezzo
-																				warehouse.removeArticolo(temp);
-																			}
-																			clearTexts(arg0);
-																			closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
-																		} catch (Exception e) {
-																			// TODO Auto-generated catch block
-																			e.printStackTrace();
-																		}
-																		fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
-																	}
 
 
-																});
-																btnUpdateArticolo.setBounds(135, 509, 230, 50);
-																PanelAggiungiArticolo.add(btnUpdateArticolo);
-																
-																		btnAnnullaArticolo = new JButton("Annulla");
-																		btnAnnullaArticolo.addMouseListener(new MouseAdapter() {
-																			@Override
-																			public void mouseClicked(MouseEvent e) {
-																				closeButtonAction((JPanel)e.getComponent().getParent(),"articoli");
-																			}
-																		});
-																		btnAnnullaArticolo.setBounds(375, 509, 100, 50);
-																		PanelAggiungiArticolo.add(btnAnnullaArticolo);
-																		
-																				txtNomeArticolo = new JTextField();
-																				txtNomeArticolo.addMouseListener(new MouseAdapter() {
-																					@Override
-																					public void mouseClicked(MouseEvent e) {
-																						clearText(e);
-																					}
-																				});
-																				lblGenArticolo.setLabelFor(txtNomeArticolo);
-																				txtNomeArticolo.setHorizontalAlignment(SwingConstants.CENTER);
-																				txtNomeArticolo.setForeground(Color.GRAY);
-																				txtNomeArticolo.setFont(new Font("Arial", Font.PLAIN, 13));
-																				txtNomeArticolo.setText("Nome Articolo");
-																				txtNomeArticolo.setToolTipText("Nome");
-																				txtNomeArticolo.setBounds(66, 94, 150, 30);
-																				PanelAggiungiArticolo.add(txtNomeArticolo);
-																				txtNomeArticolo.setColumns(30);
-																				
-																						txtPrezzoArticolo = new JTextField();
-																						txtPrezzoArticolo.addMouseListener(new MouseAdapter() {
-																							@Override
-																							public void mouseClicked(MouseEvent e) {
-																								clearText(e);
-																							}
-																						});
-																						txtPrezzoArticolo.setForeground(Color.GRAY);
-																						txtPrezzoArticolo.setFont(new Font("Arial", Font.PLAIN, 13));
-																						txtPrezzoArticolo.setHorizontalAlignment(SwingConstants.CENTER);
-																						txtPrezzoArticolo.setText("Prezzo Articolo/i");
-																						txtPrezzoArticolo.setToolTipText("Prezzo");
-																						txtPrezzoArticolo.setColumns(10);
-																						txtPrezzoArticolo.setBounds(66, 135, 150, 30);
-																						PanelAggiungiArticolo.add(txtPrezzoArticolo);
-																						
-																								txtData = new JTextField();
-																								txtData.addMouseListener(new MouseAdapter() {
-																									@Override
-																									public void mouseClicked(MouseEvent e) {
-																										clearText(e);
-																									}
-																								});
-																								txtData.setFont(new Font("Arial", Font.PLAIN, 13));
-																								txtData.setForeground(Color.GRAY);
-																								txtData.setHorizontalAlignment(SwingConstants.CENTER);
-																								txtData.setText("gg/mm/aaaa");
-																								txtData.setToolTipText("Data");
-																								txtData.setColumns(10);
-																								txtData.setBounds(282, 94, 150, 30);
-																								PanelAggiungiArticolo.add(txtData);
-																								
-																										txtQuantit = new JTextField();
-																										txtQuantit.addMouseListener(new MouseAdapter() {
-																											@Override
-																											public void mouseClicked(MouseEvent e) {
-																												clearText(e);
-																											}
-																										});
-																										txtQuantit.setForeground(Color.GRAY);
-																										txtQuantit.setFont(new Font("Arial", Font.PLAIN, 13));
-																										txtQuantit.setHorizontalAlignment(SwingConstants.CENTER);
-																										txtQuantit.setText("Quantit\u00E0");
-																										txtQuantit.setColumns(10);
-																										txtQuantit.setBounds(282, 135, 150, 30);
-																										PanelAggiungiArticolo.add(txtQuantit);
-																										
-																												txtDescrizioneArticolo = new JTextField();
-																												txtDescrizioneArticolo.addMouseListener(new MouseAdapter() {
-																													@Override
-																													public void mouseClicked(MouseEvent e) {
-																														clearText(e);
-																													}
-																												});
-																												txtDescrizioneArticolo.setFont(new Font("Arial", Font.PLAIN, 13));
-																												txtDescrizioneArticolo.setHorizontalAlignment(SwingConstants.CENTER);
-																												txtDescrizioneArticolo.setText("Descrizione Articolo");
-																												txtDescrizioneArticolo.setForeground(Color.GRAY);
-																												txtDescrizioneArticolo.setBounds(25, 183, 450, 80);
-																												PanelAggiungiArticolo.add(txtDescrizioneArticolo);
-																												txtDescrizioneArticolo.setColumns(10);
-																												
-																														JSeparator separator = new JSeparator();
-																														separator.setBounds(10, 274, 480, 2);
-																														PanelAggiungiArticolo.add(separator);
-																														
-																																JSeparator separator_1 = new JSeparator();
-																																separator_1.setBounds(10, 496, 480, 2);
-																																PanelAggiungiArticolo.add(separator_1);
-																																
-																																		JLabel lblSpecifiche = new JLabel("Specifiche");
-																																		lblSpecifiche.setHorizontalAlignment(SwingConstants.CENTER);
-																																		lblSpecifiche.setFont(new Font("Arial", Font.BOLD, 13));
-																																		lblSpecifiche.setBounds(192, 287, 115, 29);
-																																		PanelAggiungiArticolo.add(lblSpecifiche);
-																																		
-																																				JLabel lblMateriale = new JLabel("");
-																																				lblMateriale.setFont(new Font("Arial", Font.PLAIN, 15));
-																																				lblMateriale.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Materiale", TitledBorder.CENTER, TitledBorder.BOTTOM, null, new Color(109, 109, 109)));
-																																				lblMateriale.setForeground(Color.GRAY);
-																																				lblMateriale.setHorizontalAlignment(SwingConstants.CENTER);
-																																				lblMateriale.setBounds(10, 322, 235, 160);
-																																				PanelAggiungiArticolo.add(lblMateriale);
-																																				
-																																				
-																																						rdbtnPoliestere = new JRadioButton("Poliestere");
-																																						rdbtnPoliestere.setBounds(25, 340, 100, 25);
-																																						PanelAggiungiArticolo.add(rdbtnPoliestere);
-																																						group_btn.add(rdbtnPoliestere);
-																																						
-																																								rdbtnSilicone = new JRadioButton("Silicone");
-																																								rdbtnSilicone.setBounds(25, 368, 100, 25);
-																																								PanelAggiungiArticolo.add(rdbtnSilicone);
-																																								group_btn.add(rdbtnSilicone);
-																																								
-																																										rdbtnPelleSintetica = new JRadioButton("Finta Pelle");
-																																										rdbtnPelleSintetica.setBounds(25, 396, 100, 25);
-																																										PanelAggiungiArticolo.add(rdbtnPelleSintetica);
-																																										group_btn.add(rdbtnPelleSintetica);
-																																										
-																																												rdbtnGoretex = new JRadioButton("Gore-Tex");
-																																												rdbtnGoretex.setBounds(25, 424, 100, 25);
-																																												PanelAggiungiArticolo.add(rdbtnGoretex);
-																																												group_btn.add(rdbtnGoretex);
-																																												
-																																														rdbtnElastan = new JRadioButton("Elastan");
-																																														rdbtnElastan.setBounds(125, 340, 100, 25);
-																																														PanelAggiungiArticolo.add(rdbtnElastan);
-																																														group_btn.add(rdbtnElastan);
-																																														
-																																																rdbtnPolietilene = new JRadioButton("Polietilene");
-																																																rdbtnPolietilene.setBounds(125, 368, 100, 25);
-																																																PanelAggiungiArticolo.add(rdbtnPolietilene);
-																																																group_btn.add(rdbtnPolietilene);
-																																																
-																																																		rdbtnPoliammide = new JRadioButton("Poliammide");
-																																																		rdbtnPoliammide.setBounds(125, 396, 100, 25);
-																																																		PanelAggiungiArticolo.add(rdbtnPoliammide);
-																																																		group_btn.add(rdbtnPoliammide);
-																																																		
-																																																				JComboBox comboBox = new JComboBox();
-																																																				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Atletica", "Basket", "Calcio", "Ciclismo", "Danza", "Hockey", "Golf", "Nuoto", "Palestra", "Pallavolo", "Rufting", "Rugby", "Scii", "Tennis"}));
-																																																				comboBox.setBounds(275, 378, 200, 30);
-																																																				PanelAggiungiArticolo.add(comboBox);
-																																																				
-																																																						JLabel labelSport = new JLabel("");
-																																																						labelSport.setHorizontalAlignment(SwingConstants.CENTER);
-																																																						labelSport.setForeground(Color.GRAY);
-																																																						labelSport.setFont(new Font("Arial", Font.PLAIN, 15));
-																																																						labelSport.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Sport", TitledBorder.CENTER, TitledBorder.BOTTOM, null, new Color(109, 109, 109)));
-																																																						labelSport.setBounds(255, 322, 235, 160);
-																																																						PanelAggiungiArticolo.add(labelSport);
-																																																						PanelAggiungiArticolo.setVisible(false);
-																																																						
-																																																								PanelDettagli = new JPanel();
-																																																								PanelDettagli.setBounds(75, 0, 500, 571);
-																																																								panelArticoli.add(PanelDettagli);
-																																																								PanelDettagli.setVisible(false);
-																																																								PanelDettagli.setLayout(null);
-																																																								
-																																																										JLabel lblNewLabel_3 = new JLabel("Dettagli Articolo");
-																																																										lblNewLabel_3.setBackground(SystemColor.controlHighlight);
-																																																										lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-																																																										lblNewLabel_3.setBounds(10, 24, 132, 34);
-																																																										lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-																																																										PanelDettagli.add(lblNewLabel_3);
-																																																										
-																																																												InfoPanel = new JPanel();
-																																																												InfoPanel.setBackground(SystemColor.controlHighlight);
-																																																												InfoPanel.setBounds(10, 59, 480, 100);
-																																																												PanelDettagli.add(InfoPanel);
-																																																												InfoPanel.setLayout(null);
-																																																												
-																																																														labelID = new JLabel("n/d");
-																																																														labelID.setHorizontalAlignment(SwingConstants.CENTER);
-																																																														labelID.setBounds(10, 11, 100, 20);
-																																																														
-																																																																//labelID.setText("ciao"); test modifica
-																																																														
-																																																																InfoPanel.add(labelID);
-																																																																
-																																																																		lblE = new JLabel("n/d");
-																																																																		lblE.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																		lblE.setBounds(10, 38, 100, 20);
-																																																																		InfoPanel.add(lblE);
-																																																																		
-																																																																				lblI = new JLabel("n/d");
-																																																																				lblI.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																				lblI.setBounds(10, 66, 100, 20);
-																																																																				InfoPanel.add(lblI);
-																																																																				
-																																																																						lblB = new JLabel("n/d");
-																																																																						lblB.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																						lblB.setBounds(120, 14, 100, 20);
-																																																																						InfoPanel.add(lblB);
-																																																																						
-																																																																								lblF = new JLabel("n/d");
-																																																																								lblF.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																								lblF.setBounds(120, 41, 100, 20);
-																																																																								InfoPanel.add(lblF);
-																																																																								
-																																																																										lblNd = new JLabel("n/d");
-																																																																										lblNd.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																										lblNd.setBounds(120, 69, 100, 20);
-																																																																										InfoPanel.add(lblNd);
-																																																																										
-																																																																												lblC = new JLabel("n/d");
-																																																																												lblC.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																												lblC.setBounds(230, 14, 100, 20);
-																																																																												InfoPanel.add(lblC);
-																																																																												
-																																																																														lblG = new JLabel("n/d");
-																																																																														lblG.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																														lblG.setBounds(230, 41, 100, 20);
-																																																																														InfoPanel.add(lblG);
-																																																																														
-																																																																																lblNd_1 = new JLabel("n/d");
-																																																																																lblNd_1.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																																lblNd_1.setBounds(230, 69, 100, 20);
-																																																																																InfoPanel.add(lblNd_1);
-																																																																																
-																																																																																		lblD = new JLabel("n/d");
-																																																																																		lblD.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																																		lblD.setBounds(340, 14, 100, 20);
-																																																																																		InfoPanel.add(lblD);
-																																																																																		
-																																																																																				lblH = new JLabel("n/d");
-																																																																																				lblH.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																																				lblH.setBounds(340, 41, 100, 20);
-																																																																																				InfoPanel.add(lblH);
-																																																																																				
-																																																																																						lblNd_2 = new JLabel("n/d");
-																																																																																						lblNd_2.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																																						lblNd_2.setBounds(340, 69, 100, 20);
-																																																																																						InfoPanel.add(lblNd_2);
-																																																																																						
-																																																																																								JButton btnNewButton_2 = new JButton("Chiudi");
-																																																																																								btnNewButton_2.addMouseListener(new MouseAdapter() {
-																																																																																									@Override
-																																																																																									public void mouseClicked(MouseEvent arg0) {
-																																																																																										closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
-																																																																																									}
-																																																																																								});
-																																																																																								btnNewButton_2.setBounds(193, 444, 114, 45);
-																																																																																								PanelDettagli.add(btnNewButton_2);
-																																																																																								
-																																																																																										PanelMainArt = new JPanel();
-																																																																																										PanelMainArt.setBounds(0, 0, 650, 571);
-																																																																																										panelArticoli.add(PanelMainArt);
-																																																																																										PanelMainArt.setLayout(null);
-																																																																																										
-																																																																																												TablePanel = new JPanel();
-																																																																																												TablePanel.setBounds(0, 46, 650, 375);
-																																																																																												PanelMainArt.add(TablePanel);
-																																																																																												TablePanel.setLayout(new BorderLayout(0, 0));
-																																																																																												
-																																																																																												
-																																																																																												
-																																																																																														tableArticoli = new JTable();
-																																																																																														tableArticoli.addMouseListener(new MouseAdapter() {
-																																																																																															@Override
-																																																																																															public void mouseClicked(MouseEvent e) {
-																																																																																																tabellaRigaSel(false,"articoli",e); // false è l'azione, non visualizza il pannello ma mantiene solo il valore sul box debug
+		Login = new JPanel();
+		Login.setBackground(SystemColor.controlHighlight);
+		Login.setBounds(245, 160, 293, 240);
+		BGPANE.add(Login);
+		Login.setLayout(null);		
 
-																																																																																															}
-																																																																																														});
-																																																																																														TablePanel.add(tableArticoli, BorderLayout.CENTER);
-																																																																																														TablePanel.add(tableArticoli.getTableHeader(), BorderLayout.NORTH);
-																																																																																														tableArticoli.setAlignmentY(Component.TOP_ALIGNMENT);
-																																																																																														tableArticoli.setRowHeight(25);
-																																																																																														tableArticoli.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-																																																																																														tableArticoli.setFont(new Font("Arial", Font.PLAIN, 13));
-																																																																																														tableArticoli.setShowVerticalLines(false);
-																																																																																														tableArticoli.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-																																																																																														tableArticoli.setFillsViewportHeight(true);
-																																																																																														tableArticoli.setCellSelectionEnabled(true);
-																																																																																														tableArticoli.setBackground(Color.LIGHT_GRAY);
-																																																																																														tableArticoli.setModel(new DefaultTableModel(
-																																																																																																new Object[][] {
-																																																																																																},
-																																																																																																new String[] {
-																																																																																																		"ID", "Nome", "Prezzo", "Sport", "Data inserimento", "Materiale", "Q.ta", "Posizione"
-																																																																																																}
-																																																																																																) {
-																																																																																															Class[] types = new Class [] {
-																																																																																																	java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class
-																																																																																															};
+		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setBackground(SystemColor.controlHighlight);
+		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(0, 0, 293, 66);
+		Login.add(lblNewLabel);
 
-																																																																																															boolean[] columnEditables = new boolean[] {
-																																																																																																	false, false, false, false, false, false, false, false
-																																																																																															};
-																																																																																															public boolean isCellEditable(int row, int column) {
-																																																																																																return columnEditables[column];
-																																																																																															}
-																																																																																														});
-																																																																																														tableArticoli.getColumnModel().getColumn(0).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(1).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(2).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(3).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(4).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(5).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(6).setResizable(false);
-																																																																																														tableArticoli.getColumnModel().getColumn(7).setResizable(false);
-																																																																																														tableArticoli.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-																																																																																														
-																																																																																														
-																																																																																																btnCambiaPos = new JButton("Cambia Posizione");
-																																																																																																btnCambiaPos.setBounds(10, 434, 220, 50);
-																																																																																																PanelMainArt.add(btnCambiaPos);
-																																																																																																btnCambiaPos.setBackground(SystemColor.control);
-																																																																																																btnCambiaPos.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-																																																																																																
-																																																																																																		btnDettagli = new JButton("Dettagli");
-																																																																																																		btnDettagli.setBounds(240, 434, 140, 110);
-																																																																																																		PanelMainArt.add(btnDettagli);
-																																																																																																		btnDettagli.addMouseListener(new MouseAdapter() {
-																																																																																																			@Override
-																																																																																																			public void mouseClicked(MouseEvent arg0) {
-																																																																																																				tabellaRigaSel(true,"articoli",arg0);
-																																																																																																			}
-																																																																																																		});
-																																																																																																		btnDettagli.setBackground(SystemColor.control);
-																																																																																																		btnDettagli.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-																																																																																																		
-																																																																																																				JButton btnAggiungiArticolo = new JButton("Aggiungi Prodotto");
-																																																																																																				btnAggiungiArticolo.addMouseListener(new MouseAdapter() {
-																																																																																																					@Override
-																																																																																																					public void mouseClicked(MouseEvent e) {
-																																																																																																						addArticlePanel();
-																																																																																																						varflag = 0;
-																																																																																																					}
-																																																																																																				});
-																																																																																																				btnAggiungiArticolo.setBounds(390, 434, 220, 50);
-																																																																																																				PanelMainArt.add(btnAggiungiArticolo);
-																																																																																																				btnAggiungiArticolo.setBackground(SystemColor.control);
-																																																																																																				btnAggiungiArticolo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-																																																																																																				
-																																																																																																						btnModificaArticolo = new JButton("Modifica");
-																																																																																																						btnModificaArticolo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-																																																																																																						btnModificaArticolo.setBounds(10, 495, 220, 50);
-																																																																																																						PanelMainArt.add(btnModificaArticolo);
-																																																																																																						
-																																																																																																						
-																																																																																																								btnModificaArticolo.addMouseListener(new MouseAdapter(){
-																																																																																																									public void mouseClicked(MouseEvent e) {
-																																																																																																										try {
-																																																																																																											ModArticlePanel(tableArticoli.getSelectedRow());
-																																																																																																										} catch (ArticleDontExistInWareHouseException e1) {
-																																																																																																											// TODO Auto-generated catch block
-																																																																																																											e1.printStackTrace();
-																																																																																																										} // passo la riga della tabella che è stata selezionata
-																																																																																																									}
-																																																																																																								});
-																																																																																																								
-																																																																																																										btnEliminaArt = new JButton("Elimina");
-																																																																																																										btnEliminaArt.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-																																																																																																										btnEliminaArt.setBounds(390, 495, 220, 49);
-																																																																																																										PanelMainArt.add(btnEliminaArt);
-																																																																																																										
-																																																																																																												btnEliminaArt.addMouseListener(new MouseAdapter(){
-																																																																																																													public void mouseClicked(MouseEvent e) {
-																																																																																																														warehouse.removeArticolo(warehouse.getArticolo(tableArticoli.getSelectedRow()));
-																																																																																																														fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
-																																																																																																										
-																																																																																																													}
-																																																																																																												});
-																																																																																																												
-																																																																																																														//
-																																																																																																														fillTable("articoli",(DefaultTableModel) tableArticoli.getModel()); // riempe la tabella
-																																																																																																														
-																																																																																																														
-																																																																																																														
-																																																																																																																JLabel lblArticoli = new JLabel("Articoli");
-																																																																																																																lblArticoli.setBounds(279, 0, 91, 35);
-																																																																																																																PanelMainArt.add(lblArticoli);
-																																																																																																																lblArticoli.setFont(new Font("Arial", Font.ITALIC, 30));
-																																																																																																																lblArticoli.setHorizontalAlignment(SwingConstants.CENTER);
-																																																																																																																lblArticoli.setBackground(SystemColor.window);
-																																																																																																																btnCambiaPos.addActionListener(new ActionListener() {
-																																																																																																																	public void actionPerformed(ActionEvent arg0) {
-																																																																																																																		modificaPosizioneArticolo(arg0, tableArticoli.getSelectedRow());
-																																																																																																																	}
-																																																																																																																});
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(0, 65, 293, 175);
+		Login.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("Username");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblNewLabel_1.setBounds(24, 41, 80, 30);
+		panel_1.add(lblNewLabel_1);
+
+		textField = new JTextField();
+		textField.setBounds(89, 41, 141, 30);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		textField.setText("magazziniere"); // loginuser
+
+		JLabel lblNewLabel_2 = new JLabel("Password");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblNewLabel_2.setBounds(24, 82, 80, 30);
+		panel_1.add(lblNewLabel_2);
+
+		passwordField = new JPasswordField();
+		passwordField.setBounds(89, 82, 141, 30);
+		panel_1.add(passwordField);
+		passwordField.setText("1111");
+
+
+		//BOTTONE LOGIN
+		btnLogin = new JButton("Accedi");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginButtonActionToDo(e);
+			}
+		});
+
+
+		btnLogin.setBounds(90, 123, 112, 41);
+		panel_1.add(btnLogin);
+
+
+
+
+		menuazioni = new JPanel();
+		menuazioni.setForeground(new Color(0, 0, 0));
+		menuazioni.setBorder(new TitledBorder(new MatteBorder(1, 1, 3, 3, (Color) new Color(192, 192, 192)), "Azioni", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		menuazioni.setBackground(SystemColor.controlHighlight);
+		menuazioni.setBounds(0, 0, 147, 425);
+		BGPANE.add(menuazioni);
+
+		btnArticoli = new JButton("Articoli");
+		btnArticoli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelArticoli.setVisible(true);
+				btnCambiaPos.setEnabled(false);
+				btnDettagli.setEnabled(false);
+				btnEliminaArt.setEnabled(false);
+			}
+		});
+		btnArticoli.setBackground(SystemColor.control);
+		menuazioni.add(btnArticoli);
+
+		btnNegozi = new JButton("Negozi");
+		btnNegozi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelNegozi.setVisible(true);
+			}
+		});
+
+
+		btnNegozi.setBackground(SystemColor.control);
+		menuazioni.add(btnNegozi);
+
+		btnOrdini = new JButton("Ordini");
+		btnOrdini.setBackground(SystemColor.control);
+		menuazioni.add(btnOrdini);
+
+		btnIngressi = new JButton("Ingressi");
+		btnIngressi.setBackground(SystemColor.control);
+		menuazioni.add(btnIngressi);
+
+		btnFineMese = new JButton("Fine Mese");
+		btnFineMese.setBackground(SystemColor.control);
+		menuazioni.add(btnFineMese);
+
+		btnStorico = new JButton("Storico Mensile");
+		btnStorico.setBackground(SystemColor.control);
+		menuazioni.add(btnStorico);
+
+		panelArticoli = new JPanel();
+		panelArticoli.setBackground(SystemColor.controlHighlight);
+		panelArticoli.setBounds(147, 0, 650, 570);
+		BGPANE.add(panelArticoli);
+
+		panelArticoli.setLayout(null);
+
+
+
+		PanelAggiungiArticolo = new JPanel();
+		PanelAggiungiArticolo.setBounds(0, 0, 500, 570);
+		panelArticoli.add(PanelAggiungiArticolo);
+		PanelAggiungiArticolo.setVisible(false);
+		PanelAggiungiArticolo.setLayout(null);
+
+		lblGestioneArticolo = new JLabel("Gestione Articolo");
+		lblGestioneArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGestioneArticolo.setFont(new Font("Arial", Font.ITALIC, 29));
+		lblGestioneArticolo.setBounds(125, 0, 250, 50);
+		PanelAggiungiArticolo.add(lblGestioneArticolo);
+
+		lblGenArticolo = new JLabel("Info Generali");
+		lblGenArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenArticolo.setFont(new Font("Arial", Font.BOLD, 13));
+		lblGenArticolo.setBounds(192, 54, 115, 29);
+		PanelAggiungiArticolo.add(lblGenArticolo);
+
+		btnArticoloReset = new JButton("Reset");
+		btnArticoloReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				clearTexts(arg0);
+			}
+		});
+		btnArticoloReset.setBounds(25, 509, 100, 50);
+		PanelAggiungiArticolo.add(btnArticoloReset);
+
+		btnUpdateArticolo = new JButton("Aggiorna");
+		btnUpdateArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					aggiungiAlDB(arg0,"articolo");
+					if(varflag==1) {//cancelliamo l'articolo perchè l'hash cambia se cambia la data o prezzo
+						warehouse.removeArticolo(temp);
+					}
+					clearTexts(arg0);
+					closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
+			}
+
+
+		});
+		btnUpdateArticolo.setBounds(135, 509, 230, 50);
+		PanelAggiungiArticolo.add(btnUpdateArticolo);
+
+		btnAnnullaArticolo = new JButton("Annulla");
+		btnAnnullaArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				closeButtonAction((JPanel)e.getComponent().getParent(),"articoli");
+			}
+		});
+		btnAnnullaArticolo.setBounds(375, 509, 100, 50);
+		PanelAggiungiArticolo.add(btnAnnullaArticolo);
+
+		txtNomeArticolo = new JTextField();
+		txtNomeArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearText(e);
+			}
+		});
+		lblGenArticolo.setLabelFor(txtNomeArticolo);
+		txtNomeArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNomeArticolo.setForeground(Color.GRAY);
+		txtNomeArticolo.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtNomeArticolo.setText("Nome Articolo");
+		txtNomeArticolo.setToolTipText("Nome");
+		txtNomeArticolo.setBounds(66, 94, 150, 30);
+		PanelAggiungiArticolo.add(txtNomeArticolo);
+		txtNomeArticolo.setColumns(30);
+
+		txtPrezzoArticolo = new JTextField();
+		txtPrezzoArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearText(e);
+			}
+		});
+		txtPrezzoArticolo.setForeground(Color.GRAY);
+		txtPrezzoArticolo.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtPrezzoArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtPrezzoArticolo.setText("Prezzo Articolo/i");
+		txtPrezzoArticolo.setToolTipText("Prezzo");
+		txtPrezzoArticolo.setColumns(10);
+		txtPrezzoArticolo.setBounds(66, 135, 150, 30);
+		PanelAggiungiArticolo.add(txtPrezzoArticolo);
+
+		txtData = new JTextField();
+		txtData.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearText(e);
+			}
+		});
+		txtData.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtData.setForeground(Color.GRAY);
+		txtData.setHorizontalAlignment(SwingConstants.CENTER);
+		txtData.setText("gg/mm/aaaa");
+		txtData.setToolTipText("Data");
+		txtData.setColumns(10);
+		txtData.setBounds(282, 94, 150, 30);
+		PanelAggiungiArticolo.add(txtData);
+
+		txtQuantit = new JTextField();
+		txtQuantit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearText(e);
+			}
+		});
+		txtQuantit.setForeground(Color.GRAY);
+		txtQuantit.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtQuantit.setHorizontalAlignment(SwingConstants.CENTER);
+		txtQuantit.setText("Quantit\u00E0");
+		txtQuantit.setColumns(10);
+		txtQuantit.setBounds(282, 135, 150, 30);
+		PanelAggiungiArticolo.add(txtQuantit);
+
+		txtDescrizioneArticolo = new JTextField();
+		txtDescrizioneArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clearText(e);
+			}
+		});
+		txtDescrizioneArticolo.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtDescrizioneArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDescrizioneArticolo.setText("Descrizione Articolo");
+		txtDescrizioneArticolo.setForeground(Color.GRAY);
+		txtDescrizioneArticolo.setBounds(25, 183, 450, 80);
+		PanelAggiungiArticolo.add(txtDescrizioneArticolo);
+		txtDescrizioneArticolo.setColumns(10);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 274, 480, 2);
+		PanelAggiungiArticolo.add(separator);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 496, 480, 2);
+		PanelAggiungiArticolo.add(separator_1);
+
+		JLabel lblSpecifiche = new JLabel("Specifiche");
+		lblSpecifiche.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSpecifiche.setFont(new Font("Arial", Font.BOLD, 13));
+		lblSpecifiche.setBounds(192, 287, 115, 29);
+		PanelAggiungiArticolo.add(lblSpecifiche);
+
+		JLabel lblMateriale = new JLabel("");
+		lblMateriale.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblMateriale.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Materiale", TitledBorder.CENTER, TitledBorder.BOTTOM, null, new Color(109, 109, 109)));
+		lblMateriale.setForeground(Color.GRAY);
+		lblMateriale.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMateriale.setBounds(10, 322, 235, 160);
+		PanelAggiungiArticolo.add(lblMateriale);
+
+
+		rdbtnPoliestere = new JRadioButton("Poliestere");
+		rdbtnPoliestere.setBounds(25, 340, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnPoliestere);
+		group_btn.add(rdbtnPoliestere);
+
+		rdbtnSilicone = new JRadioButton("Silicone");
+		rdbtnSilicone.setBounds(25, 368, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnSilicone);
+		group_btn.add(rdbtnSilicone);
+
+		rdbtnPelleSintetica = new JRadioButton("Finta Pelle");
+		rdbtnPelleSintetica.setBounds(25, 396, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnPelleSintetica);
+		group_btn.add(rdbtnPelleSintetica);
+
+		rdbtnGoretex = new JRadioButton("Gore-Tex");
+		rdbtnGoretex.setBounds(25, 424, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnGoretex);
+		group_btn.add(rdbtnGoretex);
+
+		rdbtnElastan = new JRadioButton("Elastan");
+		rdbtnElastan.setBounds(125, 340, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnElastan);
+		group_btn.add(rdbtnElastan);
+
+		rdbtnPolietilene = new JRadioButton("Polietilene");
+		rdbtnPolietilene.setBounds(125, 368, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnPolietilene);
+		group_btn.add(rdbtnPolietilene);
+
+		rdbtnPoliammide = new JRadioButton("Poliammide");
+		rdbtnPoliammide.setBounds(125, 396, 100, 25);
+		PanelAggiungiArticolo.add(rdbtnPoliammide);
+		group_btn.add(rdbtnPoliammide);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Atletica", "Basket", "Calcio", "Ciclismo", "Danza", "Hockey", "Golf", "Nuoto", "Palestra", "Pallavolo", "Rufting", "Rugby", "Scii", "Tennis"}));
+		comboBox.setBounds(275, 378, 200, 30);
+		PanelAggiungiArticolo.add(comboBox);
+
+		JLabel labelSport = new JLabel("");
+		labelSport.setHorizontalAlignment(SwingConstants.CENTER);
+		labelSport.setForeground(Color.GRAY);
+		labelSport.setFont(new Font("Arial", Font.PLAIN, 15));
+		labelSport.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Sport", TitledBorder.CENTER, TitledBorder.BOTTOM, null, new Color(109, 109, 109)));
+		labelSport.setBounds(255, 322, 235, 160);
+		PanelAggiungiArticolo.add(labelSport);
+		PanelAggiungiArticolo.setVisible(false);
+
+		PanelDettagli = new JPanel();
+		PanelDettagli.setBounds(75, 0, 500, 571);
+		panelArticoli.add(PanelDettagli);
+		PanelDettagli.setVisible(false);
+		PanelDettagli.setLayout(null);
+
+		JLabel lblNewLabel_3 = new JLabel("Dettagli Articolo");
+		lblNewLabel_3.setBackground(SystemColor.controlHighlight);
+		lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblNewLabel_3.setBounds(10, 24, 132, 34);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		PanelDettagli.add(lblNewLabel_3);
+
+		InfoPanel = new JPanel();
+		InfoPanel.setBackground(SystemColor.controlHighlight);
+		InfoPanel.setBounds(10, 59, 480, 100);
+		PanelDettagli.add(InfoPanel);
+		InfoPanel.setLayout(null);
+
+		labelID = new JLabel("n/d");
+		labelID.setHorizontalAlignment(SwingConstants.CENTER);
+		labelID.setBounds(10, 11, 100, 20);
+
+		//labelID.setText("ciao"); test modifica
+
+		InfoPanel.add(labelID);
+
+		lblE = new JLabel("n/d");
+		lblE.setHorizontalAlignment(SwingConstants.CENTER);
+		lblE.setBounds(10, 38, 100, 20);
+		InfoPanel.add(lblE);
+
+		lblI = new JLabel("n/d");
+		lblI.setHorizontalAlignment(SwingConstants.CENTER);
+		lblI.setBounds(10, 66, 100, 20);
+		InfoPanel.add(lblI);
+
+		lblB = new JLabel("n/d");
+		lblB.setHorizontalAlignment(SwingConstants.CENTER);
+		lblB.setBounds(120, 14, 100, 20);
+		InfoPanel.add(lblB);
+
+		lblF = new JLabel("n/d");
+		lblF.setHorizontalAlignment(SwingConstants.CENTER);
+		lblF.setBounds(120, 41, 100, 20);
+		InfoPanel.add(lblF);
+
+		lblNd = new JLabel("n/d");
+		lblNd.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNd.setBounds(120, 69, 100, 20);
+		InfoPanel.add(lblNd);
+
+		lblC = new JLabel("n/d");
+		lblC.setHorizontalAlignment(SwingConstants.CENTER);
+		lblC.setBounds(230, 14, 100, 20);
+		InfoPanel.add(lblC);
+
+		lblG = new JLabel("n/d");
+		lblG.setHorizontalAlignment(SwingConstants.CENTER);
+		lblG.setBounds(230, 41, 100, 20);
+		InfoPanel.add(lblG);
+
+		lblNd_1 = new JLabel("n/d");
+		lblNd_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNd_1.setBounds(230, 69, 100, 20);
+		InfoPanel.add(lblNd_1);
+
+		lblD = new JLabel("n/d");
+		lblD.setHorizontalAlignment(SwingConstants.CENTER);
+		lblD.setBounds(340, 14, 100, 20);
+		InfoPanel.add(lblD);
+
+		lblH = new JLabel("n/d");
+		lblH.setHorizontalAlignment(SwingConstants.CENTER);
+		lblH.setBounds(340, 41, 100, 20);
+		InfoPanel.add(lblH);
+
+		lblNd_2 = new JLabel("n/d");
+		lblNd_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNd_2.setBounds(340, 69, 100, 20);
+		InfoPanel.add(lblNd_2);
+
+		JButton btnNewButton_2 = new JButton("Chiudi");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
+			}
+		});
+		btnNewButton_2.setBounds(193, 444, 114, 45);
+		PanelDettagli.add(btnNewButton_2);
+
+		PanelMainArt = new JPanel();
+		PanelMainArt.setBounds(0, 0, 650, 571);
+		panelArticoli.add(PanelMainArt);
+		PanelMainArt.setLayout(null);
+
+		TablePanel = new JPanel();
+		TablePanel.setBounds(0, 46, 650, 375);
+		PanelMainArt.add(TablePanel);
+		TablePanel.setLayout(new BorderLayout(0, 0));
+
+
+
+		tableArticoli = new JTable();
+		tableArticoli.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tabellaRigaSel(false,"articoli",e); // false è l'azione, non visualizza il pannello ma mantiene solo il valore sul box debug
+
+			}
+		});
+		TablePanel.add(tableArticoli, BorderLayout.CENTER);
+		TablePanel.add(tableArticoli.getTableHeader(), BorderLayout.NORTH);
+		tableArticoli.setAlignmentY(Component.TOP_ALIGNMENT);
+		tableArticoli.setRowHeight(25);
+		tableArticoli.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tableArticoli.setFont(new Font("Arial", Font.PLAIN, 13));
+		tableArticoli.setShowVerticalLines(false);
+		tableArticoli.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableArticoli.setFillsViewportHeight(true);
+		tableArticoli.setCellSelectionEnabled(true);
+		tableArticoli.setBackground(Color.LIGHT_GRAY);
+		tableArticoli.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"ID", "Nome", "Prezzo", "Sport", "Data inserimento", "Materiale", "Q.ta", "Posizione"
+				}
+				) {
+			Class[] types = new Class [] {
+					java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class
+			};
+
+			boolean[] columnEditables = new boolean[] {
+					false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableArticoli.getColumnModel().getColumn(0).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(1).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(2).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(3).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(4).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(5).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(6).setResizable(false);
+		tableArticoli.getColumnModel().getColumn(7).setResizable(false);
+		tableArticoli.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+
+
+		btnCambiaPos = new JButton("Cambia Posizione");
+		btnCambiaPos.setBounds(10, 434, 220, 50);
+		PanelMainArt.add(btnCambiaPos);
+		btnCambiaPos.setBackground(SystemColor.control);
+		btnCambiaPos.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+
+		btnDettagli = new JButton("Dettagli");
+		btnDettagli.setBounds(240, 434, 140, 110);
+		PanelMainArt.add(btnDettagli);
+		btnDettagli.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				tabellaRigaSel(true,"articoli",arg0);
+			}
+		});
+		btnDettagli.setBackground(SystemColor.control);
+		btnDettagli.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+
+		JButton btnAggiungiArticolo = new JButton("Aggiungi Prodotto");
+		btnAggiungiArticolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addArticlePanel();
+				varflag = 0;
+			}
+		});
+		btnAggiungiArticolo.setBounds(390, 434, 220, 50);
+		PanelMainArt.add(btnAggiungiArticolo);
+		btnAggiungiArticolo.setBackground(SystemColor.control);
+		btnAggiungiArticolo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+
+		btnModificaArticolo = new JButton("Modifica");
+		btnModificaArticolo.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		btnModificaArticolo.setBounds(10, 495, 220, 50);
+		PanelMainArt.add(btnModificaArticolo);
+
+
+		btnModificaArticolo.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				try {
+					ModArticlePanel(tableArticoli.getSelectedRow());
+				} catch (ArticleDontExistInWareHouseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} // passo la riga della tabella che è stata selezionata
+			}
+		});
+
+		btnEliminaArt = new JButton("Elimina");
+		btnEliminaArt.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		btnEliminaArt.setBounds(390, 495, 220, 49);
+		PanelMainArt.add(btnEliminaArt);
+
+		btnEliminaArt.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e) {
+				warehouse.removeArticolo(warehouse.getArticolo(tableArticoli.getSelectedRow()));
+				fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
+
+			}
+		});
+
+		//
+		fillTable("articoli",(DefaultTableModel) tableArticoli.getModel()); // riempe la tabella
+
+
+
+		JLabel lblArticoli = new JLabel("Articoli");
+		lblArticoli.setBounds(279, 0, 91, 35);
+		PanelMainArt.add(lblArticoli);
+		lblArticoli.setFont(new Font("Arial", Font.ITALIC, 30));
+		lblArticoli.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArticoli.setBackground(SystemColor.window);
+		btnCambiaPos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modificaPosizioneArticolo(arg0, tableArticoli.getSelectedRow());
+			}
+		});
 
 		panelGenerale = new JPanel();
 		panelGenerale.setBackground(SystemColor.controlHighlight);
@@ -792,208 +793,208 @@ public class GUI extends JFrame {
 		DEBUG.setHorizontalAlignment(SwingConstants.CENTER);
 		DEBUG.setBounds(0, 91, 147, 57);
 		panelGenerale.add(DEBUG);
-				
-						JPanel creaNuovoOrdinePanel = new JPanel();
-						creaNuovoOrdinePanel.setBounds(0, 0, 569, 335);
-						BGPANE.add(creaNuovoOrdinePanel);
-						creaNuovoOrdinePanel.setLayout(null);
-						
-								JLabel lblCreaNuovoOrdine = new JLabel("Crea Nuovo Ordine:");
-								lblCreaNuovoOrdine.setHorizontalAlignment(SwingConstants.CENTER);
-								lblCreaNuovoOrdine.setFont(new Font("Arial", Font.ITALIC, 30));
-								lblCreaNuovoOrdine.setBackground(Color.WHITE);
-								lblCreaNuovoOrdine.setBounds(104, 11, 348, 50);
-								creaNuovoOrdinePanel.add(lblCreaNuovoOrdine);
-								
-										JLabel label_1 = new JLabel("Articoli e Quantit\u00E0:");
-										label_1.setBounds(75, 437, 108, 14);
-										creaNuovoOrdinePanel.add(label_1);
-										
-												JTextArea textArea_1 = new JTextArea();
-												textArea_1.setBounds(75, 450, 160, 109);
-												creaNuovoOrdinePanel.add(textArea_1);
-												
-														textField_2 = new JTextField();
-														textField_2.setColumns(10);
-														textField_2.setBounds(424, 526, 124, 20);
-														creaNuovoOrdinePanel.add(textField_2);
-														
-																JLabel label_2 = new JLabel("Stato:");
-																label_2.setBounds(393, 529, 30, 14);
-																creaNuovoOrdinePanel.add(label_2);
-																
-																		JButton button = new JButton("Modifica");
-																		button.setBounds(300, 451, 124, 23);
-																		creaNuovoOrdinePanel.add(button);
-																		
-																				JButton btnChiudi = new JButton("Chiudi");
-																				btnChiudi.setBounds(383, 131, 124, 39);
-																				creaNuovoOrdinePanel.add(btnChiudi);
-																				
-																						JButton button_2 = new JButton("Genera Uscita");
-																						button_2.setBounds(300, 474, 124, 23);
-																						creaNuovoOrdinePanel.add(button_2);
-																						
-																								JButton btnCrea = new JButton("Crea");
-																								btnCrea.addActionListener(new ActionListener() {
-																									public void actionPerformed(ActionEvent arg0) {
-																										
-																										
-																									}
-																								});
-																								btnCrea.setBounds(383, 89, 124, 39);
-																								creaNuovoOrdinePanel.add(btnCrea);
-																								
-																										JPanel CorniceArticoloLabel = new JPanel();
-																										CorniceArticoloLabel.setBounds(105, 70, 228, 227);
-																										creaNuovoOrdinePanel.add(CorniceArticoloLabel);
-																										CorniceArticoloLabel.setLayout(null);
-																										
-																												JLabel lblQuantit = new JLabel("Quantit\u00E0:");
-																												lblQuantit.setBounds(10, 11, 42, 14);
-																												lblQuantit.setVerticalAlignment(SwingConstants.TOP);
-																												CorniceArticoloLabel.add(lblQuantit);
-																												
-																														JLabel lblArticoli_1 = new JLabel("Articoli:");
-																														lblArticoli_1.setVerticalAlignment(SwingConstants.TOP);
-																														lblArticoli_1.setBounds(132, 11, 42, 14);
-																														CorniceArticoloLabel.add(lblArticoli_1);
-																														
-																																quatita1 = new JTextField();
-																																quatita1.setBounds(10, 31, 86, 20);
-																																CorniceArticoloLabel.add(quatita1);
-																																quatita1.setColumns(10);
-																																
-																																		quantita2 = new JTextField();
-																																		quantita2.setBounds(10, 62, 86, 20);
-																																		CorniceArticoloLabel.add(quantita2);
-																																		quantita2.setColumns(10);
-																																		
-																																				quantita3 = new JTextField();
-																																				quantita3.setBounds(10, 93, 86, 20);
-																																				CorniceArticoloLabel.add(quantita3);
-																																				quantita3.setColumns(10);
-																																				
-																																						JComboBox comboBoxSel1 = new JComboBox();
-																																						comboBoxSel1.setBounds(132, 31, 86, 20);
-																																						CorniceArticoloLabel.add(comboBoxSel1);
-																																						
-																																								JComboBox comboBoxSel2 = new JComboBox();
-																																								comboBoxSel2.setBounds(132, 62, 86, 20);
-																																								CorniceArticoloLabel.add(comboBoxSel2);
-																																								
-																																										JComboBox comboBoxSel3 = new JComboBox();
-																																										comboBoxSel3.setBounds(132, 93, 86, 20);
-																																										CorniceArticoloLabel.add(comboBoxSel3);
-																																										
-																																												quantita4 = new JTextField();
-																																												quantita4.setBounds(10, 124, 86, 20);
-																																												CorniceArticoloLabel.add(quantita4);
-																																												quantita4.setColumns(10);
-																																												
-																																														quantita5 = new JTextField();
-																																														quantita5.setBounds(10, 155, 86, 20);
-																																														CorniceArticoloLabel.add(quantita5);
-																																														quantita5.setColumns(10);
-																																														
-																																																JComboBox comboBoxSel4 = new JComboBox();
-																																																comboBoxSel4.setBounds(132, 124, 86, 20);
-																																																CorniceArticoloLabel.add(comboBoxSel4);
-																																																
-																																																		JComboBox comboBoxSel5 = new JComboBox();
-																																																		comboBoxSel5.setBounds(132, 155, 86, 20);
-																																																		CorniceArticoloLabel.add(comboBoxSel5);
-																																																		
-																																																				quantita6 = new JTextField();
-																																																				quantita6.setBounds(10, 186, 86, 20);
-																																																				CorniceArticoloLabel.add(quantita6);
-																																																				quantita6.setColumns(10);
-																																																				
-																																																						JComboBox comboBoxSel6 = new JComboBox();
-																																																						comboBoxSel6.setBounds(132, 186, 86, 20);
-																																																						CorniceArticoloLabel.add(comboBoxSel6);
-																																																						
-																																																								textCorriere = new JTextField();
-																																																								textCorriere.setBounds(383, 208, 124, 23);
-																																																								creaNuovoOrdinePanel.add(textCorriere);
-																																																								textCorriere.setColumns(10);
-																																																								
-																																																										JLabel lblCorriere = new JLabel("Corriere:");
-																																																										lblCorriere.setBounds(424, 192, 46, 14);
-																																																										creaNuovoOrdinePanel.add(lblCorriere);
-																																																										
-																																																												JLabel lblNegozio = new JLabel("Negozio:");
-																																																												lblNegozio.setBounds(424, 242, 46, 14);
-																																																												creaNuovoOrdinePanel.add(lblNegozio);
-																																																												
-																																																														JComboBox SelectNegozio = new JComboBox();
-																																																														SelectNegozio.setBounds(383, 259, 124, 20);
-																																																														creaNuovoOrdinePanel.add(SelectNegozio);
-		
-				panelOrdini = new JPanel();
-				panelOrdini.setBounds(147, 0, 650, 570);
-				BGPANE.add(panelOrdini);
-				panelOrdini.setLayout(null);
-				
-						TablePanelOrdini = new JPanel();
-						TablePanelOrdini.setBounds(0, 50, 650, 370);
-						panelOrdini.add(TablePanelOrdini);
-						TablePanelOrdini.setLayout(new BorderLayout(0, 0));
-						
-								tableOrdini = new JTable();
-								tableOrdini.setModel(new DefaultTableModel(
-										new Object[][] {
-										},
-										new String[] {
-												"ID", "Data", "Prezzo", "Negozio", "Corriere", "Sped.", "Num. Articoli"
-										}
-										));
-								tableOrdini.setShowVerticalLines(false);
-								tableOrdini.setFont(new Font("Arial", Font.PLAIN, 13));
-								tableOrdini.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-								tableOrdini.setBackground(Color.LIGHT_GRAY);
-								TablePanelOrdini.add(tableOrdini.getTableHeader(), BorderLayout.NORTH);
-								TablePanelOrdini.add(tableOrdini, BorderLayout.CENTER);
-								
-										labelOrdini = new JLabel("Ordini");
-										labelOrdini.setHorizontalAlignment(SwingConstants.CENTER);
-										labelOrdini.setFont(new Font("Arial", Font.ITALIC, 30));
-										labelOrdini.setBackground(Color.WHITE);
-										labelOrdini.setBounds(200, 0, 250, 50);
-										panelOrdini.add(labelOrdini);
-										
-												JLabel lblArticoliEQuantit = new JLabel("Articoli e Quantit\u00E0:");
-												lblArticoliEQuantit.setBounds(75, 437, 108, 14);
-												panelOrdini.add(lblArticoliEQuantit);
-												
-														JTextArea textArea = new JTextArea();
-														textArea.setBounds(75, 450, 160, 109);
-														panelOrdini.add(textArea);
-														
-																textField_1 = new JTextField();
-																textField_1.setBounds(424, 526, 124, 20);
-																panelOrdini.add(textField_1);
-																textField_1.setColumns(10);
-																
-																		JLabel lblStato = new JLabel("Stato:");
-																		lblStato.setBounds(393, 529, 30, 14);
-																		panelOrdini.add(lblStato);
-																		
-																				JButton btnNewButton = new JButton("Modifica");
-																				btnNewButton.setBounds(300, 451, 124, 23);
-																				panelOrdini.add(btnNewButton);
-																				
-																						JButton btnNewButton_1 = new JButton("Elimina Ordine");
-																						btnNewButton_1.setBounds(424, 474, 124, 23);
-																						panelOrdini.add(btnNewButton_1);
-																						
-																								JButton btnNewButton_3 = new JButton("Genera Uscita");
-																								btnNewButton_3.setBounds(300, 474, 124, 23);
-																								panelOrdini.add(btnNewButton_3);
-																								
-																										JButton btnNewButton_4 = new JButton("Crea Nuovo Ordine");
-																										btnNewButton_4.setBounds(424, 451, 124, 23);
-																										panelOrdini.add(btnNewButton_4);
+
+		JPanel creaNuovoOrdinePanel = new JPanel();
+		creaNuovoOrdinePanel.setBounds(0, 0, 569, 335);
+		BGPANE.add(creaNuovoOrdinePanel);
+		creaNuovoOrdinePanel.setLayout(null);
+
+		JLabel lblCreaNuovoOrdine = new JLabel("Crea Nuovo Ordine:");
+		lblCreaNuovoOrdine.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreaNuovoOrdine.setFont(new Font("Arial", Font.ITALIC, 30));
+		lblCreaNuovoOrdine.setBackground(Color.WHITE);
+		lblCreaNuovoOrdine.setBounds(104, 11, 348, 50);
+		creaNuovoOrdinePanel.add(lblCreaNuovoOrdine);
+
+		JLabel label_1 = new JLabel("Articoli e Quantit\u00E0:");
+		label_1.setBounds(75, 437, 108, 14);
+		creaNuovoOrdinePanel.add(label_1);
+
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setBounds(75, 450, 160, 109);
+		creaNuovoOrdinePanel.add(textArea_1);
+
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(424, 526, 124, 20);
+		creaNuovoOrdinePanel.add(textField_2);
+
+		JLabel label_2 = new JLabel("Stato:");
+		label_2.setBounds(393, 529, 30, 14);
+		creaNuovoOrdinePanel.add(label_2);
+
+		JButton button = new JButton("Modifica");
+		button.setBounds(300, 451, 124, 23);
+		creaNuovoOrdinePanel.add(button);
+
+		JButton btnChiudi = new JButton("Chiudi");
+		btnChiudi.setBounds(383, 131, 124, 39);
+		creaNuovoOrdinePanel.add(btnChiudi);
+
+		JButton button_2 = new JButton("Genera Uscita");
+		button_2.setBounds(300, 474, 124, 23);
+		creaNuovoOrdinePanel.add(button_2);
+
+		JButton btnCrea = new JButton("Crea");
+		btnCrea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+
+			}
+		});
+		btnCrea.setBounds(383, 89, 124, 39);
+		creaNuovoOrdinePanel.add(btnCrea);
+
+		JPanel CorniceArticoloLabel = new JPanel();
+		CorniceArticoloLabel.setBounds(105, 70, 228, 227);
+		creaNuovoOrdinePanel.add(CorniceArticoloLabel);
+		CorniceArticoloLabel.setLayout(null);
+
+		JLabel lblQuantit = new JLabel("Quantit\u00E0:");
+		lblQuantit.setBounds(10, 11, 42, 14);
+		lblQuantit.setVerticalAlignment(SwingConstants.TOP);
+		CorniceArticoloLabel.add(lblQuantit);
+
+		JLabel lblArticoli_1 = new JLabel("Articoli:");
+		lblArticoli_1.setVerticalAlignment(SwingConstants.TOP);
+		lblArticoli_1.setBounds(132, 11, 42, 14);
+		CorniceArticoloLabel.add(lblArticoli_1);
+
+		quatita1 = new JTextField();
+		quatita1.setBounds(10, 31, 86, 20);
+		CorniceArticoloLabel.add(quatita1);
+		quatita1.setColumns(10);
+
+		quantita2 = new JTextField();
+		quantita2.setBounds(10, 62, 86, 20);
+		CorniceArticoloLabel.add(quantita2);
+		quantita2.setColumns(10);
+
+		quantita3 = new JTextField();
+		quantita3.setBounds(10, 93, 86, 20);
+		CorniceArticoloLabel.add(quantita3);
+		quantita3.setColumns(10);
+
+		JComboBox comboBoxSel1 = new JComboBox();
+		comboBoxSel1.setBounds(132, 31, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel1);
+
+		JComboBox comboBoxSel2 = new JComboBox();
+		comboBoxSel2.setBounds(132, 62, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel2);
+
+		JComboBox comboBoxSel3 = new JComboBox();
+		comboBoxSel3.setBounds(132, 93, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel3);
+
+		quantita4 = new JTextField();
+		quantita4.setBounds(10, 124, 86, 20);
+		CorniceArticoloLabel.add(quantita4);
+		quantita4.setColumns(10);
+
+		quantita5 = new JTextField();
+		quantita5.setBounds(10, 155, 86, 20);
+		CorniceArticoloLabel.add(quantita5);
+		quantita5.setColumns(10);
+
+		JComboBox comboBoxSel4 = new JComboBox();
+		comboBoxSel4.setBounds(132, 124, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel4);
+
+		JComboBox comboBoxSel5 = new JComboBox();
+		comboBoxSel5.setBounds(132, 155, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel5);
+
+		quantita6 = new JTextField();
+		quantita6.setBounds(10, 186, 86, 20);
+		CorniceArticoloLabel.add(quantita6);
+		quantita6.setColumns(10);
+
+		JComboBox comboBoxSel6 = new JComboBox();
+		comboBoxSel6.setBounds(132, 186, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel6);
+
+		textCorriere = new JTextField();
+		textCorriere.setBounds(383, 208, 124, 23);
+		creaNuovoOrdinePanel.add(textCorriere);
+		textCorriere.setColumns(10);
+
+		JLabel lblCorriere = new JLabel("Corriere:");
+		lblCorriere.setBounds(424, 192, 46, 14);
+		creaNuovoOrdinePanel.add(lblCorriere);
+
+		JLabel lblNegozio = new JLabel("Negozio:");
+		lblNegozio.setBounds(424, 242, 46, 14);
+		creaNuovoOrdinePanel.add(lblNegozio);
+
+		JComboBox SelectNegozio = new JComboBox();
+		SelectNegozio.setBounds(383, 259, 124, 20);
+		creaNuovoOrdinePanel.add(SelectNegozio);
+
+		panelOrdini = new JPanel();
+		panelOrdini.setBounds(147, 0, 650, 570);
+		BGPANE.add(panelOrdini);
+		panelOrdini.setLayout(null);
+
+		TablePanelOrdini = new JPanel();
+		TablePanelOrdini.setBounds(0, 50, 650, 370);
+		panelOrdini.add(TablePanelOrdini);
+		TablePanelOrdini.setLayout(new BorderLayout(0, 0));
+
+		tableOrdini = new JTable();
+		tableOrdini.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"ID", "Data", "Prezzo", "Negozio", "Corriere", "Sped.", "Num. Articoli"
+				}
+				));
+		tableOrdini.setShowVerticalLines(false);
+		tableOrdini.setFont(new Font("Arial", Font.PLAIN, 13));
+		tableOrdini.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		tableOrdini.setBackground(Color.LIGHT_GRAY);
+		TablePanelOrdini.add(tableOrdini.getTableHeader(), BorderLayout.NORTH);
+		TablePanelOrdini.add(tableOrdini, BorderLayout.CENTER);
+
+		labelOrdini = new JLabel("Ordini");
+		labelOrdini.setHorizontalAlignment(SwingConstants.CENTER);
+		labelOrdini.setFont(new Font("Arial", Font.ITALIC, 30));
+		labelOrdini.setBackground(Color.WHITE);
+		labelOrdini.setBounds(200, 0, 250, 50);
+		panelOrdini.add(labelOrdini);
+
+		JLabel lblArticoliEQuantit = new JLabel("Articoli e Quantit\u00E0:");
+		lblArticoliEQuantit.setBounds(75, 437, 108, 14);
+		panelOrdini.add(lblArticoliEQuantit);
+
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(75, 450, 160, 109);
+		panelOrdini.add(textArea);
+
+		textField_1 = new JTextField();
+		textField_1.setBounds(424, 526, 124, 20);
+		panelOrdini.add(textField_1);
+		textField_1.setColumns(10);
+
+		JLabel lblStato = new JLabel("Stato:");
+		lblStato.setBounds(393, 529, 30, 14);
+		panelOrdini.add(lblStato);
+
+		JButton btnNewButton = new JButton("Modifica");
+		btnNewButton.setBounds(300, 451, 124, 23);
+		panelOrdini.add(btnNewButton);
+
+		JButton btnNewButton_1 = new JButton("Elimina Ordine");
+		btnNewButton_1.setBounds(424, 474, 124, 23);
+		panelOrdini.add(btnNewButton_1);
+
+		JButton btnNewButton_3 = new JButton("Genera Uscita");
+		btnNewButton_3.setBounds(300, 474, 124, 23);
+		panelOrdini.add(btnNewButton_3);
+
+		JButton btnNewButton_4 = new JButton("Crea Nuovo Ordine");
+		btnNewButton_4.setBounds(424, 451, 124, 23);
+		panelOrdini.add(btnNewButton_4);
 
 
 
