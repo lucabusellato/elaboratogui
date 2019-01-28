@@ -1455,7 +1455,7 @@ public class GUI extends JFrame {
 			}
 		});
 		btnNewButton_6.setBackground(SystemColor.control);
-		btnNewButton_6.setBounds(12, 18, 57, 23);
+		btnNewButton_6.setBounds(24, 19, 94, 23);
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -1463,23 +1463,16 @@ public class GUI extends JFrame {
 		panelGenerale.setLayout(null);
 		panelGenerale.add(btnNewButton_6);
 
-		JButton btnNewButton_7 = new JButton("Esci");
+		JButton btnNewButton_7 = new JButton("Logout");
 		btnNewButton_7.setBackground(SystemColor.control);
-		btnNewButton_7.setBounds(69, 18, 59, 23);
-		btnNewButton_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton_7.setBounds(24, 55, 94, 23);
+		btnNewButton_7.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				hideGUI();
+				Login.setVisible(true);
 			}
 		});
 		panelGenerale.add(btnNewButton_7);
-
-		JButton btnNewButton_8 = new JButton("Chiudi");
-		btnNewButton_8.setBackground(SystemColor.control);
-		btnNewButton_8.setBounds(33, 52, 70, 28);
-		btnNewButton_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		panelGenerale.add(btnNewButton_8);
 
 		DEBUG = new JLabel("DBG");
 		DEBUG.setHorizontalAlignment(SwingConstants.CENTER);
@@ -2211,7 +2204,7 @@ public class GUI extends JFrame {
 
 	private void panelMagazziniere(){
 		panelComuni();
-
+		btnIngressi.setEnabled(false);
 
 	}
 
@@ -2555,7 +2548,8 @@ public class GUI extends JFrame {
 	}
 
 	public void generateMonthlyStats(MouseEvent arg0){
-
+		listModel.clear();
+		listModelOut.clear();
 		String call_del;
 		List<String> call_temp_el = warehouse.getReportIngressiList();
 		call_del= warehouse.chiusuraMensile();
