@@ -81,7 +81,7 @@ import javax.swing.AbstractListModel;
 
 public class GUI extends JFrame {
 
-	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;
+	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, indexUscite = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;
 	//prendiamo l'istanza di magazzino -- singleton
 	private static final Magazzino warehouse = Magazzino.getInstance();
 	private int varflag;
@@ -92,12 +92,12 @@ public class GUI extends JFrame {
 	private JPanel BGPANE; // panel principale
 
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel,panelIngressi,panelNuovoIngresso;
-	private JPanel PanelMainArt,PanelMainNeg,panelFineMese;
+	private JPanel PanelMainArt,PanelMainNeg,panelUscite;
 	private List<JPanel> listaPanel = new ArrayList<>();
 
 
 	//bottoni
-	private JButton btnLogin,btnArticoli,btnNegozi,btnOrdini,btnIngressi,btnFineMese,btnStorico;
+	private JButton btnLogin,btnArticoli,btnNegozi,btnOrdini,btnIngressi,btnUscite,btnStorico;
 	private JButton btnCambiaPos,btnDettagli;
 	private JButton btnEliminaArt;
 
@@ -207,13 +207,7 @@ public class GUI extends JFrame {
 	private JTextField textField_31;
 	private JTextField textFieldMese;
 	private JTextField textFieldAnno;
-	private JPanel panelOut;
-	private JSeparator separator_3;
-	private JSeparator separator_4;
-	private JPanel InContent;
-	private JPanel OutContent;
 	private DefaultListModel<String> listModel, listModelOut;
-	private JList Ingressi;
 
 
 	//riepilogo
@@ -222,6 +216,15 @@ public class GUI extends JFrame {
 	private JButton btnNewButton;//-
 	private JButton button_2;//+
 	private JLabel lblMese;
+	private JLabel label_2;
+	private JLabel label_3;
+	private JLabel label_4;
+	
+	//Uscite
+	private JLabel labelIndexUscita;
+	private JButton buttonUscitaIndietro;
+	private JButton buttonUscitaAvanti;
+	private JTextArea textAreaUscite;
 	/**
 	 * Create the frame.
 	 * @throws ArticleDontExistInWareHouseException 
@@ -235,7 +238,7 @@ public class GUI extends JFrame {
 		listaPanel.add(panelNegozi);
 		listaPanel.add(panelNuovoIngresso);
 		listaPanel.add(panelIngressi);
-		listaPanel.add(panelFineMese);
+		listaPanel.add(panelUscite);
 
 
 		//inizializza i componenti
@@ -250,7 +253,7 @@ public class GUI extends JFrame {
 		//panelOrdini.setVisible(false); -- TO COMPLETE
 		panelIngressi.setVisible(false);
 		panelNuovoIngresso.setVisible(false);
-		panelFineMese.setVisible(false); 
+		panelUscite.setVisible(false); 
 		panelRiepilogo.setVisible(false);
 	}
 
@@ -283,6 +286,33 @@ public class GUI extends JFrame {
 			labelCountIngressi.setText(""+ (indexIngressi + 1));
 			labelViewId.setText("" + abs(warehouse.getIngresso(indexIngressi).getID()));
 			textPane.setText("" + warehouse.getIngresso(indexIngressi).toString());
+		}
+	}
+	
+	void uscite() {
+		if (warehouse.usciteIsEmpty()) {
+			labelIndexUscita.setText("");
+			label_2.setText("");
+			label_3.setText("");
+			label_4.setText("");
+			buttonUscitaIndietro.setVisible(false);
+			buttonUscitaAvanti.setVisible(false);			
+		} else {
+			if (indexUscite == 0) {
+				buttonUscitaIndietro.setEnabled(false);
+			}else {
+				buttonUscitaIndietro.setEnabled(true);
+			}
+			if (indexUscite == warehouse.usciteSize() - 1) {
+				buttonUscitaAvanti.setEnabled(false);
+			} else {
+				buttonUscitaAvanti.setEnabled(true);
+			}
+			label_4.setText(warehouse.getUscita(indexUscite).getDataInString());
+			labelIndexUscita.setText(""+ (indexUscite + 1));
+			label_2.setText("" + abs(warehouse.getUscita(indexUscite).getOrdine().getID()));
+			label_3.setText(warehouse.getUscita(indexUscite).getOrdine().getNegozio().getNome());
+			textAreaUscite.setText("" + warehouse.getUscita(indexUscite).toString());
 		}
 	}
 	private void report() {
@@ -360,6 +390,221 @@ public class GUI extends JFrame {
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
+										
+												panelUscite = new JPanel();
+												panelUscite.setBackground(UIManager.getColor("TabbedPane.highlight"));
+												panelUscite.setBounds(147, 0, 650, 570);
+												BGPANE.add(panelUscite);
+												panelUscite.setLayout(null);
+												
+												JLabel lblUscite = new JLabel("Visualizza Uscite:");
+												lblUscite.setFont(new Font("Arial", Font.PLAIN, 30));
+												lblUscite.setBounds(81, 13, 233, 31);
+												panelUscite.add(lblUscite);
+												
+												JLabel lblIdOrdine = new JLabel("ID Ordine:");
+												lblIdOrdine.setBounds(57, 61, 66, 16);
+												panelUscite.add(lblIdOrdine);
+												
+												JLabel lblNegozio = new JLabel("Negozio:");
+												lblNegozio.setBounds(232, 61, 56, 16);
+												panelUscite.add(lblNegozio);
+												
+												JLabel lblData_1 = new JLabel("Data:");
+												lblData_1.setBounds(420, 61, 56, 16);
+												panelUscite.add(lblData_1);
+												
+												textAreaUscite = new JTextArea();
+												textAreaUscite.setEditable(false);
+												textAreaUscite.setBounds(72, 90, 501, 327);
+												panelUscite.add(textAreaUscite);
+												
+												labelIndexUscita = new JLabel("");
+												labelIndexUscita.setBounds(367, 28, 29, 16);
+												panelUscite.add(labelIndexUscita);
+												
+												buttonUscitaIndietro = new JButton("<");
+												buttonUscitaIndietro.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent arg0) {
+														indexUscite--;
+														uscite();
+													}
+												});
+												buttonUscitaIndietro.setBounds(325, 22, 41, 25);
+												panelUscite.add(buttonUscitaIndietro);
+												
+												buttonUscitaAvanti = new JButton(">");
+												buttonUscitaAvanti.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent arg0) {
+														indexUscite++;
+														uscite();
+													}
+												});
+												buttonUscitaAvanti.setBounds(396, 22, 41, 25);
+												panelUscite.add(buttonUscitaAvanti);
+												
+												label_2 = new JLabel("");
+												label_2.setBounds(120, 61, 89, 16);
+												panelUscite.add(label_2);
+												
+												label_3 = new JLabel("");
+												label_3.setBounds(286, 61, 110, 16);
+												panelUscite.add(label_3);
+												
+												label_4 = new JLabel("");
+												label_4.setBounds(454, 61, 56, 16);
+												panelUscite.add(label_4);
+								
+										panelIngressi = new JPanel();
+										panelIngressi.setBounds(147, 0, 650, 565);
+										BGPANE.add(panelIngressi);
+										panelIngressi.setLayout(null);
+										
+												JLabel lblId = new JLabel("ID:");
+												lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+												lblId.setBounds(45, 72, 25, 26);
+												panelIngressi.add(lblId);
+												
+														JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
+														lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
+														lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
+														panelIngressi.add(lblVisualizzaIngressi);
+														
+																labelViewId = new JLabel("");
+																labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																labelViewId.setBounds(77, 78, 106, 16);
+																panelIngressi.add(labelViewId);
+																
+																		JLabel lblData = new JLabel("Data ingresso:");
+																		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																		lblData.setBounds(195, 77, 94, 16);
+																		panelIngressi.add(lblData);
+																		
+																				lblViewData = new JLabel("");
+																				lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																				lblViewData.setBounds(295, 78, 106, 16);
+																				panelIngressi.add(lblViewData);
+																				
+																						textPane = new JTextPane();
+																						textPane.setEditable(false);
+																						textPane.setBounds(45, 112, 550, 307);
+																						panelIngressi.add(textPane);
+																						
+																								JLabel lblN = new JLabel("Ingresso n:");
+																								lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																								lblN.setBounds(409, 78, 75, 16);
+																								panelIngressi.add(lblN);
+																								
+																										btnNuovoIngresso = new JButton("Nuovo ingresso");				
+																										btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																										btnNuovoIngresso.setBounds(231, 432, 133, 35);
+																										panelIngressi.add(btnNuovoIngresso);
+																										
+																												btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
+																												btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																												btnChiudiIngressi.setBounds(195, 496, 193, 35);
+																												panelIngressi.add(btnChiudiIngressi);
+																												
+																														buttonIngressiIndietro = new JButton("<");
+																														buttonIngressiIndietro.addMouseListener(new MouseAdapter() {
+																															@Override
+																															public void mouseClicked(MouseEvent arg0) {
+																																indexIngressi--;
+																																ingressi();
+																															}
+																														});
+																														buttonIngressiIndietro.setBounds(485, 74, 41, 25);
+																														panelIngressi.add(buttonIngressiIndietro);
+																														
+																																labelCountIngressi = new JLabel("");
+																																labelCountIngressi.setBounds(528, 78, 25, 16);
+																																panelIngressi.add(labelCountIngressi);
+																																
+																																		buttonIngressiAvanti = new JButton(">");
+																																		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
+																																		panelIngressi.add(buttonIngressiAvanti);
+																																		buttonIngressiAvanti.addMouseListener(new MouseAdapter() {
+																																			@Override
+																																			public void mouseClicked(MouseEvent arg0) {
+																																				indexIngressi++;
+																																				ingressi();
+																																			}
+																																		});
+																																		
+																																		
+																																				//da ingressi a crea nuovo ingresso
+																																				btnNuovoIngresso.addMouseListener(new MouseAdapter() {
+																																					@Override
+																																					public void mouseClicked(MouseEvent arg0) {
+																																						nascondiPannelli();
+																																						panelNuovoIngresso.setVisible(true);
+																																						textField_2.setText("");
+																																						textField_3.setText("");
+																																						textField_4.setText("");
+																																						textField_5.setText("");
+																																						textField_6.setText("");
+																																						textField_7.setText("");
+																																						textField_8.setText("");
+																																						textField_9.setText("");
+																																						textField_10.setText("");
+																																						textField_11.setText("");
+																																						textField_12.setText("");
+																																						textField_13.setText("");
+																																						textField_14.setText("");
+																																						textField_15.setText("");
+																																						textField_16.setText("");
+																																						textField_17.setText("");
+																																						textField_18.setText("");
+																																						textField_19.setText("");
+																																						textField_20.setText("");
+																																						textField_21.setText("");
+																																						textField_22.setText("");
+																																						textField_23.setText("");
+																																						textField_24.setText("");
+																																						textField_25.setText("");
+																																						textField_26.setText("");
+																																						textField_27.setText("");
+																																						textField_28.setText("");
+																																						textField_29.setText("");
+																																						textField_30.setText("");
+																																						textField_31.setText("");
+																																						textField_3.setEnabled(false);
+																																						textField_4.setEnabled(false);
+																																						textField_5.setEnabled(false);
+																																						textField_6.setEnabled(false);
+																																						textField_7.setEnabled(false);
+																																						textField_8.setEnabled(false);
+																																						textField_9.setEnabled(false);
+																																						textField_10.setEnabled(false);
+																																						textField_11.setEnabled(false);
+																																						textField_13.setEnabled(false);
+																																						textField_14.setEnabled(false);
+																																						textField_15.setEnabled(false);
+																																						textField_16.setEnabled(false);
+																																						textField_17.setEnabled(false);
+																																						textField_18.setEnabled(false);
+																																						textField_19.setEnabled(false);
+																																						textField_20.setEnabled(false);
+																																						textField_21.setEnabled(false);
+																																						textField_23.setEnabled(false);
+																																						textField_24.setEnabled(false);
+																																						textField_25.setEnabled(false);
+																																						textField_26.setEnabled(false);
+																																						textField_27.setEnabled(false);
+																																						textField_28.setEnabled(false);
+																																						textField_29.setEnabled(false);
+																																						textField_30.setEnabled(false);
+																																						textField_31.setEnabled(false);
+																																					}
+																																		
+																																		
+																																				});
+																																				btnChiudiIngressi.addActionListener(new ActionListener() {
+																																					public void actionPerformed(ActionEvent e) {
+																																						nascondiPannelli();
+																																						menuazioni.setVisible(true);
+																																					}
+																																				});
 
 		panelNuovoIngresso = new JPanel();
 		panelNuovoIngresso.setBounds(147, 0, 635, 565);
@@ -929,157 +1174,6 @@ public class GUI extends JFrame {
 		btnChiudiRiepilogo.setBounds(264, 498, 137, 37);
 		panelRiepilogo.add(btnChiudiRiepilogo);
 
-		panelIngressi = new JPanel();
-		panelIngressi.setBounds(147, 0, 650, 565);
-		BGPANE.add(panelIngressi);
-		panelIngressi.setLayout(null);
-
-		JLabel lblId = new JLabel("ID:");
-		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblId.setBounds(45, 72, 25, 26);
-		panelIngressi.add(lblId);
-
-		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
-		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
-		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
-		panelIngressi.add(lblVisualizzaIngressi);
-
-		labelViewId = new JLabel("");
-		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelViewId.setBounds(77, 78, 106, 16);
-		panelIngressi.add(labelViewId);
-
-		JLabel lblData = new JLabel("Data ingresso:");
-		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblData.setBounds(195, 77, 94, 16);
-		panelIngressi.add(lblData);
-
-		lblViewData = new JLabel("");
-		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblViewData.setBounds(295, 78, 106, 16);
-		panelIngressi.add(lblViewData);
-
-		textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setBounds(45, 112, 550, 307);
-		panelIngressi.add(textPane);
-
-		JLabel lblN = new JLabel("Ingresso n:");
-		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblN.setBounds(409, 78, 75, 16);
-		panelIngressi.add(lblN);
-
-		btnNuovoIngresso = new JButton("Nuovo ingresso");				
-		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNuovoIngresso.setBounds(231, 432, 133, 35);
-		panelIngressi.add(btnNuovoIngresso);
-
-		btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
-		btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChiudiIngressi.setBounds(195, 496, 193, 35);
-		panelIngressi.add(btnChiudiIngressi);
-
-		buttonIngressiIndietro = new JButton("<");
-		buttonIngressiIndietro.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				indexIngressi--;
-				ingressi();
-			}
-		});
-		buttonIngressiIndietro.setBounds(485, 74, 41, 25);
-		panelIngressi.add(buttonIngressiIndietro);
-
-		labelCountIngressi = new JLabel("");
-		labelCountIngressi.setBounds(528, 78, 25, 16);
-		panelIngressi.add(labelCountIngressi);
-
-		buttonIngressiAvanti = new JButton(">");
-		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
-		panelIngressi.add(buttonIngressiAvanti);
-		buttonIngressiAvanti.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				indexIngressi++;
-				ingressi();
-			}
-		});
-
-
-		//da ingressi a crea nuovo ingresso
-		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				panelNuovoIngresso.setVisible(true);
-				textField_2.setText("");
-				textField_3.setText("");
-				textField_4.setText("");
-				textField_5.setText("");
-				textField_6.setText("");
-				textField_7.setText("");
-				textField_8.setText("");
-				textField_9.setText("");
-				textField_10.setText("");
-				textField_11.setText("");
-				textField_12.setText("");
-				textField_13.setText("");
-				textField_14.setText("");
-				textField_15.setText("");
-				textField_16.setText("");
-				textField_17.setText("");
-				textField_18.setText("");
-				textField_19.setText("");
-				textField_20.setText("");
-				textField_21.setText("");
-				textField_22.setText("");
-				textField_23.setText("");
-				textField_24.setText("");
-				textField_25.setText("");
-				textField_26.setText("");
-				textField_27.setText("");
-				textField_28.setText("");
-				textField_29.setText("");
-				textField_30.setText("");
-				textField_31.setText("");
-				textField_3.setEnabled(false);
-				textField_4.setEnabled(false);
-				textField_5.setEnabled(false);
-				textField_6.setEnabled(false);
-				textField_7.setEnabled(false);
-				textField_8.setEnabled(false);
-				textField_9.setEnabled(false);
-				textField_10.setEnabled(false);
-				textField_11.setEnabled(false);
-				textField_13.setEnabled(false);
-				textField_14.setEnabled(false);
-				textField_15.setEnabled(false);
-				textField_16.setEnabled(false);
-				textField_17.setEnabled(false);
-				textField_18.setEnabled(false);
-				textField_19.setEnabled(false);
-				textField_20.setEnabled(false);
-				textField_21.setEnabled(false);
-				textField_23.setEnabled(false);
-				textField_24.setEnabled(false);
-				textField_25.setEnabled(false);
-				textField_26.setEnabled(false);
-				textField_27.setEnabled(false);
-				textField_28.setEnabled(false);
-				textField_29.setEnabled(false);
-				textField_30.setEnabled(false);
-				textField_31.setEnabled(false);
-			}
-
-
-		});
-		btnChiudiIngressi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nascondiPannelli();
-				menuazioni.setVisible(true);
-			}
-		});
-
 
 
 
@@ -1135,20 +1229,19 @@ public class GUI extends JFrame {
 		btnIngressi.setBackground(SystemColor.control);
 		menuazioni.add(btnIngressi);
 
-		btnFineMese = new JButton("Fine Mese");
-		btnFineMese.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnFineMese.addMouseListener(new MouseAdapter() {
+		btnUscite = new JButton("Uscite");
+		//visualizzare entrate e uscite rispetto agli ordini dei negozi
+		btnUscite.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				nascondiPannelli();
-				generateMonthlyStats(arg0);
+				panelUscite.setVisible(true);
+				indexUscite = 0;
+				uscite();
 			}
 		});
-		btnFineMese.setBackground(SystemColor.control);
-		menuazioni.add(btnFineMese);
+		btnUscite.setBackground(SystemColor.control);
+		menuazioni.add(btnUscite);
 
 		btnStorico = new JButton("Riepilogo Mensile");
 		btnStorico.addMouseListener(new MouseAdapter() {
@@ -1313,79 +1406,6 @@ public class GUI extends JFrame {
 				}
 			}
 		});
-
-		panelFineMese = new JPanel();
-		panelFineMese.setBackground(UIManager.getColor("TabbedPane.highlight"));
-		panelFineMese.setBounds(147, 0, 650, 570);
-		BGPANE.add(panelFineMese);
-		panelFineMese.setLayout(null);
-
-		JPanel panelIn = new JPanel();
-		panelIn.setBackground(UIManager.getColor("TabbedPane.light"));
-		panelIn.setBounds(0, 0, 315, 550);
-		panelFineMese.add(panelIn);
-		panelIn.setLayout(null);
-
-		JLabel lblIngressi = new JLabel("Ingressi");
-		lblIngressi.setBounds(104, 10, 106, 32);
-		panelIn.add(lblIngressi);
-		lblIngressi.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIngressi.setFont(new Font("Valken", Font.BOLD, 25));
-
-		separator_3 = new JSeparator();
-		separator_3.setBounds(10, 53, 295, 2);
-		panelIn.add(separator_3);
-
-		InContent = new JPanel();
-		InContent.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		InContent.setBackground(SystemColor.controlHighlight);
-		InContent.setBounds(0, 53, 315, 500);
-		panelIn.add(InContent);
-		InContent.setLayout(null);
-
-
-		Ingressi = new JList(listModel/*new AbstractListModel() {
-			/*String[] values = new String[] {"ASD", "ASD", "ASD"}; // lista degli elementi del JList
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		}*/);
-		Ingressi.setVisibleRowCount(16);
-		Ingressi.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		Ingressi.setBounds(0, 5, 315, 484);
-		Ingressi.setBackground(SystemColor.text);
-		Ingressi.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		Ingressi.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		InContent.add(Ingressi);
-
-		panelOut = new JPanel();
-		panelOut.setBackground(UIManager.getColor("TabbedPane.light"));
-		panelOut.setBounds(335, 0, 315, 550);
-		panelFineMese.add(panelOut);
-		panelOut.setLayout(null);
-
-		JLabel lblUscite = new JLabel("Uscite");
-		lblUscite.setBounds(115, 10, 85, 32);
-		panelOut.add(lblUscite);
-		lblUscite.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUscite.setFont(new Font("Valken", Font.BOLD, 25));
-
-		separator_4 = new JSeparator();
-		separator_4.setBounds(10, 53, 295, 2);
-		panelOut.add(separator_4);
-
-		OutContent = new JPanel();
-		OutContent.setBackground(SystemColor.textHighlightText);
-		OutContent.setBounds(0, 60, 315, 479);
-		panelOut.add(OutContent);
-		OutContent.setLayout(null);
-
-		JList Uscite = new JList(listModelOut);
-		Uscite.setBounds(10, 493, 315, -475);
-		OutContent.add(Uscite);
 
 
 		Login = new JPanel();
@@ -2545,32 +2565,6 @@ public class GUI extends JFrame {
 
 
 		}
-	}
-
-	public void generateMonthlyStats(MouseEvent arg0){
-		listModel.clear();
-		listModelOut.clear();
-		String call_del;
-		List<String> call_temp_el = warehouse.getReportIngressiList();
-		call_del= warehouse.chiusuraMensile();
-
-		String[] ingressi, uscite;
-
-		for(String ev_s: warehouse.getReportIngressiList()) {
-			listModel.addElement(ev_s);
-		}
-
-		for(String ev_s: warehouse.getReportUsciteList()) {
-			listModelOut.addElement(ev_s);
-		}
-
-
-
-
-		panelFineMese.setVisible(true);
-		//JOptionPane.showMessageDialog(null, warehouse.chiusuraMensile());
-
-
 	}
 }
 

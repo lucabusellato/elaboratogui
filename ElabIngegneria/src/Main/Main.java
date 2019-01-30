@@ -100,9 +100,11 @@ public class Main implements Serializable{
 		o1.addArticle(a1, 4);
 		o1.addArticle(a3, 4);
 		o1.addArticle(a4, 10);
+		o1.isShipped();
 		Ordine o2 = new Ordine(n2, "Fedex");
 		o2.addArticle(a2, 10);
 		o2.addArticle(a1, 4);
+		o2.isShipped();
 		m.addArticolo(a1);
 		m.addArticolo(a2);
 		m.addArticolo(a3);
@@ -132,6 +134,7 @@ public class Main implements Serializable{
 		m.addNegozi(n4);
 		m.addOrdine(o1);
 		m.addOrdine(o2);
+		
 
 	    } catch (ArticleAlreadyExistException | ShopAlreadyExistException | UserAlreadyExist | VoidStringUnexpectedException e) {
 		JOptionPane.showMessageDialog(null, "Eccezione nell'instanziare gli oggetti demo");

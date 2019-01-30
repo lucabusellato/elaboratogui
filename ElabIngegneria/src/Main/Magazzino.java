@@ -143,8 +143,7 @@ public class Magazzino implements Serializable {
     
     //
     public List<Articolo> getArticoloList(){
-    	return articoli;
-    	
+    	return articoli;    	
     } 
 
     public boolean articoliIsEmpty() {
@@ -222,6 +221,9 @@ public class Magazzino implements Serializable {
 	return negozi.get(i);
     }
     
+    public Uscita getUscita(int i) {
+    	return uscite.get(i);
+    }
     public boolean negoziExist(Negozio i){
         return negozi.contains(i);
     }
@@ -298,6 +300,10 @@ public class Magazzino implements Serializable {
     public boolean ingressiIsEmpty() {
 	return ingressi.isEmpty();
     }
+    
+    public boolean usciteIsEmpty() {
+    	return ordini.isEmpty();
+        }
 
     public Ingresso getIngresso(int i) {
 	return ingressi.get(i);
@@ -383,6 +389,9 @@ public class Magazzino implements Serializable {
     public int ordineSize() {
 	return ordini.size();
     }
+    public int usciteSize() {
+	return uscite.size();
+    }
     
     public void setOrdine(int i, Ordine o){
         ordini.remove(i);
@@ -463,6 +472,7 @@ public class Magazzino implements Serializable {
 	    ingressi = "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + ingressiMensili.get(X) + " pezzi\n";
 	    reportingressi.add(ingressi);
 	}
+
 	
 	
 	// [OK] aggiunte liste diverse
