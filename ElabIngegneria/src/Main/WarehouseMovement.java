@@ -24,6 +24,8 @@ public abstract class WarehouseMovement implements Serializable{
     public String getMonth() {
         return "" + data.get(GregorianCalendar.MONTH);
     }
+    //-
+    public int getMonthInt() { return data.get(GregorianCalendar.MONTH); }
 
     public String getYear() {
         return "" + data.get(GregorianCalendar.YEAR);

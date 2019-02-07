@@ -94,13 +94,17 @@ public class Main implements Serializable{
 		Negozio n2 = new Negozio("BBBBBBBBBBBBBBBB", "Snipes Malpensa", "via caveve", "City");
 		Negozio n3 = new Negozio("CCCCCCCCCCCCCCCC", "Puma EUROMA2", "via go senh", "City");
 		Negozio n4 = new Negozio("DDDDDDDDDDDDDDDD", "Foot Loocker", "via bio", "City");
-                
+        
+		//Ingresso i1= new Ingresso()
+		
 		Ordine o1 = new Ordine(n1, "SDA-Express");
+		m.addOrdine(o1);
 		o1.addArticle(a2, 10);
 		o1.addArticle(a1, 4);
 		o1.addArticle(a3, 4);
 		o1.addArticle(a4, 10);
 		Ordine o2 = new Ordine(n2, "Fedex");
+		m.addOrdine(o2);
 		o2.addArticle(a2, 10);
 		o2.addArticle(a1, 4);
 		m.addArticolo(a1);
@@ -112,16 +116,18 @@ public class Main implements Serializable{
 
 		Map<Articolo, Integer> q = new TreeMap<>();
 		Map<Articolo, Integer> p = new TreeMap<>();
-
-		q.put(a2, 10);
-		q.put(a3, 50);
-		q.put(a5, 2);
-		q.put(a4, 10);
-
-		p.put(a2, 1);
-		p.put(a3, 2);
-		p.put(a5, 3);
-		p.put(a4, 4);
+		
+		q.put(a1, 100);
+		q.put(a2, 100);
+		q.put(a3, 100);
+		q.put(a5, 100);
+		q.put(a4, 100);
+		
+		p.put(a1, 1);
+		p.put(a2, 2);
+		p.put(a3, 3);
+		p.put(a5, 4);
+		p.put(a4, 5);
 		m.addIngresso(q, p, new GregorianCalendar());
 
 		m.addIngresso(q, p, new GregorianCalendar());
@@ -132,6 +138,14 @@ public class Main implements Serializable{
 		m.addNegozi(n4);
 		m.addOrdine(o1);
 		m.addOrdine(o2);
+		
+		o1.isShipped();
+		o1.createShip();
+		m.createExit(o1);
+		o2.isShipped();
+		o2.createShip();
+		m.createExit(o2);
+		
 
 	    } catch (ArticleAlreadyExistException | ShopAlreadyExistException | UserAlreadyExist | VoidStringUnexpectedException e) {
 		JOptionPane.showMessageDialog(null, "Eccezione nell'instanziare gli oggetti demo");

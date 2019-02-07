@@ -99,5 +99,8 @@ public final class Ingresso extends WarehouseMovement implements Serializable, C
             s += "Articolo: " + X.getTipoArticolo().getName() + "\tquantità: " + this.quantita.get(X) + " pezzi\tposizione: " + this.posizioni.get(X)+"\n";
         return s;
     }
-
+    
+    public Map<Articolo,Integer> getMapArticoli() {
+    	return this.quantita;
+    }
 }//fine ingresso

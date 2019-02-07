@@ -19,7 +19,8 @@ public class Magazzino implements Serializable {
     private List<String> reportingressi, reportuscite,report;
     private Map<Articolo, Integer> quantita, posizione;
     private Map<Articolo, Integer> ingressiMensili, usciteMensili;
-
+    private Map<Integer, Map<Articolo,Integer>> MesiIngressi, MesiUscite;
+    
     private static Magazzino INSTANCE = null;
 
     
@@ -37,6 +38,8 @@ public class Magazzino implements Serializable {
 	this.reportingressi = new ArrayList();
 	this.reportuscite = new ArrayList();
 	this.report = new ArrayList();
+	this.MesiIngressi = new TreeMap<>();
+	this.MesiUscite = new TreeMap<>();
     }
 
     //singleton Methods
@@ -143,8 +146,7 @@ public class Magazzino implements Serializable {
     
     //
     public List<Articolo> getArticoloList(){
-    	return articoli;
-    	
+    	return articoli;    	
     } 
 
     public boolean articoliIsEmpty() {
@@ -222,6 +224,9 @@ public class Magazzino implements Serializable {
 	return negozi.get(i);
     }
     
+    public Uscita getUscita(int i) {
+    	return uscite.get(i);
+    }
     public boolean negoziExist(Negozio i){
         return negozi.contains(i);
     }
@@ -293,11 +298,16 @@ public class Magazzino implements Serializable {
 	}//for
 	Ingresso nuovoIngresso = new Ingresso(quantitaParameter, posizioneParameter, data);
 	ingressi.add(nuovoIngresso);
+	
     }
 
     public boolean ingressiIsEmpty() {
 	return ingressi.isEmpty();
     }
+    
+    public boolean usciteIsEmpty() {
+    	return ordini.isEmpty();
+        }
 
     public Ingresso getIngresso(int i) {
 	return ingressi.get(i);
@@ -383,6 +393,9 @@ public class Magazzino implements Serializable {
     public int ordineSize() {
 	return ordini.size();
     }
+    public int usciteSize() {
+	return uscite.size();
+    }
     
     public void setOrdine(int i, Ordine o){
         ordini.remove(i);
@@ -405,7 +418,7 @@ public class Magazzino implements Serializable {
 
 
     /**
-     * SAVE DATA IN FILE
+     * salvataggio database
      */
     public void save() {
 	
@@ -420,6 +433,11 @@ public class Magazzino implements Serializable {
 
 		try {
 		    file = jfc.getSelectedFile();
+		    if(!file.getPath().contains(".dat")) {
+		    	String filename = jfc.getSelectedFile().getName();
+		    	filename += ".dat";
+		    	file = new File(filename);
+		    }
 		    ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream((file)));
 		    fileOut.writeObject(INSTANCE);
 		    fileOut.flush();
@@ -448,33 +466,23 @@ public class Magazzino implements Serializable {
     }
 
     public String chiusuraMensile() {
-	GregorianCalendar dataOdierna = new GregorianCalendar();
-	String s = "Report mensile riferito al " + dataOdierna.get(GregorianCalendar.MONTH) + "" + dataOdierna.get(GregorianCalendar.YEAR) + "\n";
-	String ingressi= "", uscite= ""; // ingressiMese, usciteMese
-	
-	s = "Ingressi:\n";
-	for (Articolo X : ingressiMensili.keySet()) {
-	    s += "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + ingressiMensili.get(X) + " pezzi\n";
-	    ingressi = "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + ingressiMensili.get(X) + " pezzi\n";
-	    reportingressi.add(ingressi);
-	}
-	
-	
-	// [OK] aggiunte liste diverse
- 	
-	s += "\n\nUscite: \n";
-	for (Articolo X : usciteMensili.keySet()) {
-	    s += "Nome Articolo" + X.getTipoArticolo().getName() + " - " + usciteMensili.get(X) + " pezzi\n";
-	    uscite = "Nome Articolo" + X.getTipoArticolo().getName() + " - " + usciteMensili.get(X) + " pezzi\n";
-	    reportuscite.add(uscite);
-	}
-	
-	
-	ingressiMensili.clear();
-	usciteMensili.clear();
-	report.add(s);
-	return s;
-    }
+    	GregorianCalendar dataOdierna = new GregorianCalendar();
+    	String s = "Report mensile riferito al " + dataOdierna.get(GregorianCalendar.MONTH) + "" + dataOdierna.get(GregorianCalendar.YEAR) + "\n";
+    	s += "Ingressi:\n";
+            
+            for (Articolo X : ingressiMensili.keySet()) {
+    	    s += "Nome Articolo: " + X.getTipoArticolo().getName() + "\t" + ingressiMensili.get(X) + "pezzi\n";
+    	}
+            
+    	s += "\n\nUscite: \n";
+    	for (Articolo X : usciteMensili.keySet()) {
+    	    s += "Nome Articolo" + X.getTipoArticolo().getName() + "\t" + usciteMensili.get(X) + "pezzi\n";
+    	}
+    	ingressiMensili.clear();
+    	usciteMensili.clear();
+    	report.add(s);
+    	return s;
+        }
     
     //-
     public List<String> getReportIngressiList() {
@@ -485,6 +493,64 @@ public class Magazzino implements Serializable {
     	return reportuscite;
     	
     }
+    //-
+    public String nuovaChiusuraMensile(String tipo){
+    	String s = "-- INGRESSI -- \n";
+    	for (Articolo X : ingressiMensili.keySet()) {
+    		if(X.getTipoArticolo().getSports().equals(tipo))
+    			s += "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + ingressiMensili.get(X) + " pezzi\n";
+    	}
+    	s += "-- USCITE --  \n" ;
+    	for (Articolo X : ingressiMensili.keySet()) {
+    		if(X.getTipoArticolo().getSports().equals(tipo))
+    			s += "Nome Articolo: " + X.getTipoArticolo().getName() + " - " + usciteMensili.get(X) + " pezzi\n";
+    	}
+    	
+    	return s;
+   }
+   
+    public String ChiusuraMesi(int indexMese, String tipo) {
+    	String s= "- INGRESSI -\n";
+    	List<Ingresso> ingressiMese = new ArrayList<>();
+    	List<Uscita> usciteMese = new ArrayList<>();
+    	for(Ingresso x : ingressi) {
+    		//System.out.println(x.getMonthInt()-1);
+    		if(x.getMonthInt()-1 == indexMese) {
+    			ingressiMese.add(x);
+    			
+    		}
+
+    	}
+
+    	for(Uscita x : uscite) {
+    		//System.out.println(x.getMonthInt()-1);
+    		if(x.getMonthInt()-1 == indexMese) {
+    			usciteMese.add(x);
+    		}
+    	}
+    	
+    	
+    	for (Ingresso i : ingressiMese) {
+    		for(Articolo a : i.getMapArticoli().keySet()) {
+    			if(a.getTipoArticolo().getSports().equals(tipo))
+    				s += "Nome Articolo: " + a.getTipoArticolo().getName() + " - " + i.getMapArticoli().get(a) + " pezzi\n";
+    		}
+    	}
+    	s += "- USCITE -\n";
+
+    	for (Uscita j : usciteMese) {
+    		for (Articolo b : j.getOrdine().getArticle().keySet()) {
+    			if(b.getTipoArticolo().getSports().equals(tipo))
+    				s += "Nome Articolo: " + b.getTipoArticolo().getName() + " - " + j.getOrdine().getArticle().get(b) + " pezzi\n";
+    		}
+    	}
+    return s;
+    
+    }
+    
+    
+  
+    
     
     
     
