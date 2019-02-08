@@ -104,8 +104,7 @@ public class GUI extends JFrame {
 
 	//bottoni
 	private JButton btnLogin,btnArticoli,btnNegozi,btnOrdini,btnIngressi,btnUscite,btnStorico;
-	private JButton btnCambiaPos,btnDettagli;
-	private JButton btnEliminaArt;
+	private JButton btnAggiungiArticolo,btnModificaArticolo,btnEliminaArt,btnDettagli,btnCambiaPos;
 
 	//textboxes
 	private JTextField textField;
@@ -138,7 +137,6 @@ public class GUI extends JFrame {
 	private JTable tableNegozi;
 	private JLabel labelNegozi;
 	private JPanel PanelAggiungiArticolo;
-	private JButton btnModificaArticolo;
 	private JLabel lblGestioneArticolo;
 	private JButton btnArticoloReset;
 	private JButton btnUpdateArticolo;
@@ -329,61 +327,61 @@ public class GUI extends JFrame {
 			button_2.setEnabled(false);
 			lblMese.setText("");
 		 else {*/
-			if (index == 0) {
-				btnNewButton.setEnabled(false);
-			} else {
-				btnNewButton.setEnabled(true);
-			}
-			if (index == 11) {
-				button_2.setEnabled(false);
-
-			} else {
-				button_2.setEnabled(true);
-			}
-			textArea.setText("" + warehouse.ChiusuraMesi(index,sportType));
-			switch(index){ // index del Mese
-			case 0:
-				lblMese.setText(""+ "Gennaio");
-				break;
-			case 1:
-				lblMese.setText(""+ "Febbraio");
-				break;
-			case 2:
-				lblMese.setText(""+ "Marzo");
-				break;
-			case 3:
-				lblMese.setText(""+ "Aprile");
-				break;
-			case 4:
-				lblMese.setText(""+ "Maggio");
-				break;
-			case 5:
-				lblMese.setText(""+ "Giugno");
-				break;
-			case 6:
-				lblMese.setText(""+ "Luglio");
-				break;
-			case 7:
-				lblMese.setText(""+ "Agosto");
-				break;
-			case 8:
-				lblMese.setText(""+ "Settembre");
-				break;
-			case 9:
-				lblMese.setText(""+ "Ottobre");
-				break;
-			case 10:
-				lblMese.setText(""+ "Novembre");
-				break;
-			case 11:
-				lblMese.setText(""+ "Dicembre");
-				break;
-			default:
-				lblMese.setText(""+"errore");
-			}
+		if (index == 0) {
+			btnNewButton.setEnabled(false);
+		} else {
+			btnNewButton.setEnabled(true);
 		}
+		if (index == 11) {
+			button_2.setEnabled(false);
 
-	
+		} else {
+			button_2.setEnabled(true);
+		}
+		textArea.setText("" + warehouse.ChiusuraMesi(index,sportType));
+		switch(index){ // index del Mese
+		case 0:
+			lblMese.setText(""+ "Gennaio");
+			break;
+		case 1:
+			lblMese.setText(""+ "Febbraio");
+			break;
+		case 2:
+			lblMese.setText(""+ "Marzo");
+			break;
+		case 3:
+			lblMese.setText(""+ "Aprile");
+			break;
+		case 4:
+			lblMese.setText(""+ "Maggio");
+			break;
+		case 5:
+			lblMese.setText(""+ "Giugno");
+			break;
+		case 6:
+			lblMese.setText(""+ "Luglio");
+			break;
+		case 7:
+			lblMese.setText(""+ "Agosto");
+			break;
+		case 8:
+			lblMese.setText(""+ "Settembre");
+			break;
+		case 9:
+			lblMese.setText(""+ "Ottobre");
+			break;
+		case 10:
+			lblMese.setText(""+ "Novembre");
+			break;
+		case 11:
+			lblMese.setText(""+ "Dicembre");
+			break;
+		default:
+			lblMese.setText(""+"errore");
+		}
+	}
+
+
 
 	private void startGUI() throws ArticleDontExistInWareHouseException {
 		int selnegozio;
@@ -397,97 +395,245 @@ public class GUI extends JFrame {
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
 		
-				panelRiepilogo = new JPanel();
-				panelRiepilogo.setBounds(147, 0, 650, 565);
-				BGPANE.add(panelRiepilogo);
-				panelRiepilogo.setLayout(null);
+				panelIngressi = new JPanel();
+				panelIngressi.setBounds(147, 0, 650, 565);
+				BGPANE.add(panelIngressi);
+				panelIngressi.setLayout(null);
 				
-						JLabel lblRiepilogoMese = new JLabel("Riepilogo mese:");
-						lblRiepilogoMese.setBounds(77, 13, 243, 37);
-						lblRiepilogoMese.setFont(new Font("Tahoma", Font.BOLD, 30));
-						panelRiepilogo.add(lblRiepilogoMese);
+						JLabel lblId = new JLabel("ID:");
+						lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+						lblId.setBounds(45, 72, 25, 26);
+						panelIngressi.add(lblId);
 						
-								lblMese = new JLabel("");
-								lblMese.setFont(new Font("Tahoma", Font.PLAIN, 20));
-								lblMese.setBounds(326, 21, 169, 25);
-								panelRiepilogo.add(lblMese);
+								JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
+								lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
+								lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
+								panelIngressi.add(lblVisualizzaIngressi);
 								
-										button_2 = new JButton("+");
-										button_2.addMouseListener(new MouseAdapter() {
-											@Override
-											public void mouseClicked(MouseEvent arg0) {
-												index++;
-												report();
-											}
-										});
-										button_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-										button_2.setBounds(495, 13, 51, 25);
-										panelRiepilogo.add(button_2);
+										labelViewId = new JLabel("");
+										labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+										labelViewId.setBounds(77, 78, 106, 16);
+										panelIngressi.add(labelViewId);
 										
-												btnNewButton = new JButton("-");
-												btnNewButton.addMouseListener(new MouseAdapter() {
-													public void mouseClicked(MouseEvent arg0) {
-														index--;
-														report();
-													}
-												});
-												btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
-												btnNewButton.setBounds(494, 36, 52, 25);
-												panelRiepilogo.add(btnNewButton);
+												JLabel lblData = new JLabel("Data ingresso:");
+												lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+												lblData.setBounds(195, 77, 94, 16);
+												panelIngressi.add(lblData);
 												
-														textArea = new JTextArea();
-														textArea.setEditable(false);
-														textArea.setBounds(77, 103, 496, 372);
-														panelRiepilogo.add(textArea);
+														lblViewData = new JLabel("");
+														lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+														lblViewData.setBounds(295, 78, 106, 16);
+														panelIngressi.add(lblViewData);
 														
-																JButton btnChiudiRiepilogo = new JButton("Chiudi Riepilogo");
-																btnChiudiRiepilogo.addMouseListener(new MouseAdapter() {
-																	@Override
-																	public void mouseClicked(MouseEvent e) {
-																		index = 0;
-																		textArea.setText("");
-																		nascondiPannelli();
-																		menuazioni.setVisible(true);
-																	}
-																});
-																btnChiudiRiepilogo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																btnChiudiRiepilogo.setBounds(264, 498, 137, 37);
-																panelRiepilogo.add(btnChiudiRiepilogo);
+																textPane = new JTextPane();
+																textPane.setEditable(false);
+																textPane.setBounds(45, 112, 550, 307);
+																panelIngressi.add(textPane);
 																
-																
-																JComboBox<String> comboBoxSports = new JComboBox<>();
-																comboBoxSports.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-																comboBoxSports.setModel(new DefaultComboBoxModel(new String[] {"SPORTS"}));
-																for(String s: TipoArticolo.sportArray) {
-																	comboBoxSports.addItem(s);
-																}
-																
-																
-																
-																
-																comboBoxSports.addItemListener(new ItemListener() {
-																	public void itemStateChanged(ItemEvent arg0) {
+																		JLabel lblN = new JLabel("Ingresso n:");
+																		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																		lblN.setBounds(409, 78, 75, 16);
+																		panelIngressi.add(lblN);
 																		
-																		if ( arg0.getStateChange() == ItemEvent.SELECTED) { // mi dice se ha cambiato elemento del combobox
-																			sportType = TipoArticolo.sportArray[(comboBoxSports.getSelectedIndex() - 1)];
-																			report();
-																		}
-																		
-																	
-																	}
-																});
-																
-													
-																/*comboBoxSports.addMouseListener(new MouseAdapter() {
+																				btnNuovoIngresso = new JButton("Nuovo ingresso");				
+																				btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																				btnNuovoIngresso.setBounds(231, 432, 133, 35);
+																				panelIngressi.add(btnNuovoIngresso);
+																				
+																						btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
+																						btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																						btnChiudiIngressi.setBounds(195, 496, 193, 35);
+																						panelIngressi.add(btnChiudiIngressi);
+																						
+																								buttonIngressiIndietro = new JButton("<");
+																								buttonIngressiIndietro.addActionListener(new ActionListener() {
+																									public void actionPerformed(ActionEvent arg0) {
+																										indexIngressi--;
+																										ingressi();
+																									}
+																								});
+																								buttonIngressiIndietro.setBounds(485, 74, 41, 25);
+																								panelIngressi.add(buttonIngressiIndietro);
+																								
+																										labelCountIngressi = new JLabel("");
+																										labelCountIngressi.setBounds(528, 78, 25, 16);
+																										panelIngressi.add(labelCountIngressi);
+																										
+																												buttonIngressiAvanti = new JButton(">");
+																												buttonIngressiAvanti.setBounds(553, 74, 41, 25);
+																												panelIngressi.add(buttonIngressiAvanti);
+																												buttonIngressiAvanti.addActionListener(new ActionListener() {
+																													public void actionPerformed(ActionEvent arg0) {
+																														indexIngressi++;
+																														ingressi();
+																													}
+																												});
+																												
+																												
+																														//da ingressi a crea nuovo ingresso
+																														btnNuovoIngresso.addMouseListener(new MouseAdapter() {
+																															@Override
+																															public void mouseClicked(MouseEvent arg0) {
+																																nascondiPannelli();
+																																panelNuovoIngresso.setVisible(true);
+																																textField_2.setText("");
+																																textField_3.setText("");
+																																textField_4.setText("");
+																																textField_5.setText("");
+																																textField_6.setText("");
+																																textField_7.setText("");
+																																textField_8.setText("");
+																																textField_9.setText("");
+																																textField_10.setText("");
+																																textField_11.setText("");
+																																textField_12.setText("");
+																																textField_13.setText("");
+																																textField_14.setText("");
+																																textField_15.setText("");
+																																textField_16.setText("");
+																																textField_17.setText("");
+																																textField_18.setText("");
+																																textField_19.setText("");
+																																textField_20.setText("");
+																																textField_21.setText("");
+																																textField_22.setText("");
+																																textField_23.setText("");
+																																textField_24.setText("");
+																																textField_25.setText("");
+																																textField_26.setText("");
+																																textField_27.setText("");
+																																textField_28.setText("");
+																																textField_29.setText("");
+																																textField_30.setText("");
+																																textField_31.setText("");
+																																textField_3.setEnabled(false);
+																																textField_4.setEnabled(false);
+																																textField_5.setEnabled(false);
+																																textField_6.setEnabled(false);
+																																textField_7.setEnabled(false);
+																																textField_8.setEnabled(false);
+																																textField_9.setEnabled(false);
+																																textField_10.setEnabled(false);
+																																textField_11.setEnabled(false);
+																																textField_13.setEnabled(false);
+																																textField_14.setEnabled(false);
+																																textField_15.setEnabled(false);
+																																textField_16.setEnabled(false);
+																																textField_17.setEnabled(false);
+																																textField_18.setEnabled(false);
+																																textField_19.setEnabled(false);
+																																textField_20.setEnabled(false);
+																																textField_21.setEnabled(false);
+																																textField_23.setEnabled(false);
+																																textField_24.setEnabled(false);
+																																textField_25.setEnabled(false);
+																																textField_26.setEnabled(false);
+																																textField_27.setEnabled(false);
+																																textField_28.setEnabled(false);
+																																textField_29.setEnabled(false);
+																																textField_30.setEnabled(false);
+																																textField_31.setEnabled(false);
+																															}
+																												
+																												
+																														});
+																														btnChiudiIngressi.addActionListener(new ActionListener() {
+																															public void actionPerformed(ActionEvent e) {
+																																nascondiPannelli();
+																																menuazioni.setVisible(true);
+																															}
+																														});
+
+		panelRiepilogo = new JPanel();
+		panelRiepilogo.setBounds(147, 0, 650, 565);
+		BGPANE.add(panelRiepilogo);
+		panelRiepilogo.setLayout(null);
+
+		JLabel lblRiepilogoMese = new JLabel("Riepilogo mese:");
+		lblRiepilogoMese.setBounds(77, 13, 243, 37);
+		lblRiepilogoMese.setFont(new Font("Tahoma", Font.BOLD, 30));
+		panelRiepilogo.add(lblRiepilogoMese);
+
+		lblMese = new JLabel("");
+		lblMese.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMese.setBounds(326, 21, 169, 25);
+		panelRiepilogo.add(lblMese);
+
+		button_2 = new JButton("+");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				index++;
+				report();
+			}
+		});
+		button_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button_2.setBounds(495, 13, 51, 25);
+		panelRiepilogo.add(button_2);
+
+		btnNewButton = new JButton("-");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				index--;
+				report();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnNewButton.setBounds(494, 36, 52, 25);
+		panelRiepilogo.add(btnNewButton);
+
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(77, 103, 496, 372);
+		panelRiepilogo.add(textArea);
+
+		JButton btnChiudiRiepilogo = new JButton("Chiudi Riepilogo");
+		btnChiudiRiepilogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				index = 0;
+				textArea.setText("");
+				nascondiPannelli();
+				menuazioni.setVisible(true);
+			}
+		});
+		btnChiudiRiepilogo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnChiudiRiepilogo.setBounds(264, 498, 137, 37);
+		panelRiepilogo.add(btnChiudiRiepilogo);
+
+
+		JComboBox<String> comboBoxSports = new JComboBox<>();
+		comboBoxSports.setFont(new Font("Lucida Bright", Font.BOLD, 13));
+		comboBoxSports.setModel(new DefaultComboBoxModel(new String[] {"SPORTS"}));
+		for(String s: TipoArticolo.sportArray) {
+			comboBoxSports.addItem(s);
+		}
+
+
+
+
+		comboBoxSports.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+
+				if ( arg0.getStateChange() == ItemEvent.SELECTED) { // mi dice se ha cambiato elemento del combobox
+					sportType = TipoArticolo.sportArray[(comboBoxSports.getSelectedIndex() - 1)];
+					report();
+				}
+
+
+			}
+		});
+
+
+		/*comboBoxSports.addMouseListener(new MouseAdapter() {
 																	@Override
 																	public void mouseExited(MouseEvent arg0) {
-																		
+
 																	}
 																});*/
-																
-																comboBoxSports.setToolTipText("SPORT");
-																comboBoxSports.setBounds(77, 61, 150, 31);
-																panelRiepilogo.add(comboBoxSports);
+
+		comboBoxSports.setToolTipText("SPORT");
+		comboBoxSports.setBounds(77, 61, 150, 31);
+		panelRiepilogo.add(comboBoxSports);
 
 		panelUscite = new JPanel();
 		panelUscite.setBackground(UIManager.getColor("TabbedPane.highlight"));
@@ -552,157 +698,6 @@ public class GUI extends JFrame {
 		label_4 = new JLabel("");
 		label_4.setBounds(454, 61, 56, 16);
 		panelUscite.add(label_4);
-
-		panelIngressi = new JPanel();
-		panelIngressi.setBounds(147, 0, 650, 565);
-		BGPANE.add(panelIngressi);
-		panelIngressi.setLayout(null);
-
-		JLabel lblId = new JLabel("ID:");
-		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblId.setBounds(45, 72, 25, 26);
-		panelIngressi.add(lblId);
-
-		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
-		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
-		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
-		panelIngressi.add(lblVisualizzaIngressi);
-
-		labelViewId = new JLabel("");
-		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelViewId.setBounds(77, 78, 106, 16);
-		panelIngressi.add(labelViewId);
-
-		JLabel lblData = new JLabel("Data ingresso:");
-		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblData.setBounds(195, 77, 94, 16);
-		panelIngressi.add(lblData);
-
-		lblViewData = new JLabel("");
-		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblViewData.setBounds(295, 78, 106, 16);
-		panelIngressi.add(lblViewData);
-
-		textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setBounds(45, 112, 550, 307);
-		panelIngressi.add(textPane);
-
-		JLabel lblN = new JLabel("Ingresso n:");
-		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblN.setBounds(409, 78, 75, 16);
-		panelIngressi.add(lblN);
-
-		btnNuovoIngresso = new JButton("Nuovo ingresso");				
-		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNuovoIngresso.setBounds(231, 432, 133, 35);
-		panelIngressi.add(btnNuovoIngresso);
-
-		btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
-		btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChiudiIngressi.setBounds(195, 496, 193, 35);
-		panelIngressi.add(btnChiudiIngressi);
-
-		buttonIngressiIndietro = new JButton("<");
-		buttonIngressiIndietro.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				indexIngressi--;
-				ingressi();
-			}
-		});
-		buttonIngressiIndietro.setBounds(485, 74, 41, 25);
-		panelIngressi.add(buttonIngressiIndietro);
-
-		labelCountIngressi = new JLabel("");
-		labelCountIngressi.setBounds(528, 78, 25, 16);
-		panelIngressi.add(labelCountIngressi);
-
-		buttonIngressiAvanti = new JButton(">");
-		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
-		panelIngressi.add(buttonIngressiAvanti);
-		buttonIngressiAvanti.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				indexIngressi++;
-				ingressi();
-			}
-		});
-
-
-		//da ingressi a crea nuovo ingresso
-		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				panelNuovoIngresso.setVisible(true);
-				textField_2.setText("");
-				textField_3.setText("");
-				textField_4.setText("");
-				textField_5.setText("");
-				textField_6.setText("");
-				textField_7.setText("");
-				textField_8.setText("");
-				textField_9.setText("");
-				textField_10.setText("");
-				textField_11.setText("");
-				textField_12.setText("");
-				textField_13.setText("");
-				textField_14.setText("");
-				textField_15.setText("");
-				textField_16.setText("");
-				textField_17.setText("");
-				textField_18.setText("");
-				textField_19.setText("");
-				textField_20.setText("");
-				textField_21.setText("");
-				textField_22.setText("");
-				textField_23.setText("");
-				textField_24.setText("");
-				textField_25.setText("");
-				textField_26.setText("");
-				textField_27.setText("");
-				textField_28.setText("");
-				textField_29.setText("");
-				textField_30.setText("");
-				textField_31.setText("");
-				textField_3.setEnabled(false);
-				textField_4.setEnabled(false);
-				textField_5.setEnabled(false);
-				textField_6.setEnabled(false);
-				textField_7.setEnabled(false);
-				textField_8.setEnabled(false);
-				textField_9.setEnabled(false);
-				textField_10.setEnabled(false);
-				textField_11.setEnabled(false);
-				textField_13.setEnabled(false);
-				textField_14.setEnabled(false);
-				textField_15.setEnabled(false);
-				textField_16.setEnabled(false);
-				textField_17.setEnabled(false);
-				textField_18.setEnabled(false);
-				textField_19.setEnabled(false);
-				textField_20.setEnabled(false);
-				textField_21.setEnabled(false);
-				textField_23.setEnabled(false);
-				textField_24.setEnabled(false);
-				textField_25.setEnabled(false);
-				textField_26.setEnabled(false);
-				textField_27.setEnabled(false);
-				textField_28.setEnabled(false);
-				textField_29.setEnabled(false);
-				textField_30.setEnabled(false);
-				textField_31.setEnabled(false);
-			}
-
-
-		});
-		btnChiudiIngressi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nascondiPannelli();
-				menuazioni.setVisible(true);
-			}
-		});
 
 		panelNuovoIngresso = new JPanel();
 		panelNuovoIngresso.setBounds(147, 0, 635, 565);
@@ -1215,88 +1210,6 @@ public class GUI extends JFrame {
 			}
 		});
 
-
-
-
-		menuazioni = new JPanel();
-		menuazioni.setForeground(new Color(0, 0, 0));
-		menuazioni.setBorder(new TitledBorder(new MatteBorder(1, 1, 3, 3, (Color) new Color(192, 192, 192)), "Azioni", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
-		menuazioni.setBackground(SystemColor.controlHighlight);
-		menuazioni.setBounds(0, 0, 147, 425);
-		BGPANE.add(menuazioni);
-
-		btnArticoli = new JButton("Articoli");
-		btnArticoli.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				nascondiPannelli();
-				panelArticoli.setVisible(true);
-				btnCambiaPos.setEnabled(false);
-				btnDettagli.setEnabled(false);
-				btnEliminaArt.setEnabled(false);
-			}
-		});
-		btnArticoli.setBackground(SystemColor.control);
-		menuazioni.add(btnArticoli);
-
-		btnNegozi = new JButton("Negozi");
-		btnNegozi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				nascondiPannelli();
-				panelNegozi.setVisible(true);
-				btnModNegozio.setEnabled(false);
-				btnEliminaNegozio.setEnabled(false);
-			}
-		});
-
-
-		btnNegozi.setBackground(SystemColor.control);
-		menuazioni.add(btnNegozi);
-
-		btnOrdini = new JButton("Ordini");
-		btnOrdini.setBackground(SystemColor.control);
-		menuazioni.add(btnOrdini);
-
-		btnIngressi = new JButton("Ingressi");
-		btnIngressi.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				panelIngressi.setVisible(true);
-				indexIngressi = 0;
-				ingressi();
-
-			}
-		});
-		btnIngressi.setBackground(SystemColor.control);
-		menuazioni.add(btnIngressi);
-
-		btnUscite = new JButton("Uscite");
-		//visualizzare entrate e uscite rispetto agli ordini dei negozi
-		btnUscite.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				panelUscite.setVisible(true);
-				indexUscite = 0;
-				uscite();
-			}
-		});
-		btnUscite.setBackground(SystemColor.control);
-		menuazioni.add(btnUscite);
-
-		btnStorico = new JButton("Riepilogo Mensile");
-		btnStorico.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				index = 0;
-				panelRiepilogo.setVisible(true);
-				textArea.setText("");
-				report();
-			}
-		});
-		btnStorico.setBackground(SystemColor.control);
-		menuazioni.add(btnStorico);
-
 		JButton buttonCheckNuovaRiga = new JButton("+");
 		buttonCheckNuovaRiga.setFont(new Font("Tahoma", Font.BOLD, 30));
 		buttonCheckNuovaRiga.setBounds(79, 404, 71, 57);
@@ -1447,98 +1360,6 @@ public class GUI extends JFrame {
 				}
 			}
 		});
-
-
-		Login = new JPanel();
-		Login.setBackground(SystemColor.controlHighlight);
-		Login.setBounds(245, 160, 293, 240);
-		BGPANE.add(Login);
-		Login.setLayout(null);		
-
-		JLabel lblNewLabel = new JLabel("Login");
-		lblNewLabel.setBackground(SystemColor.controlHighlight);
-		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(0, 0, 293, 66);
-		Login.add(lblNewLabel);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(0, 65, 293, 175);
-		Login.add(panel_1);
-		panel_1.setLayout(null);
-
-		JLabel lblNewLabel_1 = new JLabel("Username");
-		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(24, 41, 80, 30);
-		panel_1.add(lblNewLabel_1);
-
-		textField = new JTextField();
-		textField.setBounds(89, 41, 141, 30);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		textField.setText("magazziniere"); // loginuser
-
-		JLabel lblNewLabel_2 = new JLabel("Password");
-		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblNewLabel_2.setBounds(24, 82, 80, 30);
-		panel_1.add(lblNewLabel_2);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(89, 82, 141, 30);
-		panel_1.add(passwordField);
-		passwordField.setText("1111");
-
-
-		//BOTTONE LOGIN
-		btnLogin = new JButton("Accedi");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loginButtonActionToDo(e);
-			}
-		});
-
-
-		btnLogin.setBounds(90, 123, 112, 41);
-		panel_1.add(btnLogin);
-
-		panelGenerale = new JPanel();
-		panelGenerale.setBackground(SystemColor.controlHighlight);
-		panelGenerale.setBorder(new TitledBorder(new LineBorder(new Color(171, 173, 179)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelGenerale.setBounds(0, 423, 147, 148);
-		BGPANE.add(panelGenerale);
-
-		JButton btnNewButton_6 = new JButton("Salva");
-		btnNewButton_6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				warehouse.save();
-			}
-		});
-		btnNewButton_6.setBackground(SystemColor.control);
-		btnNewButton_6.setBounds(24, 19, 94, 23);
-		btnNewButton_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		panelGenerale.setLayout(null);
-		panelGenerale.add(btnNewButton_6);
-
-		JButton btnNewButton_7 = new JButton("Logout");
-		btnNewButton_7.setBackground(SystemColor.control);
-		btnNewButton_7.setBounds(24, 55, 94, 23);
-		btnNewButton_7.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				hideGUI();
-				Login.setVisible(true);
-			}
-		});
-		panelGenerale.add(btnNewButton_7);
-
-		DEBUG = new JLabel("DBG");
-		DEBUG.setHorizontalAlignment(SwingConstants.CENTER);
-		DEBUG.setBounds(0, 91, 147, 57);
-		panelGenerale.add(DEBUG);
 
 		panelArticoli = new JPanel();
 		panelArticoli.setBackground(SystemColor.controlHighlight);
@@ -1747,7 +1568,7 @@ public class GUI extends JFrame {
 		PanelAggiungiArticolo.add(rdbtnPoliammide);
 		group_btn.add(rdbtnPoliammide);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<>();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Atletica", "Basket", "Calcio", "Ciclismo", "Danza", "Hockey", "Golf", "Nuoto", "Palestra", "Pallavolo", "Rufting", "Rugby", "Scii", "Tennis"}));
 		comboBox.setBounds(275, 378, 200, 30);
 		PanelAggiungiArticolo.add(comboBox);
@@ -1869,7 +1690,7 @@ public class GUI extends JFrame {
 		tableArticoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				tabellaRigaSel(false,"articoli",e); // false è l'azione, non visualizza il pannello ma mantiene solo il valore sul box debug
+				tabellaRigaSel(false,"articoli"); // false è l'azione, non visualizza il pannello ma mantiene solo il valore sul box debug
 
 			}
 		});
@@ -1922,19 +1743,17 @@ public class GUI extends JFrame {
 		btnDettagli = new JButton("Dettagli");
 		btnDettagli.setBounds(240, 434, 140, 110);
 		PanelMainArt.add(btnDettagli);
-		btnDettagli.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				tabellaRigaSel(true,"articoli",arg0);
+		btnDettagli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tabellaRigaSel(true,"articoli");
 			}
 		});
 		btnDettagli.setBackground(SystemColor.control);
 		btnDettagli.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 
-		JButton btnAggiungiArticolo = new JButton("Aggiungi Prodotto");
-		btnAggiungiArticolo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnAggiungiArticolo = new JButton("Aggiungi Prodotto");
+		btnAggiungiArticolo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				addArticlePanel();
 				varflag = 0;
 			}
@@ -1950,8 +1769,8 @@ public class GUI extends JFrame {
 		PanelMainArt.add(btnModificaArticolo);
 
 
-		btnModificaArticolo.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e) {
+		btnModificaArticolo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				try {
 					ModArticlePanel(tableArticoli.getSelectedRow());
 				} catch (ArticleDontExistInWareHouseException e1) {
@@ -1966,8 +1785,8 @@ public class GUI extends JFrame {
 		btnEliminaArt.setBounds(390, 495, 220, 49);
 		PanelMainArt.add(btnEliminaArt);
 
-		btnEliminaArt.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent e) {
+		btnEliminaArt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				warehouse.removeArticolo(warehouse.getArticolo(tableArticoli.getSelectedRow()));
 				fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
 
@@ -2106,7 +1925,7 @@ public class GUI extends JFrame {
 		tableNegozi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				tabellaRigaSel(false,"negozi",e);
+				tabellaRigaSel(false,"negozi");
 			}
 		});
 		tableNegozi.setShowVerticalLines(false);
@@ -2150,9 +1969,8 @@ public class GUI extends JFrame {
 		labelNegozi.setBackground(Color.WHITE);
 
 		btnModNegozio = new JButton("Modifica");
-		btnModNegozio.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnModNegozio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				ModNegoziPanel(tableNegozi.getSelectedRow());
 			}
 		});
@@ -2162,9 +1980,8 @@ public class GUI extends JFrame {
 		PanelMainNeg.add(btnModNegozio);
 
 		btnEliminaNegozio = new JButton("Elimina");
-		btnEliminaNegozio.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnEliminaNegozio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				warehouse.removeNegozio(warehouse.getNegozio(tableNegozi.getSelectedRow()));
 				fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
 
@@ -2187,6 +2004,187 @@ public class GUI extends JFrame {
 		btnCreaNegozio.setBackground(SystemColor.control);
 		btnCreaNegozio.setBounds(240, 434, 140, 110);
 		PanelMainNeg.add(btnCreaNegozio);
+
+
+
+
+		menuazioni = new JPanel();
+		menuazioni.setForeground(new Color(0, 0, 0));
+		menuazioni.setBorder(new TitledBorder(new MatteBorder(1, 1, 3, 3, (Color) new Color(192, 192, 192)), "Azioni", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		menuazioni.setBackground(SystemColor.controlHighlight);
+		menuazioni.setBounds(0, 0, 147, 425);
+		BGPANE.add(menuazioni);
+
+		btnArticoli = new JButton("Articoli");
+		btnArticoli.setBounds(33, 21, 80, 23);
+		btnArticoli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelArticoli.setVisible(true);
+				btnCambiaPos.setEnabled(false);
+				btnDettagli.setEnabled(false);
+				btnEliminaArt.setEnabled(false);
+			}
+		});
+		menuazioni.setLayout(null);
+		btnArticoli.setBackground(SystemColor.control);
+		menuazioni.add(btnArticoli);
+
+		btnNegozi = new JButton("Negozi");
+		btnNegozi.setBounds(33, 49, 80, 23);
+		btnNegozi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelNegozi.setVisible(true);
+				btnModNegozio.setEnabled(false);
+				btnEliminaNegozio.setEnabled(false);
+			}
+		});
+
+
+		btnNegozi.setBackground(SystemColor.control);
+		menuazioni.add(btnNegozi);
+
+		btnOrdini = new JButton("Ordini");
+		btnOrdini.setBounds(33, 77, 80, 23);
+		btnOrdini.setBackground(SystemColor.control);
+		menuazioni.add(btnOrdini);
+
+		btnIngressi = new JButton("Ingressi");
+		btnIngressi.setBounds(33, 105, 80, 23);
+		btnIngressi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				panelIngressi.setVisible(true);
+				indexIngressi = 0;
+				ingressi();
+
+			}
+		});
+		btnIngressi.setBackground(SystemColor.control);
+		menuazioni.add(btnIngressi);
+
+		btnUscite = new JButton("Uscite");
+		btnUscite.setBounds(33, 133, 80, 23);
+		//visualizzare entrate e uscite rispetto agli ordini dei negozi
+		btnUscite.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				panelUscite.setVisible(true);
+				indexUscite = 0;
+				uscite();
+			}
+		});
+		btnUscite.setBackground(SystemColor.control);
+		menuazioni.add(btnUscite);
+
+		btnStorico = new JButton("Riepilogo Mensile");
+		btnStorico.setBounds(10, 161, 127, 23);
+		btnStorico.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				index = 0;
+				panelRiepilogo.setVisible(true);
+				textArea.setText("");
+				report();
+			}
+		});
+		btnStorico.setBackground(SystemColor.control);
+		menuazioni.add(btnStorico);
+
+		panelGenerale = new JPanel();
+		panelGenerale.setBackground(SystemColor.controlHighlight);
+		panelGenerale.setBorder(new TitledBorder(new LineBorder(new Color(171, 173, 179)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelGenerale.setBounds(0, 423, 147, 148);
+		BGPANE.add(panelGenerale);
+
+		JButton btnNewButton_6 = new JButton("Salva");
+		btnNewButton_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				warehouse.save();
+			}
+		});
+		btnNewButton_6.setBackground(SystemColor.control);
+		btnNewButton_6.setBounds(24, 19, 94, 23);
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panelGenerale.setLayout(null);
+		panelGenerale.add(btnNewButton_6);
+
+		JButton btnNewButton_7 = new JButton("Logout");
+		btnNewButton_7.setBackground(SystemColor.control);
+		btnNewButton_7.setBounds(24, 55, 94, 23);
+		btnNewButton_7.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				hideGUI();
+				Login.setVisible(true);
+			}
+		});
+		panelGenerale.add(btnNewButton_7);
+
+		DEBUG = new JLabel("DBG");
+		DEBUG.setHorizontalAlignment(SwingConstants.CENTER);
+		DEBUG.setBounds(0, 91, 147, 57);
+		panelGenerale.add(DEBUG);
+
+
+		Login = new JPanel();
+		Login.setBackground(SystemColor.controlHighlight);
+		Login.setBounds(245, 160, 293, 240);
+		BGPANE.add(Login);
+		Login.setLayout(null);		
+
+		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setBackground(SystemColor.controlHighlight);
+		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(0, 0, 293, 66);
+		Login.add(lblNewLabel);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(0, 65, 293, 175);
+		Login.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("Username");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblNewLabel_1.setBounds(24, 41, 80, 30);
+		panel_1.add(lblNewLabel_1);
+
+		textField = new JTextField();
+		textField.setBounds(89, 41, 141, 30);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		textField.setText(""); // loginuser
+
+		JLabel lblNewLabel_2 = new JLabel("Password");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblNewLabel_2.setBounds(24, 82, 80, 30);
+		panel_1.add(lblNewLabel_2);
+
+		passwordField = new JPasswordField();
+		passwordField.setBounds(89, 82, 141, 30);
+		panel_1.add(passwordField);
+		passwordField.setText("");
+
+
+		//BOTTONE LOGIN
+		btnLogin = new JButton("Accedi");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginButtonActionToDo(e);
+			}
+		});
+
+
+		btnLogin.setBounds(90, 123, 112, 41);
+		panel_1.add(btnLogin);
 
 		//
 		fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
@@ -2265,6 +2263,15 @@ public class GUI extends JFrame {
 
 	private void panelMagazziniere(){
 		panelComuni();
+		btnNegozi.setVisible(false);
+		btnUscite.setVisible(false);
+		
+		btnEliminaArt.setEnabled(false);
+		btnModificaArticolo.setEnabled(false);
+		btnAggiungiArticolo.setEnabled(false);
+		btnDettagli.setEnabled(false);
+		//btnAggiungiArticolo.setVisible(false);
+		//MANCA ORDINI
 
 	}
 
@@ -2279,9 +2286,16 @@ public class GUI extends JFrame {
 
 	private void panelSegreteria(){
 		panelComuni();
+		btnCambiaPos.setVisible(false);
+		btnNuovoIngresso.setEnabled(false);
+		//MANCA ORDINI
 	}
 	private void panelResponsabile(){
 		panelComuni();
+		btnArticoli.setVisible(false);
+		btnNegozi.setVisible(false);
+		btnIngressi.setVisible(false);
+		//MANCA ORDINI
 	}
 
 	private void panelComuni(){ // pannelli in comune per tutti e 3 i tipi di user
@@ -2303,7 +2317,7 @@ public class GUI extends JFrame {
 
 	//TABELLA EVENTS
 
-	private void tabellaRigaSel(boolean act, String type, MouseEvent e){
+	private void tabellaRigaSel(boolean act, String type){
 		//funzione che abilita i bottoni giusti se viene selezionata una riga della tabella
 
 		switch(type) {
@@ -2382,6 +2396,7 @@ public class GUI extends JFrame {
 		do {
 			do {
 				s = JOptionPane.showInputDialog("Nuova posizione: ");
+				if(s == null) return;
 			} while (s.equals(" ") || s.equals(""));
 			newPosition = Integer.parseInt(s);
 		} while (newPosition < 0);
@@ -2606,15 +2621,15 @@ public class GUI extends JFrame {
 
 		}
 	}
-	
+
 	public void calcMonthlyStats(ItemEvent arg0){
 		Object sourceComp = arg0.getSource();
 		JComboBox SourceCompAsJComboBox = (JComboBox)sourceComp;
 		int selSport;
-		
+
 		selSport = (SourceCompAsJComboBox.getSelectedIndex() - 1);
 		textArea.setText(warehouse.nuovaChiusuraMensile(TipoArticolo.sportArray[selSport]));
-		
+
 	}
 }
 
