@@ -1993,7 +1993,7 @@ public class GUI extends JFrame {
 					} catch (NumberFormatException e) {
 						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
 					} finally {
-						break;
+						break;   
 					}
 				case 8:
 					try {
