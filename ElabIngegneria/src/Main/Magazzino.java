@@ -376,6 +376,11 @@ public class Magazzino implements Serializable {
 	return ordini.get(i);
     }
 
+    //
+    public List<Ordine> getOrdineList(){
+    	return ordini;
+    } 
+
     public boolean ordineIsEmpty() {
 	return ordini.isEmpty();
     }
