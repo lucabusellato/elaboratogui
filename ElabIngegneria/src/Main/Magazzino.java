@@ -263,6 +263,7 @@ public class Magazzino implements Serializable {
 
     public Negozio negozioContainedByName(String s) { //controlla se esiste un negozio con quel nome
 	for (Negozio X : negozi) {
+		System.out.println(X.getNome());
 	    if (X.getNome().equals(s)) {
 		return X;
 	    }
@@ -385,6 +386,10 @@ public class Magazzino implements Serializable {
 
     public Ordine getOrdine(int i) {
 	return ordini.get(i);
+    }
+    
+    public List<Ordine> getOrdineList(){
+    	return ordini;
     }
 
     public boolean ordineIsEmpty() {

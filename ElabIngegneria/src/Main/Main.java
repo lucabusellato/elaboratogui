@@ -144,9 +144,9 @@ public class Main implements Serializable{
 		m.addOrdine(o1);
 		m.addOrdine(o2);
 		
-		o1.isShipped();
-		o1.createShip();
-		m.createExit(o1);
+		//o1.isShipped();
+		//o1.createShip();
+		//m.createExit(o1);
 		o2.isShipped();
 		o2.createShip();
 		m.createExit(o2);

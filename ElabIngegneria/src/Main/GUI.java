@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.HeadlessException;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JPasswordField;
@@ -39,6 +40,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -53,7 +55,7 @@ import java.awt.event.ItemEvent;
 
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, indexUscite = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;
+	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, indexUscite = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;    
 	//private int backSel; // serve per lo storico, selezione del combobox che cambia
 	private String sportType="";
 	//prendiamo l'istanza di magazzino -- singleton
@@ -66,8 +68,7 @@ public class GUI extends JFrame {
 	private JPanel BGPANE; // panel principale
 
 	private JPanel Login, menuazioni, panelArticoli, panelGenerale,panelNegozi,TablePanel,panelIngressi,panelNuovoIngresso;
-	private JPanel PanelMainArt,PanelMainNeg,panelUscite;
-	private List<JPanel> listaPanel = new ArrayList<>();
+	private JPanel PanelMainArt,PanelMainNeg,panelUscite,PanelTableOrdiniPrinc;
 
 
 	//bottoni
@@ -196,7 +197,28 @@ public class GUI extends JFrame {
 	private JButton buttonUscitaIndietro;
 	private JButton buttonUscitaAvanti;
 	private JTextArea textAreaUscite;
+	
+	//Ordini
+	private JPanel panelOrdini;
+	private JPanel PanelCreaNuovoOrd;
+	private JPanel PanelTableOrdini;
+	private JTable tableOrdini;
+	private JLabel labelOrdini;
+	private JTextField shippedTextLabel;
+
+	private JTextField quantita1;
+	private JTextField quantita2;
+	private JTextField quantita3;
+	private JTextField quantita4;
+	private JTextField quantita5;
+	private JTextField textCorriere;
+	private JTextField quantita6;
+	private JLabel lblArticoliEQuantit;
+	private JLabel lblNegozio_o;
+	
+	
 	/**
+	 *
 	 * Create the frame.
 	 * @throws ArticleDontExistInWareHouseException 
 	 */
@@ -205,11 +227,6 @@ public class GUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
-		listaPanel.add(panelArticoli);
-		listaPanel.add(panelNegozi);
-		listaPanel.add(panelNuovoIngresso);
-		listaPanel.add(panelIngressi);
-		listaPanel.add(panelUscite);
 
 
 		//inizializza i componenti
@@ -221,7 +238,7 @@ public class GUI extends JFrame {
 	private void nascondiPannelli() {
 		panelArticoli.setVisible(false);
 		panelNegozi.setVisible(false);
-		//panelOrdini.setVisible(false); -- TO COMPLETE
+		panelOrdini.setVisible(false);
 		panelIngressi.setVisible(false);
 		panelNuovoIngresso.setVisible(false);
 		panelUscite.setVisible(false); 
@@ -2024,6 +2041,12 @@ public class GUI extends JFrame {
 		menuazioni.add(btnNegozi);
 
 		btnOrdini = new JButton("Ordini");
+		btnOrdini.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nascondiPannelli();
+				panelOrdini.setVisible(true);
+			}
+		});
 		btnOrdini.setBounds(33, 77, 80, 23);
 		btnOrdini.setBackground(SystemColor.control);
 		menuazioni.add(btnOrdini);
@@ -2188,7 +2211,432 @@ public class GUI extends JFrame {
 		//
 		fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
 
-		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
+		
+		panelOrdini = new JPanel();
+		panelOrdini.setBounds(147, 0, 650, 570);
+		BGPANE.add(panelOrdini);
+		panelOrdini.setLayout(null);
+
+
+		PanelTableOrdiniPrinc = new JPanel();
+		PanelTableOrdiniPrinc.setBounds(0, 0, 650, 570);
+		panelOrdini.add(PanelTableOrdiniPrinc);
+		PanelTableOrdiniPrinc.setLayout(null);
+
+		PanelTableOrdini = new JPanel();
+		PanelTableOrdini.setBounds(0, 50, 650, 370);
+		PanelTableOrdiniPrinc.add(PanelTableOrdini);
+		PanelTableOrdini.setLayout(new BorderLayout(0, 0));
+		
+		JTextArea articoliQuantitaTextArea = new JTextArea();
+		articoliQuantitaTextArea.setEditable(false);
+		articoliQuantitaTextArea.setBounds(75, 450, 160, 109);
+		PanelTableOrdiniPrinc.add(articoliQuantitaTextArea);
+		
+		tableOrdini = new JTable();
+		tableOrdini.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				indexOrder = tableOrdini.getSelectedRow();
+				articoliQuantitaTextArea.setText(""+ warehouse.getOrdine(indexOrder).toString());
+			}
+		});
+		tableOrdini.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"ID", "Data", "Prezzo", "Negozio", "Corriere", "Sped.", "Num. Articoli"
+				}
+				));
+		tableOrdini.setShowVerticalLines(false);
+		tableOrdini.setFont(new Font("Arial", Font.PLAIN, 13));
+		tableOrdini.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		tableOrdini.setBackground(Color.LIGHT_GRAY);
+		PanelTableOrdini.add(tableOrdini.getTableHeader(), BorderLayout.NORTH);
+		PanelTableOrdini.add(tableOrdini, BorderLayout.CENTER);
+
+		fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+
+		lblArticoliEQuantit = new JLabel("Articoli e Quantit\u00E0:");
+		lblArticoliEQuantit.setBounds(78, 435, 90, 14);
+		PanelTableOrdiniPrinc.add(lblArticoliEQuantit);
+
+		JButton btnModifica = new JButton("Modifica");
+		btnModifica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModifica.setBounds(300, 451, 124, 23);
+		PanelTableOrdiniPrinc.add(btnModifica);
+
+		labelOrdini = new JLabel("Ordini");
+		labelOrdini.setBounds(200, 0, 250, 50);
+		PanelTableOrdiniPrinc.add(labelOrdini);
+		labelOrdini.setHorizontalAlignment(SwingConstants.CENTER);
+		labelOrdini.setFont(new Font("Arial", Font.ITALIC, 30));
+		labelOrdini.setBackground(Color.WHITE);
+
+		JLabel lblStato = new JLabel("Stato:");
+		lblStato.setBounds(393, 529, 30, 14);
+		PanelTableOrdiniPrinc.add(lblStato);
+
+		JButton btnEliminaOrdine = new JButton("Elimina Ordine");
+		btnEliminaOrdine.setBounds(424, 474, 124, 23);
+		PanelTableOrdiniPrinc.add(btnEliminaOrdine);
+		btnEliminaOrdine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			     warehouse.removeOrdine(warehouse.getOrdine(tableOrdini.getSelectedRow()));
+			  	 fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+			}
+		});
+		JButton btnGeneraUscita = new JButton("Genera Uscita");
+		btnGeneraUscita.setBounds(300, 474, 124, 23);
+		PanelTableOrdiniPrinc.add(btnGeneraUscita);
+		btnGeneraUscita.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					warehouse.createExit(warehouse.getOrdine(indexOrder));
+					fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+				}
+				catch(OrderNotFound | ArticleNotFound | OrderImpossibleToCreate ex) {
+					JOptionPane.showMessageDialog(null,"Quantità articoli non sufficiente");
+					}
+				}
+			});
+
+		JButton btnCreaNuovoOrd = new JButton("Crea Nuovo Ordine");
+		btnCreaNuovoOrd.setBounds(424, 451, 124, 23);
+		PanelTableOrdiniPrinc.add(btnCreaNuovoOrd);
+
+		shippedTextLabel = new JTextField();
+		shippedTextLabel.setBounds(424, 526, 124, 20);
+		PanelTableOrdiniPrinc.add(shippedTextLabel);
+		shippedTextLabel.setColumns(10);
+
+		PanelCreaNuovoOrd = new JPanel();
+		PanelCreaNuovoOrd.setBounds(0, 0, 650, 570);
+		panelOrdini.add(PanelCreaNuovoOrd);
+		PanelCreaNuovoOrd.setLayout(null);
+
+
+		JLabel lblCreaNuovoOrdine = new JLabel("Crea Nuovo Ordine:");
+		lblCreaNuovoOrdine.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreaNuovoOrdine.setFont(new Font("Arial", Font.ITALIC, 30));
+		lblCreaNuovoOrdine.setBackground(Color.WHITE);
+		lblCreaNuovoOrdine.setBounds(104, 11, 348, 50);
+		PanelCreaNuovoOrd.add(lblCreaNuovoOrdine);
+
+
+
+		lblNegozio_o = new JLabel("Negozio:");
+		lblNegozio_o.setBounds(424, 242, 71, 14);
+		PanelCreaNuovoOrd.add(lblNegozio_o);
+
+		JComboBox<String> SelectNegozio = new JComboBox<>();
+		//SelectNegozio.setModel(new DefaultComboBoxModel<>(new String[] {"negozio1", "negozio2", "negozio3", "negozio4"}));
+		for(Negozio n : warehouse.getNegozioList())
+			SelectNegozio.addItem(n.getNome());
+			
+		SelectNegozio.setBounds(383, 259, 124, 20);
+		PanelCreaNuovoOrd.add(SelectNegozio);
+
+
+		JPanel CorniceArticoloLabel = new JPanel();
+		CorniceArticoloLabel.setBounds(105, 70, 228, 227);
+		PanelCreaNuovoOrd.add(CorniceArticoloLabel);
+		CorniceArticoloLabel.setLayout(null);
+
+		lblQuantit = new JLabel("Quantit\u00E0:");
+		lblQuantit.setBounds(10, 11, 60, 14);
+		lblQuantit.setVerticalAlignment(SwingConstants.TOP);
+		CorniceArticoloLabel.add(lblQuantit);
+
+		JLabel lblArticoli_1 = new JLabel("Articoli:");
+		lblArticoli_1.setVerticalAlignment(SwingConstants.TOP);
+		lblArticoli_1.setBounds(132, 11, 42, 14);
+		CorniceArticoloLabel.add(lblArticoli_1);
+
+		quantita1 = new JTextField();
+		quantita1.setBounds(10, 31, 86, 20);
+		CorniceArticoloLabel.add(quantita1);
+		quantita1.setColumns(10);
+
+		quantita2 = new JTextField();
+		quantita2.setBounds(10, 62, 86, 20);
+		CorniceArticoloLabel.add(quantita2);
+		quantita2.setColumns(10);
+
+		quantita3 = new JTextField();
+		quantita3.setBounds(10, 93, 86, 20);
+		CorniceArticoloLabel.add(quantita3);
+		quantita3.setColumns(10);
+
+		JComboBox<String> comboBoxSel1 = new JComboBox<>();
+		
+		comboBoxSel1.setBounds(132, 31, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel1);
+
+		JComboBox<String> comboBoxSel2 = new JComboBox<>();
+		comboBoxSel2.setBounds(132, 62, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel2);
+
+		JComboBox<String> comboBoxSel3 = new JComboBox<>();
+		comboBoxSel3.setBounds(132, 93, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel3);
+
+		quantita4 = new JTextField();
+		quantita4.setBounds(10, 124, 86, 20);
+		CorniceArticoloLabel.add(quantita4);
+		quantita4.setColumns(10);
+
+		quantita5 = new JTextField();
+		quantita5.setBounds(10, 155, 86, 20);
+		CorniceArticoloLabel.add(quantita5);
+		quantita5.setColumns(10);
+
+		JComboBox<String> comboBoxSel4 = new JComboBox<>();
+		comboBoxSel4.setBounds(132, 124, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel4);
+
+		JComboBox<String> comboBoxSel5 = new JComboBox<>();
+		comboBoxSel5.setBounds(132, 155, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel5);
+
+		quantita6 = new JTextField();
+		quantita6.setBounds(10, 186, 86, 20);
+		CorniceArticoloLabel.add(quantita6);
+		quantita6.setColumns(10);
+
+		JComboBox<String> comboBoxSel6 = new JComboBox<>();
+		comboBoxSel6.setBounds(132, 186, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel6);
+
+		textCorriere = new JTextField();
+		textCorriere.setBounds(383, 208, 124, 23);
+		PanelCreaNuovoOrd.add(textCorriere);
+		textCorriere.setColumns(10);
+
+		JLabel lblCorriere = new JLabel("Corriere:");
+		lblCorriere.setBounds(424, 192, 83, 14);
+		PanelCreaNuovoOrd.add(lblCorriere);
+		
+		//carica i combo box
+		btnCreaNuovoOrd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addCreaOrdPanel();
+				varflag = 0;
+				comboBoxSel6.removeAllItems();
+				comboBoxSel5.removeAllItems();
+				comboBoxSel4.removeAllItems();
+				comboBoxSel3.removeAllItems();
+				comboBoxSel2.removeAllItems();
+				comboBoxSel1.removeAllItems();
+				for(Articolo art : warehouse.getArticoloList()) {
+					comboBoxSel6.addItem(art.getTipoArticolo().getName());
+					comboBoxSel5.addItem(art.getTipoArticolo().getName());
+					comboBoxSel4.addItem(art.getTipoArticolo().getName());
+					comboBoxSel3.addItem(art.getTipoArticolo().getName());
+					comboBoxSel2.addItem(art.getTipoArticolo().getName());
+					comboBoxSel1.addItem(art.getTipoArticolo().getName());
+
+				}
+				SelectNegozio.removeAllItems();
+				for(Negozio n : warehouse.getNegozioList())
+					SelectNegozio.addItem(n.getNome());
+			}
+		});
+		//
+		//CREA ORDINE
+		JButton btnCrea = new JButton("Crea");
+		btnCrea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				boolean voidSelection = false;
+
+
+				String corriere = textCorriere.getText();
+
+				if (corriere.equals("") && corriere.equals(" ")) {//controllo che sia stato inserito un corriere valido
+					JOptionPane.showMessageDialog(null, "Inserire un campo corriere valido! ");
+					return;
+				}
+
+				String negozio = (String) SelectNegozio.getSelectedItem();
+				System.out.println(negozio);
+				Negozio x = warehouse.negozioContainedByName(negozio);
+
+				Map<Articolo, Integer> articoliAndQuantita = new HashMap<>();
+
+				int qnt1;
+				int qnt2;
+				int qnt3;
+				int qnt4;
+				int qnt5;
+				int qnt6;
+
+				String articolo1 = (String) comboBoxSel1.getSelectedItem();
+				String articolo2 = (String) comboBoxSel2.getSelectedItem();
+				String articolo3 = (String) comboBoxSel3.getSelectedItem();
+				String articolo4 = (String) comboBoxSel4.getSelectedItem();
+				String articolo5 = (String) comboBoxSel5.getSelectedItem();
+				String articolo6 = (String) comboBoxSel6.getSelectedItem();
+				//DA QUA
+
+				try {
+					qnt1 = quantita1.getText().equals("") || quantita1.getText().equals(" ") ? 0 : Integer.parseInt(quantita1.getText());
+					qnt2 = quantita2.getText().equals("") || quantita2.getText().equals(" ") ? 0 : Integer.parseInt(quantita2.getText());
+					qnt3 = quantita3.getText().equals("") || quantita3.getText().equals(" ") ? 0 : Integer.parseInt(quantita3.getText());
+					qnt4 = quantita4.getText().equals("") || quantita4.getText().equals(" ") ? 0 : Integer.parseInt(quantita4.getText());
+					qnt5 = quantita5.getText().equals("") || quantita5.getText().equals(" ") ? 0 : Integer.parseInt(quantita5.getText());
+					qnt6 = quantita6.getText().equals("") || quantita6.getText().equals(" ") ? 0 : Integer.parseInt(quantita6.getText());
+
+					if (articolo1.equals("<Articolo>") && qnt1 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo2.equals("<Articolo>") && qnt2 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo3.equals("<Articolo>") && qnt3 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo4.equals("<Articolo>") && qnt4 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo5.equals("<Articolo>") && qnt5 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo6.equals("<Articolo>") && qnt6 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+
+					Articolo a1 = articolo1.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo1);
+					Articolo a2 = articolo2.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo2);
+					Articolo a3 = articolo3.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo3);
+					Articolo a4 = articolo4.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo4);
+					Articolo a5 = articolo5.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo5);
+					Articolo a6 = articolo6.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo6);
+
+					if (qnt1 != 0) {
+						articoliAndQuantita.put(a1, qnt1);
+					}
+
+
+					if (qnt2 != 0) {
+						if (articoliAndQuantita.containsKey(a2))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a2, qnt2 + articoliAndQuantita.get(a2));
+						} else {
+							articoliAndQuantita.put(a2, qnt2);
+						}
+					}
+
+					if (qnt3 != 0) {
+						if (articoliAndQuantita.containsKey(a3))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a3, qnt3 + articoliAndQuantita.get(a3));
+						} else {
+							articoliAndQuantita.put(a3, qnt3);
+						}
+					}
+
+					if (qnt4 != 0) {
+						if (articoliAndQuantita.containsKey(a4))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a4, qnt4 + articoliAndQuantita.get(a4));
+						} else {
+							articoliAndQuantita.put(a4, qnt4);
+						}
+					}
+
+					if (qnt5 != 0) {
+						if (articoliAndQuantita.containsKey(a5))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a5, qnt5 + articoliAndQuantita.get(a5));
+						} else {
+							articoliAndQuantita.put(a5, qnt5);
+						}
+					}
+
+					if (qnt6 != 0) {
+						if (articoliAndQuantita.containsKey(a6))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a6, qnt6 + articoliAndQuantita.get(a6));
+						} else {
+							articoliAndQuantita.put(a6, qnt6);
+						}
+					}
+					if (articoliAndQuantita.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Inserisci almeno un oggetto!");
+						return;
+					}
+					Ordine o1 = new Ordine(x, corriere, new GregorianCalendar(), articoliAndQuantita);
+					System.out.println(x.toString());
+					System.out.println(corriere.toString());
+					System.out.println( new GregorianCalendar().toString());
+					System.out.println(articoliAndQuantita.toString());
+					
+					
+					
+						warehouse.addOrdine(o1);
+						indexOrder = warehouse.ordineSize() - 1;
+						
+					fillTable("ordini", (DefaultTableModel)tableOrdini.getModel());
+
+
+				}catch (ArticleDontExistInWareHouseException | HeadlessException | VoidStringUnexpectedException e) {
+					JOptionPane.showMessageDialog(null, "Eccezione");
+				}finally {
+					if (voidSelection) {
+						return;
+						}
+					
+					nascondiPannelli();
+					panelOrdini.setVisible(true);
+					textCorriere.setText("");
+					quantita1.setText("");
+					quantita2.setText("");
+					quantita3.setText("");
+					quantita4.setText("");
+					quantita5.setText("");
+					quantita6.setText("");
+					
+					
+				}
+				
+				
+			}
+		});
+		btnCrea.setBounds(383, 89, 124, 39);
+		PanelCreaNuovoOrd.add(btnCrea);
+		PanelCreaNuovoOrd.setVisible(false);
+
+		JButton btnChiudi = new JButton("Chiudi");
+		btnChiudi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCreaNuovoOrd.setVisible(false);
+				PanelTableOrdiniPrinc.setVisible(true);
+				PanelTableOrdini.setVisible(true);
+
+			}
+		});
+		btnChiudi.setBounds(383, 131, 124, 39);
+		PanelCreaNuovoOrd.add(btnChiudi);
+		
+		
+
+		
 
 
 	}
@@ -2334,12 +2782,10 @@ public class GUI extends JFrame {
 			btnModNegozio.setEnabled(true);
 			btnEliminaNegozio.setEnabled(true);
 			break;
+		
+	
 		}
-
-
-
 	}
-
 	//GENERAZIONE DEI DETTAGLI NEI PANEL DETTAGLI
 	private void dettaglioArticolo(boolean act, int row) {
 		//DEBUG BOX
@@ -2436,6 +2882,14 @@ public class GUI extends JFrame {
 			}
 
 			break;
+		
+		case "ordini":
+			model.setRowCount(0);
+			for(Ordine o : warehouse.getOrdineList()) {
+				System.out.println(o.toString());
+				//	Sistemare per il checkbox come si mette? sistemare il num articoli
+				model.addRow(new Object[]{o.getIDtoString(),o.getDataInString(),o.getTotalPrice(),o.getNegozio().getNome(),o.getCorriere(), o.getIfShipped(), o.articoliSize()});
+			}
 
 
 
@@ -2625,6 +3079,11 @@ public class GUI extends JFrame {
 		selSport = (SourceCompAsJComboBox.getSelectedIndex() - 1);
 		textArea.setText(warehouse.nuovaChiusuraMensile(TipoArticolo.sportArray[selSport]));
 
+	}
+	private void addCreaOrdPanel() {
+		PanelTableOrdiniPrinc.setVisible(false);
+		PanelCreaNuovoOrd.setVisible(true);
+		varflag = 0;
 	}
 }
 
