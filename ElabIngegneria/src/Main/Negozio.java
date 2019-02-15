@@ -3,7 +3,11 @@ package Main;
 import java.io.Serializable;
 
 public class Negozio implements Comparable<Negozio>, Serializable{
-    private String codiceFiscale;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String codiceFiscale;
     private String nome;
     private String indirizzo;
     private String citta;

@@ -2,9 +2,6 @@ package Main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-//import delle exception
 
 import Exception.*;
 
@@ -15,15 +12,11 @@ import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import javax.swing.UIManager;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -32,32 +25,16 @@ import java.awt.Graphics;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JPasswordField;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static java.lang.Math.abs;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import java.awt.GridLayout;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.DropMode;
-import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.Component;
-import javax.swing.JSplitPane;
-import java.awt.GridBagLayout;
 import javax.swing.JTextArea;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -68,23 +45,14 @@ import java.util.TreeMap;
 
 import javax.swing.JSeparator;
 import javax.swing.JRadioButton;
-import javax.swing.JList;
 import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JScrollBar;
-import javax.swing.AbstractListModel;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 
 public class GUI extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, indexUscite = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;
 	//private int backSel; // serve per lo storico, selezione del combobox che cambia
 	private String sportType="";
@@ -211,7 +179,6 @@ public class GUI extends JFrame {
 	private JTextField textField_31;
 	private JTextField textFieldMese;
 	private JTextField textFieldAnno;
-	private DefaultListModel<String> listModel, listModelOut;
 
 
 	//riepilogo
@@ -320,13 +287,6 @@ public class GUI extends JFrame {
 		}
 	}
 	private void report() {
-		/*if (warehouse.reportIsEmpty()) {
-			JOptionPane.showMessageDialog(null, "Nessun report ancora presente nel Database");
-			textArea.setText("");
-			btnNewButton.setEnabled(false);
-			button_2.setEnabled(false);
-			lblMese.setText("");
-		 else {*/
 		if (index == 0) {
 			btnNewButton.setEnabled(false);
 		} else {
@@ -384,165 +344,162 @@ public class GUI extends JFrame {
 
 
 	private void startGUI() throws ArticleDontExistInWareHouseException {
-		int selnegozio;
 		//INIT GUI DESIGN
 		group_btn = new ButtonGroup();//GRUPPO DI BOTTONI
-		listModel = new DefaultListModel<String>();
-		listModelOut = new DefaultListModel<String>();
 		BGPANE = new JPanel();
 		BGPANE.setBackground(SystemColor.controlHighlight);
 		BGPANE.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
-		
-				panelIngressi = new JPanel();
-				panelIngressi.setBounds(147, 0, 650, 565);
-				BGPANE.add(panelIngressi);
-				panelIngressi.setLayout(null);
-				
-						JLabel lblId = new JLabel("ID:");
-						lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-						lblId.setBounds(45, 72, 25, 26);
-						panelIngressi.add(lblId);
-						
-								JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
-								lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
-								lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
-								panelIngressi.add(lblVisualizzaIngressi);
-								
-										labelViewId = new JLabel("");
-										labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-										labelViewId.setBounds(77, 78, 106, 16);
-										panelIngressi.add(labelViewId);
-										
-												JLabel lblData = new JLabel("Data ingresso:");
-												lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-												lblData.setBounds(195, 77, 94, 16);
-												panelIngressi.add(lblData);
-												
-														lblViewData = new JLabel("");
-														lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-														lblViewData.setBounds(295, 78, 106, 16);
-														panelIngressi.add(lblViewData);
-														
-																textPane = new JTextPane();
-																textPane.setEditable(false);
-																textPane.setBounds(45, 112, 550, 307);
-																panelIngressi.add(textPane);
-																
-																		JLabel lblN = new JLabel("Ingresso n:");
-																		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		lblN.setBounds(409, 78, 75, 16);
-																		panelIngressi.add(lblN);
-																		
-																				btnNuovoIngresso = new JButton("Nuovo ingresso");				
-																				btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																				btnNuovoIngresso.setBounds(231, 432, 133, 35);
-																				panelIngressi.add(btnNuovoIngresso);
-																				
-																						btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
-																						btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																						btnChiudiIngressi.setBounds(195, 496, 193, 35);
-																						panelIngressi.add(btnChiudiIngressi);
-																						
-																								buttonIngressiIndietro = new JButton("<");
-																								buttonIngressiIndietro.addActionListener(new ActionListener() {
-																									public void actionPerformed(ActionEvent arg0) {
-																										indexIngressi--;
-																										ingressi();
-																									}
-																								});
-																								buttonIngressiIndietro.setBounds(485, 74, 41, 25);
-																								panelIngressi.add(buttonIngressiIndietro);
-																								
-																										labelCountIngressi = new JLabel("");
-																										labelCountIngressi.setBounds(528, 78, 25, 16);
-																										panelIngressi.add(labelCountIngressi);
-																										
-																												buttonIngressiAvanti = new JButton(">");
-																												buttonIngressiAvanti.setBounds(553, 74, 41, 25);
-																												panelIngressi.add(buttonIngressiAvanti);
-																												buttonIngressiAvanti.addActionListener(new ActionListener() {
-																													public void actionPerformed(ActionEvent arg0) {
-																														indexIngressi++;
-																														ingressi();
-																													}
-																												});
-																												
-																												
-																														//da ingressi a crea nuovo ingresso
-																														btnNuovoIngresso.addMouseListener(new MouseAdapter() {
-																															@Override
-																															public void mouseClicked(MouseEvent arg0) {
-																																nascondiPannelli();
-																																panelNuovoIngresso.setVisible(true);
-																																textField_2.setText("");
-																																textField_3.setText("");
-																																textField_4.setText("");
-																																textField_5.setText("");
-																																textField_6.setText("");
-																																textField_7.setText("");
-																																textField_8.setText("");
-																																textField_9.setText("");
-																																textField_10.setText("");
-																																textField_11.setText("");
-																																textField_12.setText("");
-																																textField_13.setText("");
-																																textField_14.setText("");
-																																textField_15.setText("");
-																																textField_16.setText("");
-																																textField_17.setText("");
-																																textField_18.setText("");
-																																textField_19.setText("");
-																																textField_20.setText("");
-																																textField_21.setText("");
-																																textField_22.setText("");
-																																textField_23.setText("");
-																																textField_24.setText("");
-																																textField_25.setText("");
-																																textField_26.setText("");
-																																textField_27.setText("");
-																																textField_28.setText("");
-																																textField_29.setText("");
-																																textField_30.setText("");
-																																textField_31.setText("");
-																																textField_3.setEnabled(false);
-																																textField_4.setEnabled(false);
-																																textField_5.setEnabled(false);
-																																textField_6.setEnabled(false);
-																																textField_7.setEnabled(false);
-																																textField_8.setEnabled(false);
-																																textField_9.setEnabled(false);
-																																textField_10.setEnabled(false);
-																																textField_11.setEnabled(false);
-																																textField_13.setEnabled(false);
-																																textField_14.setEnabled(false);
-																																textField_15.setEnabled(false);
-																																textField_16.setEnabled(false);
-																																textField_17.setEnabled(false);
-																																textField_18.setEnabled(false);
-																																textField_19.setEnabled(false);
-																																textField_20.setEnabled(false);
-																																textField_21.setEnabled(false);
-																																textField_23.setEnabled(false);
-																																textField_24.setEnabled(false);
-																																textField_25.setEnabled(false);
-																																textField_26.setEnabled(false);
-																																textField_27.setEnabled(false);
-																																textField_28.setEnabled(false);
-																																textField_29.setEnabled(false);
-																																textField_30.setEnabled(false);
-																																textField_31.setEnabled(false);
-																															}
-																												
-																												
-																														});
-																														btnChiudiIngressi.addActionListener(new ActionListener() {
-																															public void actionPerformed(ActionEvent e) {
-																																nascondiPannelli();
-																																menuazioni.setVisible(true);
-																															}
-																														});
+
+		panelIngressi = new JPanel();
+		panelIngressi.setBounds(147, 0, 650, 565);
+		BGPANE.add(panelIngressi);
+		panelIngressi.setLayout(null);
+
+		JLabel lblId = new JLabel("ID:");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblId.setBounds(45, 72, 25, 26);
+		panelIngressi.add(lblId);
+
+		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
+		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
+		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
+		panelIngressi.add(lblVisualizzaIngressi);
+
+		labelViewId = new JLabel("");
+		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		labelViewId.setBounds(77, 78, 106, 16);
+		panelIngressi.add(labelViewId);
+
+		JLabel lblData = new JLabel("Data ingresso:");
+		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblData.setBounds(195, 77, 94, 16);
+		panelIngressi.add(lblData);
+
+		lblViewData = new JLabel("");
+		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblViewData.setBounds(295, 78, 106, 16);
+		panelIngressi.add(lblViewData);
+
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBounds(45, 112, 550, 307);
+		panelIngressi.add(textPane);
+
+		JLabel lblN = new JLabel("Ingresso n:");
+		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblN.setBounds(409, 78, 75, 16);
+		panelIngressi.add(lblN);
+
+		btnNuovoIngresso = new JButton("Nuovo ingresso");				
+		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNuovoIngresso.setBounds(231, 432, 133, 35);
+		panelIngressi.add(btnNuovoIngresso);
+
+		btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
+		btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnChiudiIngressi.setBounds(195, 496, 193, 35);
+		panelIngressi.add(btnChiudiIngressi);
+
+		buttonIngressiIndietro = new JButton("<");
+		buttonIngressiIndietro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				indexIngressi--;
+				ingressi();
+			}
+		});
+		buttonIngressiIndietro.setBounds(485, 74, 41, 25);
+		panelIngressi.add(buttonIngressiIndietro);
+
+		labelCountIngressi = new JLabel("");
+		labelCountIngressi.setBounds(528, 78, 25, 16);
+		panelIngressi.add(labelCountIngressi);
+
+		buttonIngressiAvanti = new JButton(">");
+		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
+		panelIngressi.add(buttonIngressiAvanti);
+		buttonIngressiAvanti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				indexIngressi++;
+				ingressi();
+			}
+		});
+
+
+		//da ingressi a crea nuovo ingresso
+		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				panelNuovoIngresso.setVisible(true);
+				textField_2.setText("");
+				textField_3.setText("");
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+				textField_7.setText("");
+				textField_8.setText("");
+				textField_9.setText("");
+				textField_10.setText("");
+				textField_11.setText("");
+				textField_12.setText("");
+				textField_13.setText("");
+				textField_14.setText("");
+				textField_15.setText("");
+				textField_16.setText("");
+				textField_17.setText("");
+				textField_18.setText("");
+				textField_19.setText("");
+				textField_20.setText("");
+				textField_21.setText("");
+				textField_22.setText("");
+				textField_23.setText("");
+				textField_24.setText("");
+				textField_25.setText("");
+				textField_26.setText("");
+				textField_27.setText("");
+				textField_28.setText("");
+				textField_29.setText("");
+				textField_30.setText("");
+				textField_31.setText("");
+				textField_3.setEnabled(false);
+				textField_4.setEnabled(false);
+				textField_5.setEnabled(false);
+				textField_6.setEnabled(false);
+				textField_7.setEnabled(false);
+				textField_8.setEnabled(false);
+				textField_9.setEnabled(false);
+				textField_10.setEnabled(false);
+				textField_11.setEnabled(false);
+				textField_13.setEnabled(false);
+				textField_14.setEnabled(false);
+				textField_15.setEnabled(false);
+				textField_16.setEnabled(false);
+				textField_17.setEnabled(false);
+				textField_18.setEnabled(false);
+				textField_19.setEnabled(false);
+				textField_20.setEnabled(false);
+				textField_21.setEnabled(false);
+				textField_23.setEnabled(false);
+				textField_24.setEnabled(false);
+				textField_25.setEnabled(false);
+				textField_26.setEnabled(false);
+				textField_27.setEnabled(false);
+				textField_28.setEnabled(false);
+				textField_29.setEnabled(false);
+				textField_30.setEnabled(false);
+				textField_31.setEnabled(false);
+			}
+
+
+		});
+		btnChiudiIngressi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nascondiPannelli();
+				menuazioni.setVisible(true);
+			}
+		});
 
 		panelRiepilogo = new JPanel();
 		panelRiepilogo.setBounds(147, 0, 650, 565);
@@ -603,7 +560,7 @@ public class GUI extends JFrame {
 
 		JComboBox<String> comboBoxSports = new JComboBox<>();
 		comboBoxSports.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-		comboBoxSports.setModel(new DefaultComboBoxModel(new String[] {"SPORTS"}));
+		comboBoxSports.setModel(new DefaultComboBoxModel<String>(new String[] {"SPORTS"}));
 		for(String s: TipoArticolo.sportArray) {
 			comboBoxSports.addItem(s);
 		}
@@ -1569,7 +1526,7 @@ public class GUI extends JFrame {
 		group_btn.add(rdbtnPoliammide);
 
 		JComboBox<String> comboBox = new JComboBox<>();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleziona", "Atletica", "Basket", "Calcio", "Ciclismo", "Danza", "Hockey", "Golf", "Nuoto", "Palestra", "Pallavolo", "Rufting", "Rugby", "Scii", "Tennis"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Seleziona", "Atletica", "Basket", "Calcio", "Ciclismo", "Danza", "Hockey", "Golf", "Nuoto", "Palestra", "Pallavolo", "Rufting", "Rugby", "Scii", "Tennis"}));
 		comboBox.setBounds(275, 378, 200, 30);
 		PanelAggiungiArticolo.add(comboBox);
 
@@ -1712,6 +1669,13 @@ public class GUI extends JFrame {
 						"ID", "Nome", "Prezzo", "Sport", "Data inserimento", "Materiale", "Q.ta", "Posizione"
 				}
 				) {
+			/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+			@SuppressWarnings("rawtypes")
+			private
 			Class[] types = new Class [] {
 					java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class
 			};
@@ -1721,6 +1685,14 @@ public class GUI extends JFrame {
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
+			}
+			@SuppressWarnings({ "rawtypes", "unused" })
+			public Class[] getTypes() {
+				return types;
+			}
+			@SuppressWarnings("unused")
+			public void setTypes(@SuppressWarnings("rawtypes") Class[] types) {
+				this.types = types;
 			}
 		});
 		tableArticoli.getColumnModel().getColumn(0).setResizable(false);
@@ -1938,9 +1910,15 @@ public class GUI extends JFrame {
 						"CF", "Nome", "Localit\u00E0"
 				}
 				) {
+			/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 					String.class, String.class, String.class
 			};
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -2122,7 +2100,28 @@ public class GUI extends JFrame {
 		btnNewButton_7.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				hideGUI();
+				resetbuttons(); //rende visibili/abilitati tutti i buttons modificati nel login dei vari accounts
 				Login.setVisible(true);
+				textField.setText("");
+				passwordField.setText("");
+			}
+
+			private void resetbuttons() {
+				//magazziniere
+				btnNegozi.setVisible(true);
+				btnUscite.setVisible(true);
+				btnEliminaArt.setEnabled(true);
+				btnModificaArticolo.setEnabled(true);
+				btnAggiungiArticolo.setEnabled(true);
+				btnDettagli.setEnabled(true);
+				//segreteria
+				btnCambiaPos.setVisible(true);
+				btnNuovoIngresso.setEnabled(true);
+				//responsabile negozio
+				btnArticoli.setVisible(true);
+				btnNegozi.setVisible(true);
+				btnIngressi.setVisible(true);
+				
 			}
 		});
 		panelGenerale.add(btnNewButton_7);
@@ -2202,6 +2201,7 @@ public class GUI extends JFrame {
 	private void loginButtonActionToDo(ActionEvent e) {
 		//System.out.println(textField.getText());
 		String user = textField.getText();
+		@SuppressWarnings("deprecation")
 		String pw = passwordField.getText();//	deprecato	String pass = ""+pw;
 
 
@@ -2265,7 +2265,7 @@ public class GUI extends JFrame {
 		panelComuni();
 		btnNegozi.setVisible(false);
 		btnUscite.setVisible(false);
-		
+
 		btnEliminaArt.setEnabled(false);
 		btnModificaArticolo.setEnabled(false);
 		btnAggiungiArticolo.setEnabled(false);
@@ -2379,13 +2379,7 @@ public class GUI extends JFrame {
 
 
 	}
-	private void dettaglioOrdine(boolean act,int row) {
 
-	}
-
-	private void dettaglioIngresso(boolean act,int row) {
-
-	}
 
 
 
@@ -2478,7 +2472,7 @@ public class GUI extends JFrame {
 					group_btn.clearSelection();
 
 				if(c instanceof JComboBox) {
-					JComboBox a = (JComboBox)c;
+					JComboBox<?> a = (JComboBox<?>)c;
 					a.setSelectedIndex(0);
 
 				}
@@ -2534,7 +2528,7 @@ public class GUI extends JFrame {
 			}
 
 			if(c instanceof JComboBox)
-				((JComboBox)c).setSelectedIndex(TipoArticolo.sportArray2Num(temp.getTipoArticolo().getSports()));
+				((JComboBox<?>)c).setSelectedIndex(TipoArticolo.sportArray2Num(temp.getTipoArticolo().getSports()));
 			DEBUG.setText("Sport "+temp.getTipoArticolo().getMaterial());
 		}
 
@@ -2591,7 +2585,7 @@ public class GUI extends JFrame {
 					if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())					
 						p[i++] = ((JRadioButton)c).getText();
 					if(c instanceof JComboBox)
-						p[i++] = ((JComboBox)c).getSelectedItem().toString();
+						p[i++] = ((JComboBox<?>)c).getSelectedItem().toString();
 
 				}
 				//if(p[0].equals("")) return 0; // se il nome dell' articolo è vuoto non va bene, torno 0
@@ -2624,6 +2618,7 @@ public class GUI extends JFrame {
 
 	public void calcMonthlyStats(ItemEvent arg0){
 		Object sourceComp = arg0.getSource();
+		@SuppressWarnings("rawtypes")
 		JComboBox SourceCompAsJComboBox = (JComboBox)sourceComp;
 		int selSport;
 

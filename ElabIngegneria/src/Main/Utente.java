@@ -5,7 +5,11 @@ import java.io.Serializable;
 public class Utente implements UserInterface, Comparable<Utente>, Serializable{
     
         
-    private String usr;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String usr;
     private String pwd;
     private int t; 
     

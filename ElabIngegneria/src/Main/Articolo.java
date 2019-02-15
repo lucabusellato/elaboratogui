@@ -5,7 +5,11 @@ import java.util.GregorianCalendar;
 
 public final class Articolo extends WarehouseMovement implements Comparable<Articolo>, Serializable {
 
-    private float prezzo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private float prezzo;
     private TipoArticolo tipoArticolo;
     
     /**

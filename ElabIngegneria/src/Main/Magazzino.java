@@ -10,7 +10,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 //GLI ARRAYLIST, COME PER GLI ARRAY, PARTONO DA 0
 public class Magazzino implements Serializable {
 
-    private List<Uscita> uscite;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<Uscita> uscite;
     private List<Ordine> ordini;
     private List<Articolo> articoli;
     private List<Ingresso> ingressi;
@@ -19,13 +23,12 @@ public class Magazzino implements Serializable {
     private List<String> reportingressi, reportuscite,report;
     private Map<Articolo, Integer> quantita, posizione;
     private Map<Articolo, Integer> ingressiMensili, usciteMensili;
-    private Map<Integer, Map<Articolo,Integer>> MesiIngressi, MesiUscite;
     
     private static Magazzino INSTANCE = null;
 
     
     private Magazzino() {
-	this.negozi = new ArrayList();
+	this.negozi = new ArrayList<>();
 	this.uscite = new ArrayList<>();
 	this.utenti = new ArrayList<>();
 	this.ingressi = new ArrayList<>();
@@ -35,11 +38,9 @@ public class Magazzino implements Serializable {
 	this.posizione = new TreeMap<>();
 	this.ingressiMensili = new TreeMap<>();
 	this.usciteMensili = new TreeMap<>();
-	this.reportingressi = new ArrayList();
-	this.reportuscite = new ArrayList();
-	this.report = new ArrayList();
-	this.MesiIngressi = new TreeMap<>();
-	this.MesiUscite = new TreeMap<>();
+	this.reportingressi = new ArrayList<>();
+	this.reportuscite = new ArrayList<>();
+	this.report = new ArrayList<>();
     }
 
     //singleton Methods

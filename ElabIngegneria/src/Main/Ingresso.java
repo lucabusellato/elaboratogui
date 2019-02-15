@@ -10,7 +10,11 @@ import java.util.*;
 
 public final class Ingresso extends WarehouseMovement implements Serializable, Comparable<Ingresso>{
     
-    private final Map<Articolo, Integer> posizioni;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final Map<Articolo, Integer> posizioni;
     private Map<Articolo, Integer> quantita;
     
     //COSTRUTTORI

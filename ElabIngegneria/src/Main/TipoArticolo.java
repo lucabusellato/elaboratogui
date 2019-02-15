@@ -5,7 +5,11 @@ import java.io.Serializable;
 
 public class TipoArticolo implements Comparable<TipoArticolo>, Serializable{
     
-    public static final String sportArray[]= {"Nuoto", "Calcio", "Palestra", "Tennis", "Scii", "Basket", "Rafting", "Ciclismo", "Rugby", "Atletica", "Hockey", "Golf", "Pallavolo", "Danza"};
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String sportArray[]= {"Nuoto", "Calcio", "Palestra", "Tennis", "Scii", "Basket", "Rafting", "Ciclismo", "Rugby", "Atletica", "Hockey", "Golf", "Pallavolo", "Danza"};
     public static final String arrayMateriali[] = {"Poliestere", "Silicone", "Finta Pelle", "Gore-Tex", "Elastan", "Polietilene", "Poliammide"};
             
     private String nome;
@@ -99,7 +103,8 @@ public class TipoArticolo implements Comparable<TipoArticolo>, Serializable{
         return nome.compareTo(other.nome);
     }
 
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public String toString(){
         return "Nome: "+ nome + "\nDescrizione: "+ descrizione + "\nSport: "+ this.arrayMateriali[numSport] + "/nMateriali: " + this.arrayMateriali[numMateriali];
     }

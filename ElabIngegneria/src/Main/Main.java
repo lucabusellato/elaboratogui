@@ -24,7 +24,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Main implements Serializable{
 
-    public static void main(String args[]) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String args[]) {
 	try {
 	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 		if ("Nimbus".equals(info.getName())) {

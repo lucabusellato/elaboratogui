@@ -5,7 +5,11 @@ import java.util.GregorianCalendar;
 
 public abstract class WarehouseMovement implements Serializable{
 
-    protected GregorianCalendar data;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected GregorianCalendar data;
     protected int ID;
     
     //GET - DATA

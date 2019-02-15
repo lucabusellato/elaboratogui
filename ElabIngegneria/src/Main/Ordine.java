@@ -8,7 +8,11 @@ import java.io.Serializable;
 public class Ordine extends WarehouseMovement implements Comparable<Ordine>, Serializable{
 
 
-    private Negozio negozio;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Negozio negozio;
     private float prezzo;
     private boolean shipped = false;
     private final String corriere;
