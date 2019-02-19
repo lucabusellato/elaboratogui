@@ -38,10 +38,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -55,7 +53,7 @@ import java.awt.event.ItemEvent;
 
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
-	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, indexUscite = 0, orderArticleSelected = 1, ingressoArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;    
+	static int indexOrder = 0, indexArticle = 0, indexShop = 0, indexIngressi = 0, indexUscite = 0, orderArticleSelected = 1, from = 0, index = 0, modificaOrCreaOrdine = 0;    
 	//private int backSel; // serve per lo storico, selezione del combobox che cambia
 	private String sportType="";
 	//prendiamo l'istanza di magazzino -- singleton
@@ -114,7 +112,6 @@ public class GUI extends JFrame {
 	private JTextField txtNomeArticolo;
 	private JTextField txtPrezzoArticolo;
 	private JTextField txtData;
-	private JTextField txtQuantit;
 	private JTextField txtDescrizioneArticolo;
 
 	//ingressi
@@ -125,7 +122,6 @@ public class GUI extends JFrame {
 	private JButton buttonIngressiIndietro;
 	private JLabel labelCountIngressi;
 	private JButton buttonIngressiAvanti;
-	private JButton btnChiudiIngressi;
 
 	//radio btns
 
@@ -148,16 +144,6 @@ public class GUI extends JFrame {
 	private JTextField txtCitNegozio;
 
 	private JTextField textFieldGiorno;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
@@ -197,15 +183,15 @@ public class GUI extends JFrame {
 	private JButton buttonUscitaIndietro;
 	private JButton buttonUscitaAvanti;
 	private JTextArea textAreaUscite;
-	
+
 	//Ordini
 	private JPanel panelOrdini;
 	private JPanel PanelCreaNuovoOrd;
 	private JPanel PanelTableOrdini;
 	private JTable tableOrdini;
 	private JLabel labelOrdini;
-	private JTextField shippedTextLabel;
-
+	private JButton btnCreaNuovoOrd; 
+	private JButton btnGeneraUscita;
 	private JTextField quantita1;
 	private JTextField quantita2;
 	private JTextField quantita3;
@@ -215,8 +201,8 @@ public class GUI extends JFrame {
 	private JTextField quantita6;
 	private JLabel lblArticoliEQuantit;
 	private JLabel lblNegozio_o;
-	
-	
+
+
 	/**
 	 *
 	 * Create the frame.
@@ -369,310 +355,6 @@ public class GUI extends JFrame {
 		setContentPane(BGPANE);
 		BGPANE.setLayout(null);
 
-		panelIngressi = new JPanel();
-		panelIngressi.setBounds(147, 0, 650, 565);
-		BGPANE.add(panelIngressi);
-		panelIngressi.setLayout(null);
-
-		JLabel lblId = new JLabel("ID:");
-		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblId.setBounds(45, 72, 25, 26);
-		panelIngressi.add(lblId);
-
-		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
-		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
-		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
-		panelIngressi.add(lblVisualizzaIngressi);
-
-		labelViewId = new JLabel("");
-		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelViewId.setBounds(77, 78, 106, 16);
-		panelIngressi.add(labelViewId);
-
-		JLabel lblData = new JLabel("Data ingresso:");
-		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblData.setBounds(195, 77, 94, 16);
-		panelIngressi.add(lblData);
-
-		lblViewData = new JLabel("");
-		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblViewData.setBounds(295, 78, 106, 16);
-		panelIngressi.add(lblViewData);
-
-		textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setBounds(45, 112, 550, 307);
-		panelIngressi.add(textPane);
-
-		JLabel lblN = new JLabel("Ingresso n:");
-		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblN.setBounds(409, 78, 75, 16);
-		panelIngressi.add(lblN);
-
-		btnNuovoIngresso = new JButton("Nuovo ingresso");				
-		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNuovoIngresso.setBounds(231, 432, 133, 35);
-		panelIngressi.add(btnNuovoIngresso);
-
-		btnChiudiIngressi = new JButton("Chiudi visualizza ingressi");
-		btnChiudiIngressi.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChiudiIngressi.setBounds(195, 496, 193, 35);
-		panelIngressi.add(btnChiudiIngressi);
-
-		buttonIngressiIndietro = new JButton("<");
-		buttonIngressiIndietro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				indexIngressi--;
-				ingressi();
-			}
-		});
-		buttonIngressiIndietro.setBounds(485, 74, 41, 25);
-		panelIngressi.add(buttonIngressiIndietro);
-
-		labelCountIngressi = new JLabel("");
-		labelCountIngressi.setBounds(528, 78, 25, 16);
-		panelIngressi.add(labelCountIngressi);
-
-		buttonIngressiAvanti = new JButton(">");
-		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
-		panelIngressi.add(buttonIngressiAvanti);
-		buttonIngressiAvanti.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				indexIngressi++;
-				ingressi();
-			}
-		});
-
-
-		//da ingressi a crea nuovo ingresso
-		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				nascondiPannelli();
-				panelNuovoIngresso.setVisible(true);
-				textField_2.setText("");
-				textField_3.setText("");
-				textField_4.setText("");
-				textField_5.setText("");
-				textField_6.setText("");
-				textField_7.setText("");
-				textField_8.setText("");
-				textField_9.setText("");
-				textField_10.setText("");
-				textField_11.setText("");
-				textField_12.setText("");
-				textField_13.setText("");
-				textField_14.setText("");
-				textField_15.setText("");
-				textField_16.setText("");
-				textField_17.setText("");
-				textField_18.setText("");
-				textField_19.setText("");
-				textField_20.setText("");
-				textField_21.setText("");
-				textField_22.setText("");
-				textField_23.setText("");
-				textField_24.setText("");
-				textField_25.setText("");
-				textField_26.setText("");
-				textField_27.setText("");
-				textField_28.setText("");
-				textField_29.setText("");
-				textField_30.setText("");
-				textField_31.setText("");
-				textField_3.setEnabled(false);
-				textField_4.setEnabled(false);
-				textField_5.setEnabled(false);
-				textField_6.setEnabled(false);
-				textField_7.setEnabled(false);
-				textField_8.setEnabled(false);
-				textField_9.setEnabled(false);
-				textField_10.setEnabled(false);
-				textField_11.setEnabled(false);
-				textField_13.setEnabled(false);
-				textField_14.setEnabled(false);
-				textField_15.setEnabled(false);
-				textField_16.setEnabled(false);
-				textField_17.setEnabled(false);
-				textField_18.setEnabled(false);
-				textField_19.setEnabled(false);
-				textField_20.setEnabled(false);
-				textField_21.setEnabled(false);
-				textField_23.setEnabled(false);
-				textField_24.setEnabled(false);
-				textField_25.setEnabled(false);
-				textField_26.setEnabled(false);
-				textField_27.setEnabled(false);
-				textField_28.setEnabled(false);
-				textField_29.setEnabled(false);
-				textField_30.setEnabled(false);
-				textField_31.setEnabled(false);
-			}
-
-
-		});
-		btnChiudiIngressi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nascondiPannelli();
-				menuazioni.setVisible(true);
-			}
-		});
-
-		panelRiepilogo = new JPanel();
-		panelRiepilogo.setBounds(147, 0, 650, 565);
-		BGPANE.add(panelRiepilogo);
-		panelRiepilogo.setLayout(null);
-
-		JLabel lblRiepilogoMese = new JLabel("Riepilogo mese:");
-		lblRiepilogoMese.setBounds(77, 13, 243, 37);
-		lblRiepilogoMese.setFont(new Font("Tahoma", Font.BOLD, 30));
-		panelRiepilogo.add(lblRiepilogoMese);
-
-		lblMese = new JLabel("");
-		lblMese.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMese.setBounds(326, 21, 169, 25);
-		panelRiepilogo.add(lblMese);
-
-		button_2 = new JButton("+");
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				index++;
-				report();
-			}
-		});
-		button_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		button_2.setBounds(495, 13, 51, 25);
-		panelRiepilogo.add(button_2);
-
-		btnNewButton = new JButton("-");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				index--;
-				report();
-			}
-		});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnNewButton.setBounds(494, 36, 52, 25);
-		panelRiepilogo.add(btnNewButton);
-
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBounds(77, 103, 496, 372);
-		panelRiepilogo.add(textArea);
-
-		JButton btnChiudiRiepilogo = new JButton("Chiudi Riepilogo");
-		btnChiudiRiepilogo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				index = 0;
-				textArea.setText("");
-				nascondiPannelli();
-				menuazioni.setVisible(true);
-			}
-		});
-		btnChiudiRiepilogo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnChiudiRiepilogo.setBounds(264, 498, 137, 37);
-		panelRiepilogo.add(btnChiudiRiepilogo);
-
-
-		JComboBox<String> comboBoxSports = new JComboBox<>();
-		comboBoxSports.setFont(new Font("Lucida Bright", Font.BOLD, 13));
-		comboBoxSports.setModel(new DefaultComboBoxModel<String>(new String[] {"SPORTS"}));
-		for(String s: TipoArticolo.sportArray) {
-			comboBoxSports.addItem(s);
-		}
-
-
-
-
-		comboBoxSports.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-
-				if ( arg0.getStateChange() == ItemEvent.SELECTED) { // mi dice se ha cambiato elemento del combobox
-					sportType = TipoArticolo.sportArray[(comboBoxSports.getSelectedIndex() - 1)];
-					report();
-				}
-
-
-			}
-		});
-
-
-		/*comboBoxSports.addMouseListener(new MouseAdapter() {
-																	@Override
-																	public void mouseExited(MouseEvent arg0) {
-
-																	}
-																});*/
-
-		comboBoxSports.setToolTipText("SPORT");
-		comboBoxSports.setBounds(77, 61, 150, 31);
-		panelRiepilogo.add(comboBoxSports);
-
-		panelUscite = new JPanel();
-		panelUscite.setBackground(UIManager.getColor("TabbedPane.highlight"));
-		panelUscite.setBounds(147, 0, 650, 570);
-		BGPANE.add(panelUscite);
-		panelUscite.setLayout(null);
-
-		JLabel lblUscite = new JLabel("Visualizza Uscite:");
-		lblUscite.setFont(new Font("Arial", Font.PLAIN, 30));
-		lblUscite.setBounds(81, 13, 233, 31);
-		panelUscite.add(lblUscite);
-
-		JLabel lblIdOrdine = new JLabel("ID Ordine:");
-		lblIdOrdine.setBounds(57, 61, 66, 16);
-		panelUscite.add(lblIdOrdine);
-
-		JLabel lblNegozio = new JLabel("Negozio:");
-		lblNegozio.setBounds(232, 61, 56, 16);
-		panelUscite.add(lblNegozio);
-
-		JLabel lblData_1 = new JLabel("Data:");
-		lblData_1.setBounds(420, 61, 56, 16);
-		panelUscite.add(lblData_1);
-
-		textAreaUscite = new JTextArea();
-		textAreaUscite.setEditable(false);
-		textAreaUscite.setBounds(72, 90, 501, 327);
-		panelUscite.add(textAreaUscite);
-
-		labelIndexUscita = new JLabel("");
-		labelIndexUscita.setBounds(367, 28, 29, 16);
-		panelUscite.add(labelIndexUscita);
-
-		buttonUscitaIndietro = new JButton("<");
-		buttonUscitaIndietro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				indexUscite--;
-				uscite();
-			}
-		});
-		buttonUscitaIndietro.setBounds(325, 22, 41, 25);
-		panelUscite.add(buttonUscitaIndietro);
-
-		buttonUscitaAvanti = new JButton(">");
-		buttonUscitaAvanti.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				indexUscite++;
-				uscite();
-			}
-		});
-		buttonUscitaAvanti.setBounds(396, 22, 41, 25);
-		panelUscite.add(buttonUscitaAvanti);
-
-		label_2 = new JLabel("");
-		label_2.setBounds(120, 61, 89, 16);
-		panelUscite.add(label_2);
-
-		label_3 = new JLabel("");
-		label_3.setBounds(286, 61, 110, 16);
-		panelUscite.add(label_3);
-
-		label_4 = new JLabel("");
-		label_4.setBounds(454, 61, 56, 16);
-		panelUscite.add(label_4);
-
 		panelNuovoIngresso = new JPanel();
 		panelNuovoIngresso.setBounds(147, 0, 635, 565);
 		BGPANE.add(panelNuovoIngresso);
@@ -723,8 +405,7 @@ public class GUI extends JFrame {
 		panelNuovoIngresso.add(textFieldAnno);
 		textFieldAnno.setColumns(10);
 
-		JButton button = new JButton("Chiudi");
-
+		JButton button = new JButton("Annulla");
 		button.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button.setBounds(232, 499, 145, 35);
 		panelNuovoIngresso.add(button);
@@ -739,57 +420,48 @@ public class GUI extends JFrame {
 		lblArticolo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblArticolo.setBounds(79, 126, 80, 16);
 		panelNuovoIngresso.add(lblArticolo);
-
-		textField_2 = new JTextField();
-		textField_2.setBounds(76, 155, 116, 22);
-		panelNuovoIngresso.add(textField_2);
-		textField_2.setColumns(10);
-
-		textField_3 = new JTextField();
-		textField_3.setBounds(76, 178, 116, 22);
-		panelNuovoIngresso.add(textField_3);
-		textField_3.setColumns(10);
-
-		textField_4 = new JTextField();
-		textField_4.setBounds(76, 202, 116, 22);
-		panelNuovoIngresso.add(textField_4);
-		textField_4.setColumns(10);
-
-		textField_5 = new JTextField();
-		textField_5.setBounds(76, 225, 116, 22);
-		panelNuovoIngresso.add(textField_5);
-		textField_5.setColumns(10);
-
-		textField_6 = new JTextField();
-		textField_6.setBounds(76, 249, 116, 22);
-		panelNuovoIngresso.add(textField_6);
-		textField_6.setColumns(10);
-
-		textField_7 = new JTextField();
-		textField_7.setBounds(76, 274, 116, 22);
-		panelNuovoIngresso.add(textField_7);
-		textField_7.setColumns(10);
-
-		textField_8 = new JTextField();
-		textField_8.setBounds(76, 298, 116, 22);
-		panelNuovoIngresso.add(textField_8);
-		textField_8.setColumns(10);
-
-		textField_9 = new JTextField();
-		textField_9.setBounds(76, 322, 116, 22);
-		panelNuovoIngresso.add(textField_9);
-		textField_9.setColumns(10);
-
-		textField_10 = new JTextField();
-		textField_10.setBounds(76, 345, 116, 22);
-		panelNuovoIngresso.add(textField_10);
-		textField_10.setColumns(10);
-
-		textField_11 = new JTextField();
-		textField_11.setBounds(76, 369, 116, 22);
-		panelNuovoIngresso.add(textField_11);
-		textField_11.setColumns(10);
-
+		
+		
+		JComboBox<String> comboBox_1 = new JComboBox<>();
+		comboBox_1.setBounds(79, 155, 109, 22);
+		panelNuovoIngresso.add(comboBox_1);
+		
+		JComboBox<String> comboBox_2 = new JComboBox<>();
+		comboBox_2.setBounds(79, 178, 109, 22);
+		panelNuovoIngresso.add(comboBox_2);
+		
+		JComboBox<String> comboBox_3 = new JComboBox<>();
+		comboBox_3.setBounds(79, 202, 109, 22);
+		panelNuovoIngresso.add(comboBox_3);
+		
+		JComboBox<String> comboBox_4 = new JComboBox<>();
+		comboBox_4.setBounds(79, 225, 109, 22);
+		panelNuovoIngresso.add(comboBox_4);
+		
+		JComboBox<String> comboBox_5 = new JComboBox<>();
+		comboBox_5.setBounds(79, 249, 109, 22);
+		panelNuovoIngresso.add(comboBox_5);
+		
+		JComboBox<String> comboBox_6 = new JComboBox<>();
+		comboBox_6.setBounds(79, 274, 109, 22);
+		panelNuovoIngresso.add(comboBox_6);
+		
+		JComboBox<String> comboBox_7 = new JComboBox<>();
+		comboBox_7.setBounds(79, 298, 109, 22);
+		panelNuovoIngresso.add(comboBox_7);
+		
+		JComboBox<String> comboBox_8 = new JComboBox<>();
+		comboBox_8.setBounds(79, 322, 109, 22);
+		panelNuovoIngresso.add(comboBox_8);
+		
+		JComboBox<String> comboBox_9 = new JComboBox<>();
+		comboBox_9.setBounds(79, 345, 109, 22);
+		panelNuovoIngresso.add(comboBox_9);
+		
+		JComboBox<String> comboBox_10 = new JComboBox<>();
+		comboBox_10.setBounds(79, 369, 109, 22);
+		panelNuovoIngresso.add(comboBox_10);
+	
 		textField_12 = new JTextField();
 		textField_12.setBounds(193, 155, 116, 22);
 		panelNuovoIngresso.add(textField_12);
@@ -902,17 +574,19 @@ public class GUI extends JFrame {
 					//dichiaro le variabili intere
 					int quantita1, quantita2, quantita3, quantita4, quantita5, quantita6, quantita7, quantita8, quantita9, quantita10;
 					int posizione1, posizione2, posizione3, posizione4, posizione5, posizione6, posizione7, posizione8, posizione9, posizione10;
+					
+					
 					//mi prendo l'articolo in base alla selezione
-					Articolo1 = (String) textField_2.getText();
-					Articolo2 = (String) textField_3.getText();
-					Articolo3 = (String) textField_4.getText();
-					Articolo4 = (String) textField_5.getText();
-					Articolo5 = (String) textField_6.getText();
-					Articolo6 = (String) textField_7.getText();
-					Articolo7 = (String) textField_8.getText();
-					Articolo8 = (String) textField_9.getText();
-					Articolo9 = (String) textField_10.getText();
-					Articolo10 = (String) textField_11.getText();
+					Articolo1 = (String) comboBox_1.getSelectedItem();
+					Articolo2 = (String) comboBox_2.getSelectedItem();
+					Articolo3 = (String) comboBox_3.getSelectedItem();
+					Articolo4 = (String) comboBox_4.getSelectedItem();
+					Articolo5 = (String) comboBox_5.getSelectedItem();
+					Articolo6 = (String) comboBox_6.getSelectedItem();
+					Articolo7 = (String) comboBox_7.getSelectedItem();
+					Articolo8 = (String) comboBox_8.getSelectedItem();
+					Articolo9 = (String) comboBox_9.getSelectedItem();
+					Articolo10 = (String) comboBox_10.getSelectedItem();
 
 					//controllo gli articoli entrati
 
@@ -962,11 +636,9 @@ public class GUI extends JFrame {
 
 					//ora devo solo controllare che l'utente non mi abbia selezionato lo stesso articolo, in tal caso prensdo le quantità e le sommo
 					//le posizioni invece prendo solo l'ultima
-					switch (ingressoArticleSelected) {
-					case 10:
-						if (quantita10 == 0 || posizione10 == 0) {
+					if(!(Articolo10.equals(""))) {
+						if (quantita10 == 0 || posizione10 == 0 ) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
-							return;
 						}
 						if (quantita.containsKey(a10)) {
 							quantita.put(a10, quantita.get(a10) + quantita10);
@@ -974,9 +646,8 @@ public class GUI extends JFrame {
 							quantita.put(a10, quantita10);
 						}
 						posizioni.put(a10, posizione10);
-
-					case 9:
-
+					}
+					if(!(Articolo9.equals(""))) {
 						if (quantita9 == 0 || posizione9 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -988,8 +659,8 @@ public class GUI extends JFrame {
 							quantita.put(a9, quantita9);
 						}
 						posizioni.put(a9, posizione9);
-
-					case 8:
+					}
+					if(!(Articolo8.equals(""))) {
 						if (quantita8 == 0 || posizione8 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1001,8 +672,8 @@ public class GUI extends JFrame {
 							quantita.put(a8, quantita8);
 						}
 						posizioni.put(a8, posizione8);
-
-					case 7:
+					}
+					if(!(Articolo7.equals(""))) {
 						if (quantita7 == 0 || posizione7 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1014,8 +685,8 @@ public class GUI extends JFrame {
 							quantita.put(a7, quantita7);
 						}
 						posizioni.put(a7, posizione7);
-
-					case 6:
+					}
+					if(!(Articolo6.equals(""))) {
 						if (quantita6 == 0 || posizione6 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1027,8 +698,8 @@ public class GUI extends JFrame {
 							quantita.put(a6, quantita6);
 						}
 						posizioni.put(a6, posizione6);
-
-					case 5:
+					}
+					if(!(Articolo5.equals(""))) {
 						if (quantita5 == 0 || posizione5 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1040,8 +711,8 @@ public class GUI extends JFrame {
 							quantita.put(a5, quantita5);
 						}
 						posizioni.put(a5, posizione5);
-
-					case 4:
+					}
+					if(!(Articolo4.equals(""))) {
 						if (quantita4 == 0 || posizione4 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1053,8 +724,9 @@ public class GUI extends JFrame {
 							quantita.put(a4, quantita4);
 						}
 						posizioni.put(a4, posizione4);
+					}
 
-					case 3:
+					if(!(Articolo3.equals(""))) {
 						if (quantita3 == 0 || posizione3 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1066,8 +738,8 @@ public class GUI extends JFrame {
 							quantita.put(a3, quantita3);
 						}
 						posizioni.put(a3, posizione3);
-
-					case 2:
+					}
+					if(!(Articolo2.equals(""))) {
 						if (quantita2 == 0 || posizione2 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1079,8 +751,8 @@ public class GUI extends JFrame {
 							quantita.put(a2, quantita2);
 						}
 						posizioni.put(a2, posizione2);
-
-					case 1:
+					}
+					if(!(Articolo1.equals(""))) {
 						if (quantita1 == 0 || posizione1 == 0) {
 							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
 							return;
@@ -1093,7 +765,6 @@ public class GUI extends JFrame {
 						}
 						posizioni.put(a1, posizione1);
 					}
-
 					int day = Integer.parseInt(textFieldGiorno.getText());
 					int month = Integer.parseInt(textFieldMese.getText());
 					int year = Integer.parseInt(textFieldAnno.getText());
@@ -1115,38 +786,36 @@ public class GUI extends JFrame {
 					panelIngressi.setVisible(true);
 
 					//resetto le stringhe
-					textField_2.setText("");
+					comboBox_1.removeAllItems();
 					textField_12.setText("");
 					textField_22.setText("");
-					textField_3.setText("");
+					comboBox_2.removeAllItems();
 					textField_13.setText("");
 					textField_23.setText("");
-					textField_4.setText("");
+					comboBox_3.removeAllItems();
 					textField_14.setText("");
 					textField_24.setText("");
-					textField_5.setText("");
+					comboBox_4.removeAllItems();
 					textField_15.setText("");
 					textField_25.setText("");
-					textField_6.setText("");
+					comboBox_5.removeAllItems();
 					textField_16.setText("");
 					textField_26.setText("");
-					textField_7.setText("");
+					comboBox_6.removeAllItems();
 					textField_17.setText("");
-					textField_27.setText("");
-					textField_8.setText("");
+					textField_27.setText("");					
+					comboBox_7.removeAllItems();
 					textField_18.setText("");
 					textField_28.setText("");
-					textField_9.setText("");
+					comboBox_8.removeAllItems();
 					textField_19.setText("");
 					textField_29.setText("");
-					textField_10.setText("");
+					comboBox_9.removeAllItems();
 					textField_20.setText("");
 					textField_30.setText("");
-					textField_11.setText("");
+					comboBox_10.removeAllItems();
 					textField_21.setText("");
 					textField_31.setText("");
-
-
 				} catch (Exception ex) {
 					Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, ex);
 				}
@@ -1159,179 +828,586 @@ public class GUI extends JFrame {
 				textFieldGiorno.setText("");
 				textFieldMese.setText("");
 				textFieldAnno.setText("");
+				comboBox_1.removeAllItems();
 				textField_12.setText("");
-				textField_13.setText("");
-				textField_14.setText("");
-				textField_15.setText("");
-				textField_16.setText("");
-				textField_17.setText("");
-				textField_18.setText("");
-				textField_19.setText("");
-				textField_20.setText("");
-				textField_21.setText("");
 				textField_22.setText("");
+				comboBox_2.removeAllItems();
+				textField_13.setText("");
 				textField_23.setText("");
+				comboBox_3.removeAllItems();
+				textField_14.setText("");
 				textField_24.setText("");
+				comboBox_4.removeAllItems();
+				textField_15.setText("");
 				textField_25.setText("");
+				comboBox_5.removeAllItems();
+				textField_16.setText("");
 				textField_26.setText("");
-				textField_27.setText("");
+				comboBox_6.removeAllItems();
+				textField_17.setText("");
+				textField_27.setText("");					
+				comboBox_7.removeAllItems();
+				textField_18.setText("");
 				textField_28.setText("");
+				comboBox_8.removeAllItems();
+				textField_19.setText("");
 				textField_29.setText("");
+				comboBox_9.removeAllItems();
+				textField_20.setText("");
 				textField_30.setText("");
+				comboBox_10.removeAllItems();
+				textField_21.setText("");
 				textField_31.setText("");
 				nascondiPannelli();
 				panelIngressi.setVisible(true);
 			}
 		});
 
-		JButton buttonCheckNuovaRiga = new JButton("+");
-		buttonCheckNuovaRiga.setFont(new Font("Tahoma", Font.BOLD, 30));
-		buttonCheckNuovaRiga.setBounds(79, 404, 71, 57);
-		panelNuovoIngresso.add(buttonCheckNuovaRiga);
-		buttonCheckNuovaRiga.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("finally")
-			public void mouseClicked(MouseEvent arg0) {
-				switch (ingressoArticleSelected) {
-				case 1:
-					try {
-						if ((Integer.parseInt(textField_22.getText()) > 0) && (Integer.parseInt(textField_12.getText()) > 0)) {
-							textField_3.setEnabled(true);
-							textField_13.setEnabled(true);
-							textField_23.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
+		
+		panelIngressi = new JPanel();
+		panelIngressi.setBounds(147, 0, 650, 565);
+		BGPANE.add(panelIngressi);
+		panelIngressi.setLayout(null);
 
-				case 2:
-					try {
-						if ((Integer.parseInt(textField_23.getText()) > 0) && (Integer.parseInt(textField_13.getText()) > 0)) {
-							textField_4.setEnabled(true);
-							textField_14.setEnabled(true);
-							textField_24.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");	                    
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 3:
-					try {
-						if ((Integer.parseInt(textField_24.getText()) > 0) && (Integer.parseInt(textField_14.getText()) > 0)) {
-							textField_5.setEnabled(true);
-							textField_15.setEnabled(true);
-							textField_25.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 4:
-					try {
-						if ((Integer.parseInt(textField_25.getText()) > 0) && (Integer.parseInt(textField_15.getText()) > 0)) {
-							textField_6.setEnabled(true);
-							textField_16.setEnabled(true);
-							textField_26.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 5:
-					try {
-						if ((Integer.parseInt(textField_26.getText()) > 0) && (Integer.parseInt(textField_16.getText()) > 0)) {
-							textField_7.setEnabled(true);
-							textField_17.setEnabled(true);
-							textField_27.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 6:
-					try {
-						if ((Integer.parseInt(textField_27.getText()) > 0) && (Integer.parseInt(textField_17.getText()) > 0)) {
-							textField_8.setEnabled(true);
-							textField_18.setEnabled(true);
-							textField_28.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 7:
-					try {
-						if ((Integer.parseInt(textField_28.getText()) > 0) && (Integer.parseInt(textField_18.getText()) > 0)) {
-							textField_9.setEnabled(true);
-							textField_19.setEnabled(true);
-							textField_29.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 8:
-					try {
-						if ((Integer.parseInt(textField_29.getText()) > 0) && (Integer.parseInt(textField_19.getText()) > 0)) {
-							textField_10.setEnabled(true);
-							textField_20.setEnabled(true);
-							textField_30.setEnabled(true);
-							ingressoArticleSelected++;
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
-				case 9:
-					try {
-						if ((Integer.parseInt(textField_30.getText()) > 0) && (Integer.parseInt(textField_20.getText()) > 0)) {
-							textField_11.setEnabled(true);
-							textField_21.setEnabled(true);
-							textField_31.setEnabled(true);
-							ingressoArticleSelected++;
-							//finite le righe
-							buttonCheckNuovaRiga.setEnabled(false);
-						} else {
-							JOptionPane.showMessageDialog(null, "inserire il primo articolo, la sua posizione e la sua quantità per procedere!!");
-						}
-					} catch (NumberFormatException e) {
-						JOptionPane.showMessageDialog(null, "Bisogna inserire un numero in posizione e in quantità!! \nNon sono accettati altri tipi di carattere!");
-					} finally {
-						break;
-					}
+		JLabel lblId = new JLabel("ID:");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblId.setBounds(45, 72, 25, 26);
+		panelIngressi.add(lblId);
+
+		JLabel lblVisualizzaIngressi = new JLabel("Visualizza Ingressi");
+		lblVisualizzaIngressi.setBounds(209, 5, 246, 35);
+		lblVisualizzaIngressi.setFont(new Font("Arial", Font.PLAIN, 30));
+		panelIngressi.add(lblVisualizzaIngressi);
+
+		labelViewId = new JLabel("");
+		labelViewId.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		labelViewId.setBounds(77, 78, 106, 16);
+		panelIngressi.add(labelViewId);
+
+		JLabel lblData = new JLabel("Data ingresso:");
+		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblData.setBounds(195, 77, 94, 16);
+		panelIngressi.add(lblData);
+
+		lblViewData = new JLabel("");
+		lblViewData.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblViewData.setBounds(295, 78, 106, 16);
+		panelIngressi.add(lblViewData);
+
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBounds(45, 112, 550, 307);
+		panelIngressi.add(textPane);
+
+		JLabel lblN = new JLabel("Ingresso n:");
+		lblN.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblN.setBounds(409, 78, 75, 16);
+		panelIngressi.add(lblN);
+
+		btnNuovoIngresso = new JButton("Nuovo ingresso");				
+		btnNuovoIngresso.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNuovoIngresso.setBounds(231, 432, 133, 35);
+		panelIngressi.add(btnNuovoIngresso);
+
+		buttonIngressiIndietro = new JButton("<");
+		buttonIngressiIndietro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				indexIngressi--;
+				ingressi();
+			}
+		});
+		buttonIngressiIndietro.setBounds(485, 74, 41, 25);
+		panelIngressi.add(buttonIngressiIndietro);
+
+		labelCountIngressi = new JLabel("");
+		labelCountIngressi.setBounds(528, 78, 25, 16);
+		panelIngressi.add(labelCountIngressi);
+
+		buttonIngressiAvanti = new JButton(">");
+		buttonIngressiAvanti.setBounds(553, 74, 41, 25);
+		panelIngressi.add(buttonIngressiAvanti);
+		buttonIngressiAvanti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				indexIngressi++;
+				ingressi();
+			}
+		});
+
+
+		//da ingressi a crea nuovo ingresso
+		btnNuovoIngresso.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				nascondiPannelli();
+				panelNuovoIngresso.setVisible(true);
+				comboBox_1.removeAllItems();
+				comboBox_1.addItem("");
+				textField_12.setText("");
+				textField_22.setText("");
+				comboBox_2.removeAllItems();
+				comboBox_2.addItem("");
+				textField_13.setText("");
+				textField_23.setText("");
+				comboBox_3.removeAllItems();
+				comboBox_3.addItem("");
+				textField_14.setText("");
+				textField_24.setText("");
+				comboBox_4.removeAllItems();
+				comboBox_4.addItem("");
+				textField_15.setText("");
+				textField_25.setText("");
+				comboBox_5.removeAllItems();
+				comboBox_5.addItem("");
+				textField_16.setText("");
+				textField_26.setText("");
+				comboBox_6.removeAllItems();
+				comboBox_6.addItem("");
+				textField_17.setText("");
+				textField_27.setText("");					
+				comboBox_7.removeAllItems();
+				comboBox_7.addItem("");
+				textField_18.setText("");
+				textField_28.setText("");
+				comboBox_8.removeAllItems();
+				comboBox_8.addItem("");
+				textField_19.setText("");
+				textField_29.setText("");
+				comboBox_9.removeAllItems();
+				comboBox_9.addItem("");
+				textField_20.setText("");
+				textField_30.setText("");
+				comboBox_10.removeAllItems();
+				comboBox_10.addItem("");
+				textField_21.setText("");
+				textField_31.setText("");
+				
+				for(Articolo art : warehouse.getArticoloList()) {
+					comboBox_1.addItem(art.getTipoArticolo().getName());
+					comboBox_2.addItem(art.getTipoArticolo().getName());
+					comboBox_3.addItem(art.getTipoArticolo().getName());
+					comboBox_4.addItem(art.getTipoArticolo().getName());
+					comboBox_5.addItem(art.getTipoArticolo().getName());
+					comboBox_6.addItem(art.getTipoArticolo().getName());
+					comboBox_7.addItem(art.getTipoArticolo().getName());
+					comboBox_8.addItem(art.getTipoArticolo().getName());
+					comboBox_9.addItem(art.getTipoArticolo().getName());
+					comboBox_10.addItem(art.getTipoArticolo().getName());
 
 				}
+				
+			}
+
+
+		});
+
+
+		panelOrdini = new JPanel();
+		panelOrdini.setBounds(147, 0, 650, 570);
+		BGPANE.add(panelOrdini);
+		panelOrdini.setLayout(null);
+
+		PanelCreaNuovoOrd = new JPanel();
+		PanelCreaNuovoOrd.setBounds(0, 0, 650, 570);
+		panelOrdini.add(PanelCreaNuovoOrd);
+		PanelCreaNuovoOrd.setLayout(null);
+
+
+		JLabel lblCreaNuovoOrdine = new JLabel("Crea Nuovo Ordine:");
+		lblCreaNuovoOrdine.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreaNuovoOrdine.setFont(new Font("Arial", Font.ITALIC, 30));
+		lblCreaNuovoOrdine.setBackground(Color.WHITE);
+		lblCreaNuovoOrdine.setBounds(104, 11, 348, 50);
+		PanelCreaNuovoOrd.add(lblCreaNuovoOrdine);
+
+
+
+		lblNegozio_o = new JLabel("Negozio:");
+		lblNegozio_o.setBounds(424, 242, 71, 14);
+		PanelCreaNuovoOrd.add(lblNegozio_o);
+
+		JComboBox<String> SelectNegozio = new JComboBox<>();
+
+		SelectNegozio.setBounds(383, 259, 124, 20);
+		PanelCreaNuovoOrd.add(SelectNegozio);
+
+
+		JPanel CorniceArticoloLabel = new JPanel();
+		CorniceArticoloLabel.setBounds(105, 70, 228, 227);
+		PanelCreaNuovoOrd.add(CorniceArticoloLabel);
+		CorniceArticoloLabel.setLayout(null);
+
+		JLabel lblArticoli_1 = new JLabel("Articoli:");
+		lblArticoli_1.setVerticalAlignment(SwingConstants.TOP);
+		lblArticoli_1.setBounds(132, 11, 42, 14);
+		CorniceArticoloLabel.add(lblArticoli_1);
+
+		quantita1 = new JTextField();
+		quantita1.setBounds(10, 31, 86, 20);
+		CorniceArticoloLabel.add(quantita1);
+		quantita1.setColumns(10);
+
+		quantita2 = new JTextField();
+		quantita2.setBounds(10, 62, 86, 20);
+		CorniceArticoloLabel.add(quantita2);
+		quantita2.setColumns(10);
+
+		quantita3 = new JTextField();
+		quantita3.setBounds(10, 93, 86, 20);
+		CorniceArticoloLabel.add(quantita3);
+		quantita3.setColumns(10);
+
+		JComboBox<String> comboBoxSel1 = new JComboBox<>();
+
+		comboBoxSel1.setBounds(132, 31, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel1);
+
+		JComboBox<String> comboBoxSel2 = new JComboBox<>();
+		comboBoxSel2.setBounds(132, 62, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel2);
+
+		JComboBox<String> comboBoxSel3 = new JComboBox<>();
+		comboBoxSel3.setBounds(132, 93, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel3);
+
+		quantita4 = new JTextField();
+		quantita4.setBounds(10, 124, 86, 20);
+		CorniceArticoloLabel.add(quantita4);
+		quantita4.setColumns(10);
+
+		quantita5 = new JTextField();
+		quantita5.setBounds(10, 155, 86, 20);
+		CorniceArticoloLabel.add(quantita5);
+		quantita5.setColumns(10);
+
+		JComboBox<String> comboBoxSel4 = new JComboBox<>();
+		comboBoxSel4.setBounds(132, 124, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel4);
+
+		JComboBox<String> comboBoxSel5 = new JComboBox<>();
+		comboBoxSel5.setBounds(132, 155, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel5);
+
+		quantita6 = new JTextField();
+		quantita6.setBounds(10, 186, 86, 20);
+		CorniceArticoloLabel.add(quantita6);
+		quantita6.setColumns(10);
+
+		JComboBox<String> comboBoxSel6 = new JComboBox<>();
+		comboBoxSel6.setBounds(132, 186, 86, 20);
+		CorniceArticoloLabel.add(comboBoxSel6);
+
+		JLabel lblQuantit_1 = new JLabel("Quantit\u00E0");
+		lblQuantit_1.setBounds(10, 11, 56, 16);
+		CorniceArticoloLabel.add(lblQuantit_1);
+
+		textCorriere = new JTextField();
+		textCorriere.setBounds(383, 208, 124, 23);
+		PanelCreaNuovoOrd.add(textCorriere);
+		textCorriere.setColumns(10);
+
+		JLabel lblCorriere = new JLabel("Corriere:");
+		lblCorriere.setBounds(424, 192, 83, 14);
+		PanelCreaNuovoOrd.add(lblCorriere);
+		//
+		//CREA ORDINE
+		JButton btnCrea = new JButton("Crea");
+		btnCrea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				boolean voidSelection = false;
+
+
+				String corriere = textCorriere.getText();
+
+				if (corriere.equals("") && corriere.equals(" ")) {//controllo che sia stato inserito un corriere valido
+					JOptionPane.showMessageDialog(null, "Inserire un campo corriere valido! ");
+					return;
+				}
+
+				String negozio = (String) SelectNegozio.getSelectedItem();
+				System.out.println(negozio);
+				Negozio x = warehouse.negozioContainedByName(negozio);
+
+				Map<Articolo, Integer> articoliAndQuantita = new HashMap<>();
+
+				int qnt1;
+				int qnt2;
+				int qnt3;
+				int qnt4;
+				int qnt5;
+				int qnt6;
+
+				String articolo1 = (String) comboBoxSel1.getSelectedItem();
+				String articolo2 = (String) comboBoxSel2.getSelectedItem();
+				String articolo3 = (String) comboBoxSel3.getSelectedItem();
+				String articolo4 = (String) comboBoxSel4.getSelectedItem();
+				String articolo5 = (String) comboBoxSel5.getSelectedItem();
+				String articolo6 = (String) comboBoxSel6.getSelectedItem();
+				//DA QUA
+
+				try {
+					qnt1 = quantita1.getText().equals("") || quantita1.getText().equals(" ") ? 0 : Integer.parseInt(quantita1.getText());
+					qnt2 = quantita2.getText().equals("") || quantita2.getText().equals(" ") ? 0 : Integer.parseInt(quantita2.getText());
+					qnt3 = quantita3.getText().equals("") || quantita3.getText().equals(" ") ? 0 : Integer.parseInt(quantita3.getText());
+					qnt4 = quantita4.getText().equals("") || quantita4.getText().equals(" ") ? 0 : Integer.parseInt(quantita4.getText());
+					qnt5 = quantita5.getText().equals("") || quantita5.getText().equals(" ") ? 0 : Integer.parseInt(quantita5.getText());
+					qnt6 = quantita6.getText().equals("") || quantita6.getText().equals(" ") ? 0 : Integer.parseInt(quantita6.getText());
+
+					if (articolo1.equals("") && qnt1 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo2.equals("") && qnt2 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo3.equals("") && qnt3 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo4.equals("") && qnt4 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo5.equals("") && qnt5 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+					if (articolo6.equals("") && qnt6 != 0) {
+						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
+						voidSelection = true;
+						return;
+					}
+
+					Articolo a1 = articolo1.equals("") ? null : warehouse.articoloContainedByName(articolo1);
+					Articolo a2 = articolo2.equals("") ? null : warehouse.articoloContainedByName(articolo2);
+					Articolo a3 = articolo3.equals("") ? null : warehouse.articoloContainedByName(articolo3);
+					Articolo a4 = articolo4.equals("") ? null : warehouse.articoloContainedByName(articolo4);
+					Articolo a5 = articolo5.equals("") ? null : warehouse.articoloContainedByName(articolo5);
+					Articolo a6 = articolo6.equals("") ? null : warehouse.articoloContainedByName(articolo6);
+
+					if (qnt1 > 0 && !(articolo1.equals(""))) {
+						articoliAndQuantita.put(a1, qnt1);
+					}
+
+
+					if (qnt2 > 0 && !(articolo2.equals(""))) {
+						if (articoliAndQuantita.containsKey(a2))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a2, qnt2 + articoliAndQuantita.get(a2));
+						} else {
+							articoliAndQuantita.put(a2, qnt2);
+						}
+					}
+
+					if (qnt3 > 0 && !(articolo5.equals(""))) {
+						if (articoliAndQuantita.containsKey(a3))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a3, qnt3 + articoliAndQuantita.get(a3));
+						} else {
+							articoliAndQuantita.put(a3, qnt3);
+						}
+					}
+
+					if (qnt4 > 0 && !(articolo4.equals(""))) {
+						if (articoliAndQuantita.containsKey(a4))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a4, qnt4 + articoliAndQuantita.get(a4));
+						} else {
+							articoliAndQuantita.put(a4, qnt4);
+						}
+					}
+
+					if (qnt5 > 0 && !(articolo5.equals(""))) {
+						if (articoliAndQuantita.containsKey(a5))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a5, qnt5 + articoliAndQuantita.get(a5));
+						} else {
+							articoliAndQuantita.put(a5, qnt5);
+						}
+					}
+
+					if (qnt6>0 && !(articolo6.equals(""))) {
+						if (articoliAndQuantita.containsKey(a6))//controllo se è già stato inserito
+						{
+							articoliAndQuantita.put(a6, qnt6 + articoliAndQuantita.get(a6));
+						} else {
+							articoliAndQuantita.put(a6, qnt6);
+						}
+					}
+					if (articoliAndQuantita.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Inserisci almeno un oggetto!");
+						return;
+					}
+					Ordine o1 = new Ordine(x, corriere, new GregorianCalendar(), articoliAndQuantita);
+					System.out.println(x.toString());
+					System.out.println(corriere.toString());
+					System.out.println( new GregorianCalendar().toString());
+					System.out.println(articoliAndQuantita.toString());
+
+
+
+					warehouse.addOrdine(o1);
+					indexOrder = warehouse.ordineSize() - 1;
+
+					fillTable("ordini", (DefaultTableModel)tableOrdini.getModel());
+
+
+				}catch (ArticleDontExistInWareHouseException | HeadlessException | VoidStringUnexpectedException e) {
+					JOptionPane.showMessageDialog(null, "Eccezione");
+				}finally {
+					if (voidSelection) {
+						return;
+					}
+
+					nascondiPannelli();
+					panelOrdini.setVisible(true);
+					textCorriere.setText("");
+					quantita1.setText("");
+					quantita2.setText("");
+					quantita3.setText("");
+					quantita4.setText("");
+					quantita5.setText("");
+					quantita6.setText("");
+
+
+				}
+
+
+			}
+		});
+		btnCrea.setBounds(383, 89, 124, 39);
+		PanelCreaNuovoOrd.add(btnCrea);
+		PanelCreaNuovoOrd.setVisible(false);
+
+		JButton btnChiudi = new JButton("Chiudi");
+		btnChiudi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCreaNuovoOrd.setVisible(false);
+				PanelTableOrdiniPrinc.setVisible(true);
+				PanelTableOrdini.setVisible(true);
+
+			}
+		});
+		btnChiudi.setBounds(383, 131, 124, 39);
+		PanelCreaNuovoOrd.add(btnChiudi);
+
+
+		PanelTableOrdiniPrinc = new JPanel();
+		PanelTableOrdiniPrinc.setBounds(0, 0, 650, 570);
+		panelOrdini.add(PanelTableOrdiniPrinc);
+		PanelTableOrdiniPrinc.setLayout(null);
+
+		PanelTableOrdini = new JPanel();
+		PanelTableOrdini.setBounds(0, 50, 650, 370);
+		PanelTableOrdiniPrinc.add(PanelTableOrdini);
+		PanelTableOrdini.setLayout(new BorderLayout(0, 0));
+
+		JTextArea articoliQuantitaTextArea = new JTextArea();
+		articoliQuantitaTextArea.setEditable(false);
+		articoliQuantitaTextArea.setBounds(75, 450, 160, 109);
+		PanelTableOrdiniPrinc.add(articoliQuantitaTextArea);
+
+		tableOrdini = new JTable();
+		tableOrdini.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				indexOrder = tableOrdini.getSelectedRow();
+				articoliQuantitaTextArea.setText(""+ warehouse.getOrdine(indexOrder).toString());
+			}
+		});
+		tableOrdini.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"ID", "Data", "Prezzo", "Negozio", "Corriere", "Sped.", "Num. Articoli"
+				}
+				));
+		tableOrdini.setShowVerticalLines(false);
+		tableOrdini.setFont(new Font("Arial", Font.PLAIN, 13));
+		tableOrdini.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		tableOrdini.setBackground(Color.LIGHT_GRAY);
+		PanelTableOrdini.add(tableOrdini.getTableHeader(), BorderLayout.NORTH);
+		PanelTableOrdini.add(tableOrdini, BorderLayout.CENTER);
+
+		fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+
+		lblArticoliEQuantit = new JLabel("Articoli e Quantit\u00E0:");
+		lblArticoliEQuantit.setBounds(78, 435, 157, 14);
+		PanelTableOrdiniPrinc.add(lblArticoliEQuantit);
+
+		labelOrdini = new JLabel("Ordini");
+		labelOrdini.setBounds(200, 0, 250, 50);
+		PanelTableOrdiniPrinc.add(labelOrdini);
+		labelOrdini.setHorizontalAlignment(SwingConstants.CENTER);
+		labelOrdini.setFont(new Font("Arial", Font.ITALIC, 30));
+		labelOrdini.setBackground(Color.WHITE);
+
+		JButton btnEliminaOrdine = new JButton("Elimina Ordine");
+		btnEliminaOrdine.setBounds(444, 501, 131, 23);
+		PanelTableOrdiniPrinc.add(btnEliminaOrdine);
+		btnEliminaOrdine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				warehouse.removeOrdine(warehouse.getOrdine(tableOrdini.getSelectedRow()));
+				fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+			}
+		});
+		btnGeneraUscita = new JButton("Genera Uscita");
+		btnGeneraUscita.setBounds(265, 474, 124, 50);
+		PanelTableOrdiniPrinc.add(btnGeneraUscita);
+		btnGeneraUscita.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(warehouse.getOrdine(indexOrder).getIfShipped())
+					JOptionPane.showMessageDialog(null,"Impossibile generare l' uscita: L' ordine è già stato spedito!");
+				else try {
+					warehouse.createExit(warehouse.getOrdine(indexOrder));
+					fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+				}
+				catch(OrderNotFound | ArticleNotFound | OrderImpossibleToCreate ex) {
+					JOptionPane.showMessageDialog(null,"Quantità articoli non sufficiente");
+				}
+			}
+		});
+
+		btnCreaNuovoOrd = new JButton("Crea Nuovo Ordine");
+		btnCreaNuovoOrd.setBounds(434, 465, 167, 23);
+		PanelTableOrdiniPrinc.add(btnCreaNuovoOrd);
+
+		//carica i combo box
+		btnCreaNuovoOrd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addCreaOrdPanel();
+				varflag = 0;
+				comboBoxSel6.removeAllItems();
+				comboBoxSel5.removeAllItems();
+				comboBoxSel4.removeAllItems();
+				comboBoxSel3.removeAllItems();
+				comboBoxSel2.removeAllItems();
+				comboBoxSel1.removeAllItems();
+				comboBoxSel6.addItem("");
+				comboBoxSel5.addItem("");
+				comboBoxSel4.addItem("");
+				comboBoxSel3.addItem("");
+				comboBoxSel2.addItem("");
+				comboBoxSel1.addItem("");
+				for(Articolo art : warehouse.getArticoloList()) {
+					comboBoxSel6.addItem(art.getTipoArticolo().getName());
+					comboBoxSel5.addItem(art.getTipoArticolo().getName());
+					comboBoxSel4.addItem(art.getTipoArticolo().getName());
+					comboBoxSel3.addItem(art.getTipoArticolo().getName());
+					comboBoxSel2.addItem(art.getTipoArticolo().getName());
+					comboBoxSel1.addItem(art.getTipoArticolo().getName());
+
+				}
+				SelectNegozio.removeAllItems();
+				SelectNegozio.addItem("");
+				for(Negozio n : warehouse.getNegozioList())
+					SelectNegozio.addItem(n.getNome());
 			}
 		});
 
@@ -1435,7 +1511,7 @@ public class GUI extends JFrame {
 		txtPrezzoArticolo.setText("Prezzo Articolo/i");
 		txtPrezzoArticolo.setToolTipText("Prezzo");
 		txtPrezzoArticolo.setColumns(10);
-		txtPrezzoArticolo.setBounds(66, 135, 150, 30);
+		txtPrezzoArticolo.setBounds(186, 137, 150, 30);
 		PanelAggiungiArticolo.add(txtPrezzoArticolo);
 
 		txtData = new JTextField();
@@ -1453,21 +1529,6 @@ public class GUI extends JFrame {
 		txtData.setColumns(10);
 		txtData.setBounds(282, 94, 150, 30);
 		PanelAggiungiArticolo.add(txtData);
-
-		txtQuantit = new JTextField();
-		txtQuantit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				clearText(e);
-			}
-		});
-		txtQuantit.setForeground(Color.GRAY);
-		txtQuantit.setFont(new Font("Arial", Font.PLAIN, 13));
-		txtQuantit.setHorizontalAlignment(SwingConstants.CENTER);
-		txtQuantit.setText("Quantit\u00E0");
-		txtQuantit.setColumns(10);
-		txtQuantit.setBounds(282, 135, 150, 30);
-		PanelAggiungiArticolo.add(txtQuantit);
 
 		txtDescrizioneArticolo = new JTextField();
 		txtDescrizioneArticolo.addMouseListener(new MouseAdapter() {
@@ -1687,9 +1748,9 @@ public class GUI extends JFrame {
 				}
 				) {
 			/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@SuppressWarnings("rawtypes")
 			private
@@ -1798,6 +1859,153 @@ public class GUI extends JFrame {
 				modificaPosizioneArticolo(arg0, tableArticoli.getSelectedRow());
 			}
 		});
+
+		panelRiepilogo = new JPanel();
+		panelRiepilogo.setBounds(147, 0, 650, 565);
+		BGPANE.add(panelRiepilogo);
+		panelRiepilogo.setLayout(null);
+
+		JLabel lblRiepilogoMese = new JLabel("Riepilogo mese:");
+		lblRiepilogoMese.setBounds(77, 13, 243, 37);
+		lblRiepilogoMese.setFont(new Font("Tahoma", Font.BOLD, 30));
+		panelRiepilogo.add(lblRiepilogoMese);
+
+		lblMese = new JLabel("");
+		lblMese.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMese.setBounds(326, 21, 169, 25);
+		panelRiepilogo.add(lblMese);
+
+		button_2 = new JButton("+");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				index++;
+				report();
+			}
+		});
+		button_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		button_2.setBounds(495, 13, 51, 25);
+		panelRiepilogo.add(button_2);
+
+		btnNewButton = new JButton("-");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				index--;
+				report();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btnNewButton.setBounds(494, 36, 52, 25);
+		panelRiepilogo.add(btnNewButton);
+
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(77, 103, 496, 372);
+		panelRiepilogo.add(textArea);
+
+		JButton btnChiudiRiepilogo = new JButton("Chiudi Riepilogo");
+		btnChiudiRiepilogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				index = 0;
+				textArea.setText("");
+				nascondiPannelli();
+				menuazioni.setVisible(true);
+			}
+		});
+		btnChiudiRiepilogo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnChiudiRiepilogo.setBounds(264, 498, 137, 37);
+		panelRiepilogo.add(btnChiudiRiepilogo);
+
+
+		JComboBox<String> comboBoxSports = new JComboBox<>();
+		comboBoxSports.setFont(new Font("Lucida Bright", Font.BOLD, 13));
+		comboBoxSports.setModel(new DefaultComboBoxModel<String>(new String[] {"SPORTS"}));
+		for(String s: TipoArticolo.sportArray) {
+			comboBoxSports.addItem(s);
+		}
+
+
+
+
+		comboBoxSports.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+
+				if ( arg0.getStateChange() == ItemEvent.SELECTED) { // mi dice se ha cambiato elemento del combobox
+					sportType = TipoArticolo.sportArray[(comboBoxSports.getSelectedIndex() - 1)];
+					report();
+				}
+
+
+			}
+		});
+
+		comboBoxSports.setToolTipText("SPORT");
+		comboBoxSports.setBounds(77, 61, 150, 31);
+		panelRiepilogo.add(comboBoxSports);
+
+		panelUscite = new JPanel();
+		panelUscite.setBackground(UIManager.getColor("TabbedPane.highlight"));
+		panelUscite.setBounds(147, 0, 650, 570);
+		BGPANE.add(panelUscite);
+		panelUscite.setLayout(null);
+
+		JLabel lblUscite = new JLabel("Visualizza Uscite:");
+		lblUscite.setFont(new Font("Arial", Font.PLAIN, 30));
+		lblUscite.setBounds(81, 13, 233, 31);
+		panelUscite.add(lblUscite);
+
+		JLabel lblIdOrdine = new JLabel("ID Ordine:");
+		lblIdOrdine.setBounds(57, 61, 66, 16);
+		panelUscite.add(lblIdOrdine);
+
+		JLabel lblNegozio = new JLabel("Negozio:");
+		lblNegozio.setBounds(232, 61, 56, 16);
+		panelUscite.add(lblNegozio);
+
+		JLabel lblData_1 = new JLabel("Data:");
+		lblData_1.setBounds(420, 61, 56, 16);
+		panelUscite.add(lblData_1);
+
+		textAreaUscite = new JTextArea();
+		textAreaUscite.setEditable(false);
+		textAreaUscite.setBounds(72, 90, 501, 327);
+		panelUscite.add(textAreaUscite);
+
+		labelIndexUscita = new JLabel("");
+		labelIndexUscita.setBounds(367, 28, 29, 16);
+		panelUscite.add(labelIndexUscita);
+
+		buttonUscitaIndietro = new JButton("<");
+		buttonUscitaIndietro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				indexUscite--;
+				uscite();
+			}
+		});
+		buttonUscitaIndietro.setBounds(325, 22, 41, 25);
+		panelUscite.add(buttonUscitaIndietro);
+
+		buttonUscitaAvanti = new JButton(">");
+		buttonUscitaAvanti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				indexUscite++;
+				uscite();
+			}
+		});
+		buttonUscitaAvanti.setBounds(396, 22, 41, 25);
+		panelUscite.add(buttonUscitaAvanti);
+
+		label_2 = new JLabel("");
+		label_2.setBounds(120, 61, 89, 16);
+		panelUscite.add(label_2);
+
+		label_3 = new JLabel("");
+		label_3.setBounds(286, 61, 110, 16);
+		panelUscite.add(label_3);
+
+		label_4 = new JLabel("");
+		label_4.setBounds(454, 61, 56, 16);
+		panelUscite.add(label_4);
 
 
 
@@ -1928,9 +2136,9 @@ public class GUI extends JFrame {
 				}
 				) {
 			/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] {
 					String.class, String.class, String.class
@@ -2036,7 +2244,6 @@ public class GUI extends JFrame {
 			}
 		});
 
-
 		btnNegozi.setBackground(SystemColor.control);
 		menuazioni.add(btnNegozi);
 
@@ -2053,9 +2260,8 @@ public class GUI extends JFrame {
 
 		btnIngressi = new JButton("Ingressi");
 		btnIngressi.setBounds(33, 105, 80, 23);
-		btnIngressi.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		btnIngressi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				nascondiPannelli();
 				panelIngressi.setVisible(true);
 				indexIngressi = 0;
@@ -2068,10 +2274,8 @@ public class GUI extends JFrame {
 
 		btnUscite = new JButton("Uscite");
 		btnUscite.setBounds(33, 133, 80, 23);
-		//visualizzare entrate e uscite rispetto agli ordini dei negozi
-		btnUscite.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		btnUscite.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				nascondiPannelli();
 				panelUscite.setVisible(true);
 				indexUscite = 0;
@@ -2131,20 +2335,23 @@ public class GUI extends JFrame {
 
 			private void resetbuttons() {
 				//magazziniere
-				btnNegozi.setVisible(true);
-				btnUscite.setVisible(true);
-				btnEliminaArt.setEnabled(true);
-				btnModificaArticolo.setEnabled(true);
-				btnAggiungiArticolo.setEnabled(true);
-				btnDettagli.setEnabled(true);
+				btnNegozi.setEnabled(true);
+				btnUscite.setEnabled(true);
+				btnEliminaArt.setVisible(true);
+				btnModificaArticolo.setVisible(true);
+				btnAggiungiArticolo.setVisible(true);
+				btnDettagli.setVisible(true);
 				//segreteria
 				btnCambiaPos.setVisible(true);
 				btnNuovoIngresso.setEnabled(true);
+				btnGeneraUscita.setEnabled(true);
 				//responsabile negozio
-				btnArticoli.setVisible(true);
+				btnArticoli.setEnabled(true);
 				btnNegozi.setVisible(true);
-				btnIngressi.setVisible(true);
-				
+				btnIngressi.setEnabled(true);
+				btnCreaNuovoOrd.setEnabled(true);
+				btnStorico.setEnabled(true);
+
 			}
 		});
 		panelGenerale.add(btnNewButton_7);
@@ -2210,433 +2417,13 @@ public class GUI extends JFrame {
 
 		//
 		fillTable("negozi",(DefaultTableModel) tableNegozi.getModel());
-
-		
-		panelOrdini = new JPanel();
-		panelOrdini.setBounds(147, 0, 650, 570);
-		BGPANE.add(panelOrdini);
-		panelOrdini.setLayout(null);
-
-
-		PanelTableOrdiniPrinc = new JPanel();
-		PanelTableOrdiniPrinc.setBounds(0, 0, 650, 570);
-		panelOrdini.add(PanelTableOrdiniPrinc);
-		PanelTableOrdiniPrinc.setLayout(null);
-
-		PanelTableOrdini = new JPanel();
-		PanelTableOrdini.setBounds(0, 50, 650, 370);
-		PanelTableOrdiniPrinc.add(PanelTableOrdini);
-		PanelTableOrdini.setLayout(new BorderLayout(0, 0));
-		
-		JTextArea articoliQuantitaTextArea = new JTextArea();
-		articoliQuantitaTextArea.setEditable(false);
-		articoliQuantitaTextArea.setBounds(75, 450, 160, 109);
-		PanelTableOrdiniPrinc.add(articoliQuantitaTextArea);
-		
-		tableOrdini = new JTable();
-		tableOrdini.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				indexOrder = tableOrdini.getSelectedRow();
-				articoliQuantitaTextArea.setText(""+ warehouse.getOrdine(indexOrder).toString());
-			}
-		});
-		tableOrdini.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-						"ID", "Data", "Prezzo", "Negozio", "Corriere", "Sped.", "Num. Articoli"
-				}
-				));
-		tableOrdini.setShowVerticalLines(false);
-		tableOrdini.setFont(new Font("Arial", Font.PLAIN, 13));
-		tableOrdini.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tableOrdini.setBackground(Color.LIGHT_GRAY);
-		PanelTableOrdini.add(tableOrdini.getTableHeader(), BorderLayout.NORTH);
-		PanelTableOrdini.add(tableOrdini, BorderLayout.CENTER);
-
-		fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
-
-		lblArticoliEQuantit = new JLabel("Articoli e Quantit\u00E0:");
-		lblArticoliEQuantit.setBounds(78, 435, 90, 14);
-		PanelTableOrdiniPrinc.add(lblArticoliEQuantit);
-
-		JButton btnModifica = new JButton("Modifica");
-		btnModifica.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnModifica.setBounds(300, 451, 124, 23);
-		PanelTableOrdiniPrinc.add(btnModifica);
-
-		labelOrdini = new JLabel("Ordini");
-		labelOrdini.setBounds(200, 0, 250, 50);
-		PanelTableOrdiniPrinc.add(labelOrdini);
-		labelOrdini.setHorizontalAlignment(SwingConstants.CENTER);
-		labelOrdini.setFont(new Font("Arial", Font.ITALIC, 30));
-		labelOrdini.setBackground(Color.WHITE);
-
-		JLabel lblStato = new JLabel("Stato:");
-		lblStato.setBounds(393, 529, 30, 14);
-		PanelTableOrdiniPrinc.add(lblStato);
-
-		JButton btnEliminaOrdine = new JButton("Elimina Ordine");
-		btnEliminaOrdine.setBounds(424, 474, 124, 23);
-		PanelTableOrdiniPrinc.add(btnEliminaOrdine);
-		btnEliminaOrdine.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			     warehouse.removeOrdine(warehouse.getOrdine(tableOrdini.getSelectedRow()));
-			  	 fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
-			}
-		});
-		JButton btnGeneraUscita = new JButton("Genera Uscita");
-		btnGeneraUscita.setBounds(300, 474, 124, 23);
-		PanelTableOrdiniPrinc.add(btnGeneraUscita);
-		btnGeneraUscita.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					warehouse.createExit(warehouse.getOrdine(indexOrder));
-					fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
-				}
-				catch(OrderNotFound | ArticleNotFound | OrderImpossibleToCreate ex) {
-					JOptionPane.showMessageDialog(null,"Quantità articoli non sufficiente");
-					}
-				}
-			});
-
-		JButton btnCreaNuovoOrd = new JButton("Crea Nuovo Ordine");
-		btnCreaNuovoOrd.setBounds(424, 451, 124, 23);
-		PanelTableOrdiniPrinc.add(btnCreaNuovoOrd);
-
-		shippedTextLabel = new JTextField();
-		shippedTextLabel.setBounds(424, 526, 124, 20);
-		PanelTableOrdiniPrinc.add(shippedTextLabel);
-		shippedTextLabel.setColumns(10);
-
-		PanelCreaNuovoOrd = new JPanel();
-		PanelCreaNuovoOrd.setBounds(0, 0, 650, 570);
-		panelOrdini.add(PanelCreaNuovoOrd);
-		PanelCreaNuovoOrd.setLayout(null);
-
-
-		JLabel lblCreaNuovoOrdine = new JLabel("Crea Nuovo Ordine:");
-		lblCreaNuovoOrdine.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreaNuovoOrdine.setFont(new Font("Arial", Font.ITALIC, 30));
-		lblCreaNuovoOrdine.setBackground(Color.WHITE);
-		lblCreaNuovoOrdine.setBounds(104, 11, 348, 50);
-		PanelCreaNuovoOrd.add(lblCreaNuovoOrdine);
-
-
-
-		lblNegozio_o = new JLabel("Negozio:");
-		lblNegozio_o.setBounds(424, 242, 71, 14);
-		PanelCreaNuovoOrd.add(lblNegozio_o);
-
-		JComboBox<String> SelectNegozio = new JComboBox<>();
 		//SelectNegozio.setModel(new DefaultComboBoxModel<>(new String[] {"negozio1", "negozio2", "negozio3", "negozio4"}));
 		for(Negozio n : warehouse.getNegozioList())
 			SelectNegozio.addItem(n.getNome());
-			
-		SelectNegozio.setBounds(383, 259, 124, 20);
-		PanelCreaNuovoOrd.add(SelectNegozio);
 
 
-		JPanel CorniceArticoloLabel = new JPanel();
-		CorniceArticoloLabel.setBounds(105, 70, 228, 227);
-		PanelCreaNuovoOrd.add(CorniceArticoloLabel);
-		CorniceArticoloLabel.setLayout(null);
-
-		lblQuantit = new JLabel("Quantit\u00E0:");
-		lblQuantit.setBounds(10, 11, 60, 14);
-		lblQuantit.setVerticalAlignment(SwingConstants.TOP);
-		CorniceArticoloLabel.add(lblQuantit);
-
-		JLabel lblArticoli_1 = new JLabel("Articoli:");
-		lblArticoli_1.setVerticalAlignment(SwingConstants.TOP);
-		lblArticoli_1.setBounds(132, 11, 42, 14);
-		CorniceArticoloLabel.add(lblArticoli_1);
-
-		quantita1 = new JTextField();
-		quantita1.setBounds(10, 31, 86, 20);
-		CorniceArticoloLabel.add(quantita1);
-		quantita1.setColumns(10);
-
-		quantita2 = new JTextField();
-		quantita2.setBounds(10, 62, 86, 20);
-		CorniceArticoloLabel.add(quantita2);
-		quantita2.setColumns(10);
-
-		quantita3 = new JTextField();
-		quantita3.setBounds(10, 93, 86, 20);
-		CorniceArticoloLabel.add(quantita3);
-		quantita3.setColumns(10);
-
-		JComboBox<String> comboBoxSel1 = new JComboBox<>();
-		
-		comboBoxSel1.setBounds(132, 31, 86, 20);
-		CorniceArticoloLabel.add(comboBoxSel1);
-
-		JComboBox<String> comboBoxSel2 = new JComboBox<>();
-		comboBoxSel2.setBounds(132, 62, 86, 20);
-		CorniceArticoloLabel.add(comboBoxSel2);
-
-		JComboBox<String> comboBoxSel3 = new JComboBox<>();
-		comboBoxSel3.setBounds(132, 93, 86, 20);
-		CorniceArticoloLabel.add(comboBoxSel3);
-
-		quantita4 = new JTextField();
-		quantita4.setBounds(10, 124, 86, 20);
-		CorniceArticoloLabel.add(quantita4);
-		quantita4.setColumns(10);
-
-		quantita5 = new JTextField();
-		quantita5.setBounds(10, 155, 86, 20);
-		CorniceArticoloLabel.add(quantita5);
-		quantita5.setColumns(10);
-
-		JComboBox<String> comboBoxSel4 = new JComboBox<>();
-		comboBoxSel4.setBounds(132, 124, 86, 20);
-		CorniceArticoloLabel.add(comboBoxSel4);
-
-		JComboBox<String> comboBoxSel5 = new JComboBox<>();
-		comboBoxSel5.setBounds(132, 155, 86, 20);
-		CorniceArticoloLabel.add(comboBoxSel5);
-
-		quantita6 = new JTextField();
-		quantita6.setBounds(10, 186, 86, 20);
-		CorniceArticoloLabel.add(quantita6);
-		quantita6.setColumns(10);
-
-		JComboBox<String> comboBoxSel6 = new JComboBox<>();
-		comboBoxSel6.setBounds(132, 186, 86, 20);
-		CorniceArticoloLabel.add(comboBoxSel6);
-
-		textCorriere = new JTextField();
-		textCorriere.setBounds(383, 208, 124, 23);
-		PanelCreaNuovoOrd.add(textCorriere);
-		textCorriere.setColumns(10);
-
-		JLabel lblCorriere = new JLabel("Corriere:");
-		lblCorriere.setBounds(424, 192, 83, 14);
-		PanelCreaNuovoOrd.add(lblCorriere);
-		
-		//carica i combo box
-		btnCreaNuovoOrd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addCreaOrdPanel();
-				varflag = 0;
-				comboBoxSel6.removeAllItems();
-				comboBoxSel5.removeAllItems();
-				comboBoxSel4.removeAllItems();
-				comboBoxSel3.removeAllItems();
-				comboBoxSel2.removeAllItems();
-				comboBoxSel1.removeAllItems();
-				for(Articolo art : warehouse.getArticoloList()) {
-					comboBoxSel6.addItem(art.getTipoArticolo().getName());
-					comboBoxSel5.addItem(art.getTipoArticolo().getName());
-					comboBoxSel4.addItem(art.getTipoArticolo().getName());
-					comboBoxSel3.addItem(art.getTipoArticolo().getName());
-					comboBoxSel2.addItem(art.getTipoArticolo().getName());
-					comboBoxSel1.addItem(art.getTipoArticolo().getName());
-
-				}
-				SelectNegozio.removeAllItems();
-				for(Negozio n : warehouse.getNegozioList())
-					SelectNegozio.addItem(n.getNome());
-			}
-		});
-		//
-		//CREA ORDINE
-		JButton btnCrea = new JButton("Crea");
-		btnCrea.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				boolean voidSelection = false;
 
 
-				String corriere = textCorriere.getText();
-
-				if (corriere.equals("") && corriere.equals(" ")) {//controllo che sia stato inserito un corriere valido
-					JOptionPane.showMessageDialog(null, "Inserire un campo corriere valido! ");
-					return;
-				}
-
-				String negozio = (String) SelectNegozio.getSelectedItem();
-				System.out.println(negozio);
-				Negozio x = warehouse.negozioContainedByName(negozio);
-
-				Map<Articolo, Integer> articoliAndQuantita = new HashMap<>();
-
-				int qnt1;
-				int qnt2;
-				int qnt3;
-				int qnt4;
-				int qnt5;
-				int qnt6;
-
-				String articolo1 = (String) comboBoxSel1.getSelectedItem();
-				String articolo2 = (String) comboBoxSel2.getSelectedItem();
-				String articolo3 = (String) comboBoxSel3.getSelectedItem();
-				String articolo4 = (String) comboBoxSel4.getSelectedItem();
-				String articolo5 = (String) comboBoxSel5.getSelectedItem();
-				String articolo6 = (String) comboBoxSel6.getSelectedItem();
-				//DA QUA
-
-				try {
-					qnt1 = quantita1.getText().equals("") || quantita1.getText().equals(" ") ? 0 : Integer.parseInt(quantita1.getText());
-					qnt2 = quantita2.getText().equals("") || quantita2.getText().equals(" ") ? 0 : Integer.parseInt(quantita2.getText());
-					qnt3 = quantita3.getText().equals("") || quantita3.getText().equals(" ") ? 0 : Integer.parseInt(quantita3.getText());
-					qnt4 = quantita4.getText().equals("") || quantita4.getText().equals(" ") ? 0 : Integer.parseInt(quantita4.getText());
-					qnt5 = quantita5.getText().equals("") || quantita5.getText().equals(" ") ? 0 : Integer.parseInt(quantita5.getText());
-					qnt6 = quantita6.getText().equals("") || quantita6.getText().equals(" ") ? 0 : Integer.parseInt(quantita6.getText());
-
-					if (articolo1.equals("<Articolo>") && qnt1 != 0) {
-						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
-						voidSelection = true;
-						return;
-					}
-					if (articolo2.equals("<Articolo>") && qnt2 != 0) {
-						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
-						voidSelection = true;
-						return;
-					}
-					if (articolo3.equals("<Articolo>") && qnt3 != 0) {
-						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
-						voidSelection = true;
-						return;
-					}
-					if (articolo4.equals("<Articolo>") && qnt4 != 0) {
-						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
-						voidSelection = true;
-						return;
-					}
-					if (articolo5.equals("<Articolo>") && qnt5 != 0) {
-						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
-						voidSelection = true;
-						return;
-					}
-					if (articolo6.equals("<Articolo>") && qnt6 != 0) {
-						JOptionPane.showMessageDialog(null, "Selezionare un articolo!");
-						voidSelection = true;
-						return;
-					}
-
-					Articolo a1 = articolo1.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo1);
-					Articolo a2 = articolo2.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo2);
-					Articolo a3 = articolo3.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo3);
-					Articolo a4 = articolo4.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo4);
-					Articolo a5 = articolo5.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo5);
-					Articolo a6 = articolo6.equals("<Articolo>") ? null : warehouse.articoloContainedByName(articolo6);
-
-					if (qnt1 != 0) {
-						articoliAndQuantita.put(a1, qnt1);
-					}
-
-
-					if (qnt2 != 0) {
-						if (articoliAndQuantita.containsKey(a2))//controllo se è già stato inserito
-						{
-							articoliAndQuantita.put(a2, qnt2 + articoliAndQuantita.get(a2));
-						} else {
-							articoliAndQuantita.put(a2, qnt2);
-						}
-					}
-
-					if (qnt3 != 0) {
-						if (articoliAndQuantita.containsKey(a3))//controllo se è già stato inserito
-						{
-							articoliAndQuantita.put(a3, qnt3 + articoliAndQuantita.get(a3));
-						} else {
-							articoliAndQuantita.put(a3, qnt3);
-						}
-					}
-
-					if (qnt4 != 0) {
-						if (articoliAndQuantita.containsKey(a4))//controllo se è già stato inserito
-						{
-							articoliAndQuantita.put(a4, qnt4 + articoliAndQuantita.get(a4));
-						} else {
-							articoliAndQuantita.put(a4, qnt4);
-						}
-					}
-
-					if (qnt5 != 0) {
-						if (articoliAndQuantita.containsKey(a5))//controllo se è già stato inserito
-						{
-							articoliAndQuantita.put(a5, qnt5 + articoliAndQuantita.get(a5));
-						} else {
-							articoliAndQuantita.put(a5, qnt5);
-						}
-					}
-
-					if (qnt6 != 0) {
-						if (articoliAndQuantita.containsKey(a6))//controllo se è già stato inserito
-						{
-							articoliAndQuantita.put(a6, qnt6 + articoliAndQuantita.get(a6));
-						} else {
-							articoliAndQuantita.put(a6, qnt6);
-						}
-					}
-					if (articoliAndQuantita.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Inserisci almeno un oggetto!");
-						return;
-					}
-					Ordine o1 = new Ordine(x, corriere, new GregorianCalendar(), articoliAndQuantita);
-					System.out.println(x.toString());
-					System.out.println(corriere.toString());
-					System.out.println( new GregorianCalendar().toString());
-					System.out.println(articoliAndQuantita.toString());
-					
-					
-					
-						warehouse.addOrdine(o1);
-						indexOrder = warehouse.ordineSize() - 1;
-						
-					fillTable("ordini", (DefaultTableModel)tableOrdini.getModel());
-
-
-				}catch (ArticleDontExistInWareHouseException | HeadlessException | VoidStringUnexpectedException e) {
-					JOptionPane.showMessageDialog(null, "Eccezione");
-				}finally {
-					if (voidSelection) {
-						return;
-						}
-					
-					nascondiPannelli();
-					panelOrdini.setVisible(true);
-					textCorriere.setText("");
-					quantita1.setText("");
-					quantita2.setText("");
-					quantita3.setText("");
-					quantita4.setText("");
-					quantita5.setText("");
-					quantita6.setText("");
-					
-					
-				}
-				
-				
-			}
-		});
-		btnCrea.setBounds(383, 89, 124, 39);
-		PanelCreaNuovoOrd.add(btnCrea);
-		PanelCreaNuovoOrd.setVisible(false);
-
-		JButton btnChiudi = new JButton("Chiudi");
-		btnChiudi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PanelCreaNuovoOrd.setVisible(false);
-				PanelTableOrdiniPrinc.setVisible(true);
-				PanelTableOrdini.setVisible(true);
-
-			}
-		});
-		btnChiudi.setBounds(383, 131, 124, 39);
-		PanelCreaNuovoOrd.add(btnChiudi);
-		
-		
-
-		
 
 
 	}
@@ -2711,45 +2498,36 @@ public class GUI extends JFrame {
 
 	private void panelMagazziniere(){
 		panelComuni();
-		btnNegozi.setVisible(false);
-		btnUscite.setVisible(false);
+		btnNegozi.setEnabled(false);
 
-		btnEliminaArt.setEnabled(false);
-		btnModificaArticolo.setEnabled(false);
-		btnAggiungiArticolo.setEnabled(false);
-		btnDettagli.setEnabled(false);
-		//btnAggiungiArticolo.setVisible(false);
-		//MANCA ORDINI
+		btnEliminaArt.setVisible(false);
+		btnModificaArticolo.setVisible(false);
+		btnAggiungiArticolo.setVisible(false);
+		btnDettagli.setVisible(false);
+		
+		btnCreaNuovoOrd.setEnabled(false);
 
 	}
-
-	/*
-    1 - Magazziniere 
-        Visualizza ingresso,crea ingresso, visualizza articolo, modifica posizione articolo, crea uscite per gli ordini quindi vede gli ordini
-    2 - Segreteria Amministrativa
-        creano articoli e quindi vedono gli articoli ma non possono spostare la posizione degli articoli, visualizzano ordini e ingressi senza modificarli o crearli ne cancellarli
-    3 - Responsabile Negozi
-        Visualizzano, creano e modificano gli ordini e i negozi, non possono vedere gli ingressi e le
-	 */
 
 	private void panelSegreteria(){
 		panelComuni();
 		btnCambiaPos.setVisible(false);
 		btnNuovoIngresso.setEnabled(false);
-		//MANCA ORDINI
+		btnCreaNuovoOrd.setEnabled(false);
 	}
 	private void panelResponsabile(){
 		panelComuni();
-		btnArticoli.setVisible(false);
-		btnNegozi.setVisible(false);
-		btnIngressi.setVisible(false);
-		//MANCA ORDINI
+		btnArticoli.setEnabled(false);
+		btnNegozi.setEnabled(false);
+		btnIngressi.setEnabled(false);
+		btnGeneraUscita.setEnabled(false);
+		btnUscite.setEnabled(false);
+		btnStorico.setEnabled(false);
 	}
 
 	private void panelComuni(){ // pannelli in comune per tutti e 3 i tipi di user
 		Login.setVisible(false);
 		menuazioni.setVisible(true);
-		//panelArticoli.setVisible(true); al click del bottone
 		panelGenerale.setVisible(true);
 
 	}
@@ -2782,8 +2560,8 @@ public class GUI extends JFrame {
 			btnModNegozio.setEnabled(true);
 			btnEliminaNegozio.setEnabled(true);
 			break;
-		
-	
+
+
 		}
 	}
 	//GENERAZIONE DEI DETTAGLI NEI PANEL DETTAGLI
@@ -2882,7 +2660,7 @@ public class GUI extends JFrame {
 			}
 
 			break;
-		
+
 		case "ordini":
 			model.setRowCount(0);
 			for(Ordine o : warehouse.getOrdineList()) {
@@ -2900,7 +2678,6 @@ public class GUI extends JFrame {
 
 	//PULSANTE AGGIUNGI
 	private void addArticlePanel(){
-		//int row = tableArticoli.getSelectedRow();
 		PanelMainArt.setVisible(false);
 		PanelAggiungiArticolo.setVisible(true);
 		varflag = 0;
