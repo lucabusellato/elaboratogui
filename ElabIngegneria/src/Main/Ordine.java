@@ -34,7 +34,7 @@ public class Ordine extends WarehouseMovement implements Comparable<Ordine>, Ser
         ID = hashCode();
     }//costruttore con data come parametri interi
 
-    public Ordine(Negozio n, String corriere) throws VoidStringUnexpectedException {//se non mi viene passata la data prendo la data odieran
+    public Ordine(Negozio n, String corriere) throws VoidStringUnexpectedException {//se non mi viene passata la data prendo la data di oggi
         if (corriere.equals("") || corriere.equals(" ")) {
             throw new VoidStringUnexpectedException("Corriere non valido, stringa vuota!");
         }

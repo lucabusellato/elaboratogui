@@ -213,7 +213,9 @@ public class GUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
-
+		setTitle("Programma gestione magazzino");
+		
+		
 
 		//inizializza i componenti
 		startGUI();
@@ -1639,7 +1641,7 @@ public class GUI extends JFrame {
 		labelID = new JLabel("n/d");
 		labelID.setHorizontalAlignment(SwingConstants.CENTER);
 		labelID.setBounds(10, 11, 100, 20);
-
+		
 		//labelID.setText("ciao"); test modifica
 
 		InfoPanel.add(labelID);
@@ -1673,31 +1675,6 @@ public class GUI extends JFrame {
 		lblC.setHorizontalAlignment(SwingConstants.CENTER);
 		lblC.setBounds(230, 14, 100, 20);
 		InfoPanel.add(lblC);
-
-		lblG = new JLabel("n/d");
-		lblG.setHorizontalAlignment(SwingConstants.CENTER);
-		lblG.setBounds(230, 41, 100, 20);
-		InfoPanel.add(lblG);
-
-		lblNd_1 = new JLabel("n/d");
-		lblNd_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNd_1.setBounds(230, 69, 100, 20);
-		InfoPanel.add(lblNd_1);
-
-		lblD = new JLabel("n/d");
-		lblD.setHorizontalAlignment(SwingConstants.CENTER);
-		lblD.setBounds(340, 14, 100, 20);
-		InfoPanel.add(lblD);
-
-		lblH = new JLabel("n/d");
-		lblH.setHorizontalAlignment(SwingConstants.CENTER);
-		lblH.setBounds(340, 41, 100, 20);
-		InfoPanel.add(lblH);
-
-		lblNd_2 = new JLabel("n/d");
-		lblNd_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNd_2.setBounds(340, 69, 100, 20);
-		InfoPanel.add(lblNd_2);
 
 		JButton btnNewButton_2 = new JButton("Chiudi");
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
@@ -2360,7 +2337,7 @@ public class GUI extends JFrame {
 		DEBUG.setHorizontalAlignment(SwingConstants.CENTER);
 		DEBUG.setBounds(0, 91, 147, 57);
 		panelGenerale.add(DEBUG);
-
+		DEBUG.setVisible(false);
 
 		Login = new JPanel();
 		Login.setBackground(SystemColor.controlHighlight);
@@ -2584,7 +2561,7 @@ public class GUI extends JFrame {
 			JLabel l6 = (JLabel) comp[6];
 
 			Articolo temp = warehouse.getArticolo(row); 
-			l0.setText(""+temp.hashCode());
+			l0.setText(""+abs(temp.hashCode()));
 			l1.setText(""+temp.getTipoArticolo().getName());
 			l2.setText(""+temp.getTipoArticolo().getSports());
 			l3.setText(""+temp.getTipoArticolo().getMaterial());
@@ -2666,7 +2643,7 @@ public class GUI extends JFrame {
 			for(Ordine o : warehouse.getOrdineList()) {
 				System.out.println(o.toString());
 				//	Sistemare per il checkbox come si mette? sistemare il num articoli
-				model.addRow(new Object[]{o.getIDtoString(),o.getDataInString(),o.getTotalPrice(),o.getNegozio().getNome(),o.getCorriere(), o.getIfShipped(), o.articoliSize()});
+				model.addRow(new Object[]{abs(o.getID()),o.getDataInString(),o.getTotalPrice(),o.getNegozio().getNome(),o.getCorriere(), o.getIfShipped(), o.articoliSize()});
 			}
 
 

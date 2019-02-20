@@ -100,7 +100,7 @@ public final class Ingresso extends WarehouseMovement implements Serializable, C
     public String toString() {
         String s ="";
         for(Articolo X: (quantita.keySet()) )
-            s += "Articolo: " + X.getTipoArticolo().getName() + "\tquantit√†: " + this.quantita.get(X) + " pezzi\tposizione: " + this.posizioni.get(X)+"\n";
+            s += "Articolo: " + X.getTipoArticolo().getName() + "\tquantit‡†: " + this.quantita.get(X) + " pezzi\tposizione: " + this.posizioni.get(X)+"\n";
         return s;
     }
     

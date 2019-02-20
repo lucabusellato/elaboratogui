@@ -32,6 +32,7 @@ public class Main implements Serializable{
 	public static void main(String args[]) {
 	try {
 	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+	    	//System.out.println(info);
 		if ("Nimbus".equals(info.getName())) {
 		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
 		    break;
@@ -41,8 +42,8 @@ public class Main implements Serializable{
 	    java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
 
-	Object[] options = {"Importa DB", "Inizializza"};
-	int buttonPressed = JOptionPane.showOptionDialog(null, "Seleziona un' opzione per continuare?", "", 0, JOptionPane.WARNING_MESSAGE, null, options, null);
+	Object[] options = {"Importa DB", "DB Prova"};
+	int buttonPressed = JOptionPane.showOptionDialog(null, "Magazzino esistente o usarne uno di prova?", "", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
 	if (buttonPressed == 0) {
 	    
@@ -64,7 +65,7 @@ public class Main implements Serializable{
                         
 		    } catch (HeadlessException | IOException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
-			JOptionPane.showMessageDialog(null, "Errore nel caricamento del DB");
+			JOptionPane.showMessageDialog(null, "Errore caricamento DB");
 			System.exit(0);
 		    } catch(Exception e){
 			System.out.println("Exception "+e.getMessage());
@@ -76,7 +77,7 @@ public class Main implements Serializable{
 		}
 
 	    } catch (HeadlessException e) {
-		JOptionPane.showMessageDialog(null, "Errore nell'aprire il file: " + e.getMessage());
+		JOptionPane.showMessageDialog(null, "Errore nell'aprire il file database: " + e.getMessage());
 		System.exit(0);
 	    }
 	} else {
@@ -88,16 +89,16 @@ public class Main implements Serializable{
                 m.addUser(new Utente("segreteria", "2222", 2));
                 m.addUser(new Utente("responsabile", "3333", 3));
                 
-		Articolo a1 = new Articolo((float) 14, new TipoArticolo("nome1", "Desrizione1", 2, 1));
-		Articolo a2 = new Articolo((float) 17, new TipoArticolo("nome2", "Desrizione2", 3, 3));
-		Articolo a3 = new Articolo((float) 87, new TipoArticolo("nome3", "Desrizione3", 2, 1));
-		Articolo a4 = new Articolo((float) 90, new TipoArticolo("nome4", "Desrizione4", 9, 2));
-		Articolo a5 = new Articolo((float) 15, new TipoArticolo("nome5", "Desrizione5", 7, 1));
-		Articolo a6 = new Articolo((float) 18, new TipoArticolo("nome6", "Desrizione6", 10, 4));
+		Articolo a1 = new Articolo((float) 14, new TipoArticolo("nome1", "Descrizione art1", 2, 1));
+		Articolo a2 = new Articolo((float) 17, new TipoArticolo("nome2", "Descrizione art2", 3, 3));
+		Articolo a3 = new Articolo((float) 87, new TipoArticolo("nome3", "Descrizione art3", 2, 1));
+		Articolo a4 = new Articolo((float) 90, new TipoArticolo("nome4", "Descrizione art4", 9, 2));
+		Articolo a5 = new Articolo((float) 15, new TipoArticolo("nome5", "Descrizione art5", 7, 1));
+		Articolo a6 = new Articolo((float) 18, new TipoArticolo("nome6", "Descrizione art6", 10, 4));
                 
-		Negozio n1 = new Negozio("ABABABABABABABAB", "Adidas Milano", "via toi tuto", "City");
-		Negozio n2 = new Negozio("BBBBBBBBBBBBBBBB", "Snipes Malpensa", "via caveve", "City");
-		Negozio n3 = new Negozio("CCCCCCCCCCCCCCCC", "Puma EUROMA2", "via go senh", "City");
+		Negozio n1 = new Negozio("ABABABABABABABAB", "Adidas Milano", "via Roma", "Milano");
+		Negozio n2 = new Negozio("BBBBBBBBBBBBBBBB", "Snipes Malpensa", "via 2", "Milano");
+		Negozio n3 = new Negozio("CCCCCCCCCCCCCCCC", "Puma EUROMA2", "via 3", "Roma");
 		Negozio n4 = new Negozio("DDDDDDDDDDDDDDDD", "Foot Loocker", "via bio", "City");
         
 		//Ingresso i1= new Ingresso()
