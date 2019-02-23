@@ -71,7 +71,7 @@ public class GUI extends JFrame {
 
 	//bottoni
 	private JButton btnLogin,btnArticoli,btnNegozi,btnOrdini,btnIngressi,btnUscite,btnStorico;
-	private JButton btnAggiungiArticolo,btnModificaArticolo,btnEliminaArt,btnDettagli,btnCambiaPos;
+	private JButton btnAggiungiArticolo,btnModificaArticolo,btnEliminaArt,btnCambiaPos;
 
 	//textboxes
 	private JTextField textField;
@@ -86,20 +86,7 @@ public class GUI extends JFrame {
 
 
 	private JTable tableArticoli;
-	private JPanel PanelDettagli;
-	private JPanel InfoPanel;
 	private JLabel labelID;
-	private JLabel lblE;
-	private JLabel lblI;
-	private JLabel lblB;
-	private JLabel lblF;
-	private JLabel lblNd;
-	private JLabel lblC;
-	private JLabel lblG;
-	private JLabel lblNd_1;
-	private JLabel lblD;
-	private JLabel lblH;
-	private JLabel lblNd_2;
 	private JPanel TablePanelNegozi;
 	private JTable tableNegozi;
 	private JLabel labelNegozi;
@@ -200,8 +187,8 @@ public class GUI extends JFrame {
 	private JTextField textCorriere;
 	private JTextField quantita6;
 	private JLabel lblArticoliEQuantit;
-	private JLabel lblNegozio_o;
-
+	private JLabel lblNegozio_o;	
+	private JButton btnEliminaOrdine ;
 
 	/**
 	 *
@@ -213,7 +200,7 @@ public class GUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
-
+		setTitle("Programma gestione magazzino");
 
 		//inizializza i componenti
 		startGUI();
@@ -637,8 +624,8 @@ public class GUI extends JFrame {
 					//ora devo solo controllare che l'utente non mi abbia selezionato lo stesso articolo, in tal caso prensdo le quantità e le sommo
 					//le posizioni invece prendo solo l'ultima
 					if(!(Articolo10.equals(""))) {
-						if (quantita10 == 0 || posizione10 == 0 ) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita10 <= 0 || posizione10 <= 0 ) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 						}
 						if (quantita.containsKey(a10)) {
 							quantita.put(a10, quantita.get(a10) + quantita10);
@@ -646,10 +633,10 @@ public class GUI extends JFrame {
 							quantita.put(a10, quantita10);
 						}
 						posizioni.put(a10, posizione10);
-					}
+					} 
 					if(!(Articolo9.equals(""))) {
-						if (quantita9 == 0 || posizione9 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita9 <= 0 || posizione9 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -661,8 +648,8 @@ public class GUI extends JFrame {
 						posizioni.put(a9, posizione9);
 					}
 					if(!(Articolo8.equals(""))) {
-						if (quantita8 == 0 || posizione8 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita8 <= 0 || posizione8 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -674,8 +661,8 @@ public class GUI extends JFrame {
 						posizioni.put(a8, posizione8);
 					}
 					if(!(Articolo7.equals(""))) {
-						if (quantita7 == 0 || posizione7 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita7 <= 0 || posizione7 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -687,8 +674,8 @@ public class GUI extends JFrame {
 						posizioni.put(a7, posizione7);
 					}
 					if(!(Articolo6.equals(""))) {
-						if (quantita6 == 0 || posizione6 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita6 <= 0 || posizione6 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -700,8 +687,8 @@ public class GUI extends JFrame {
 						posizioni.put(a6, posizione6);
 					}
 					if(!(Articolo5.equals(""))) {
-						if (quantita5 == 0 || posizione5 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita5 <= 0 || posizione5 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -713,8 +700,8 @@ public class GUI extends JFrame {
 						posizioni.put(a5, posizione5);
 					}
 					if(!(Articolo4.equals(""))) {
-						if (quantita4 == 0 || posizione4 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita4 <= 0 || posizione4 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -727,8 +714,8 @@ public class GUI extends JFrame {
 					}
 
 					if(!(Articolo3.equals(""))) {
-						if (quantita3 == 0 || posizione3 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita3 <= 0 || posizione3 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -740,8 +727,8 @@ public class GUI extends JFrame {
 						posizioni.put(a3, posizione3);
 					}
 					if(!(Articolo2.equals(""))) {
-						if (quantita2 == 0 || posizione2 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita2 <= 0 || posizione2 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -753,8 +740,8 @@ public class GUI extends JFrame {
 						posizioni.put(a2, posizione2);
 					}
 					if(!(Articolo1.equals(""))) {
-						if (quantita1 == 0 || posizione1 == 0) {
-							JOptionPane.showMessageDialog(null, "Non sono accettate 0 posizioni o 0 quantita!");
+						if (quantita1 <= 0 || posizione1 <= 0) {
+							JOptionPane.showMessageDialog(null, "Non sono accettate posizioni o quantita <= 0 !");
 							return;
 						}
 
@@ -780,6 +767,7 @@ public class GUI extends JFrame {
 
 					//ora posso aggiungere l'ingresso
 					warehouse.addIngresso(quantita, posizioni, c);
+					fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
 					indexIngressi = warehouse.ingressiSize() - 1;
 					nascondiPannelli();
 					ingressi();
@@ -1348,13 +1336,14 @@ public class GUI extends JFrame {
 		labelOrdini.setFont(new Font("Arial", Font.ITALIC, 30));
 		labelOrdini.setBackground(Color.WHITE);
 
-		JButton btnEliminaOrdine = new JButton("Elimina Ordine");
+		btnEliminaOrdine = new JButton("Elimina Ordine");
 		btnEliminaOrdine.setBounds(444, 501, 131, 23);
 		PanelTableOrdiniPrinc.add(btnEliminaOrdine);
 		btnEliminaOrdine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				warehouse.removeOrdine(warehouse.getOrdine(tableOrdini.getSelectedRow()));
 				fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+				btnEliminaOrdine.setEnabled(false);
 			}
 		});
 		btnGeneraUscita = new JButton("Genera Uscita");
@@ -1367,6 +1356,7 @@ public class GUI extends JFrame {
 				else try {
 					warehouse.createExit(warehouse.getOrdine(indexOrder));
 					fillTable("ordini",(DefaultTableModel) tableOrdini.getModel());
+					fillTable("articoli",(DefaultTableModel) tableArticoli.getModel());
 				}
 				catch(OrderNotFound | ArticleNotFound | OrderImpossibleToCreate ex) {
 					JOptionPane.showMessageDialog(null,"Quantità articoli non sufficiente");
@@ -1458,7 +1448,8 @@ public class GUI extends JFrame {
 						warehouse.removeArticolo(temp);
 					}
 					clearTexts(arg0);
-					closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
+					PanelAggiungiArticolo.setVisible(false); 
+					PanelMainArt.setVisible(true);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1475,7 +1466,8 @@ public class GUI extends JFrame {
 		btnAnnullaArticolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				closeButtonAction((JPanel)e.getComponent().getParent(),"articoli");
+				PanelAggiungiArticolo.setVisible(false); 
+				PanelMainArt.setVisible(true);
 			}
 		});
 		btnAnnullaArticolo.setBounds(375, 509, 100, 50);
@@ -1617,97 +1609,9 @@ public class GUI extends JFrame {
 		PanelAggiungiArticolo.add(labelSport);
 		PanelAggiungiArticolo.setVisible(false);
 
-		PanelDettagli = new JPanel();
-		PanelDettagli.setBounds(75, 0, 500, 571);
-		panelArticoli.add(PanelDettagli);
-		PanelDettagli.setVisible(false);
-		PanelDettagli.setLayout(null);
-
-		JLabel lblNewLabel_3 = new JLabel("Dettagli Articolo");
-		lblNewLabel_3.setBackground(SystemColor.controlHighlight);
-		lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblNewLabel_3.setBounds(10, 24, 132, 34);
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		PanelDettagli.add(lblNewLabel_3);
-
-		InfoPanel = new JPanel();
-		InfoPanel.setBackground(SystemColor.controlHighlight);
-		InfoPanel.setBounds(10, 59, 480, 100);
-		PanelDettagli.add(InfoPanel);
-		InfoPanel.setLayout(null);
-
 		labelID = new JLabel("n/d");
 		labelID.setHorizontalAlignment(SwingConstants.CENTER);
 		labelID.setBounds(10, 11, 100, 20);
-
-		//labelID.setText("ciao"); test modifica
-
-		InfoPanel.add(labelID);
-
-		lblE = new JLabel("n/d");
-		lblE.setHorizontalAlignment(SwingConstants.CENTER);
-		lblE.setBounds(10, 38, 100, 20);
-		InfoPanel.add(lblE);
-
-		lblI = new JLabel("n/d");
-		lblI.setHorizontalAlignment(SwingConstants.CENTER);
-		lblI.setBounds(10, 66, 100, 20);
-		InfoPanel.add(lblI);
-
-		lblB = new JLabel("n/d");
-		lblB.setHorizontalAlignment(SwingConstants.CENTER);
-		lblB.setBounds(120, 14, 100, 20);
-		InfoPanel.add(lblB);
-
-		lblF = new JLabel("n/d");
-		lblF.setHorizontalAlignment(SwingConstants.CENTER);
-		lblF.setBounds(120, 41, 100, 20);
-		InfoPanel.add(lblF);
-
-		lblNd = new JLabel("n/d");
-		lblNd.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNd.setBounds(120, 69, 100, 20);
-		InfoPanel.add(lblNd);
-
-		lblC = new JLabel("n/d");
-		lblC.setHorizontalAlignment(SwingConstants.CENTER);
-		lblC.setBounds(230, 14, 100, 20);
-		InfoPanel.add(lblC);
-
-		lblG = new JLabel("n/d");
-		lblG.setHorizontalAlignment(SwingConstants.CENTER);
-		lblG.setBounds(230, 41, 100, 20);
-		InfoPanel.add(lblG);
-
-		lblNd_1 = new JLabel("n/d");
-		lblNd_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNd_1.setBounds(230, 69, 100, 20);
-		InfoPanel.add(lblNd_1);
-
-		lblD = new JLabel("n/d");
-		lblD.setHorizontalAlignment(SwingConstants.CENTER);
-		lblD.setBounds(340, 14, 100, 20);
-		InfoPanel.add(lblD);
-
-		lblH = new JLabel("n/d");
-		lblH.setHorizontalAlignment(SwingConstants.CENTER);
-		lblH.setBounds(340, 41, 100, 20);
-		InfoPanel.add(lblH);
-
-		lblNd_2 = new JLabel("n/d");
-		lblNd_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNd_2.setBounds(340, 69, 100, 20);
-		InfoPanel.add(lblNd_2);
-
-		JButton btnNewButton_2 = new JButton("Chiudi");
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				closeButtonAction((JPanel)arg0.getComponent().getParent(),"articoli");
-			}
-		});
-		btnNewButton_2.setBounds(193, 444, 114, 45);
-		PanelDettagli.add(btnNewButton_2);
 
 		PanelMainArt = new JPanel();
 		PanelMainArt.setBounds(0, 0, 650, 571);
@@ -1789,17 +1693,6 @@ public class GUI extends JFrame {
 		PanelMainArt.add(btnCambiaPos);
 		btnCambiaPos.setBackground(SystemColor.control);
 		btnCambiaPos.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-
-		btnDettagli = new JButton("Dettagli");
-		btnDettagli.setBounds(240, 434, 140, 110);
-		PanelMainArt.add(btnDettagli);
-		btnDettagli.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				tabellaRigaSel(true,"articoli");
-			}
-		});
-		btnDettagli.setBackground(SystemColor.control);
-		btnDettagli.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 
 		btnAggiungiArticolo = new JButton("Aggiungi Prodotto");
 		btnAggiungiArticolo.addActionListener(new ActionListener() {
@@ -2086,7 +1979,8 @@ public class GUI extends JFrame {
 						warehouse.removeNegozio(tempNegozio);
 					}
 					clearTexts(e);
-					closeButtonAction((JPanel)e.getComponent().getParent(),"negozi");
+					PanelAggiungiNegozio.setVisible(false);
+					PanelMainNeg.setVisible(true);
 				} catch (Exception ex) {
 					// TODO Auto-generated catch block
 					ex.printStackTrace();
@@ -2102,7 +1996,8 @@ public class GUI extends JFrame {
 		btnAnnulla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				closeButtonAction((JPanel)e.getComponent().getParent(),"negozi");
+				PanelAggiungiNegozio.setVisible(false);
+				PanelMainNeg.setVisible(true);
 			}
 		});
 		btnAnnulla.setBounds(381, 509, 100, 50);
@@ -2225,8 +2120,8 @@ public class GUI extends JFrame {
 				nascondiPannelli();
 				panelArticoli.setVisible(true);
 				btnCambiaPos.setEnabled(false);
-				btnDettagli.setEnabled(false);
 				btnEliminaArt.setEnabled(false);
+				btnModificaArticolo.setEnabled(false);
 			}
 		});
 		menuazioni.setLayout(null);
@@ -2340,12 +2235,16 @@ public class GUI extends JFrame {
 				btnEliminaArt.setVisible(true);
 				btnModificaArticolo.setVisible(true);
 				btnAggiungiArticolo.setVisible(true);
-				btnDettagli.setVisible(true);
+				btnAggiungiArticolo.setEnabled(true);
+				btnEliminaArt.setEnabled(false);
+				btnModificaArticolo.setEnabled(false);
+				
 				//segreteria
 				btnCambiaPos.setVisible(true);
 				btnNuovoIngresso.setEnabled(true);
 				btnGeneraUscita.setEnabled(true);
 				//responsabile negozio
+				btnEliminaOrdine.setEnabled(true);
 				btnArticoli.setEnabled(true);
 				btnNegozi.setVisible(true);
 				btnIngressi.setEnabled(true);
@@ -2470,26 +2369,26 @@ public class GUI extends JFrame {
 
 
 		}catch (UserNotFoundException ecc) {
-			JOptionPane.showMessageDialog(null, "Impossibile effettuare il login,si prega di riprovare più tardi");
+			JOptionPane.showMessageDialog(null, "Username o password errati!");
 			passwordField.setText("");
 		}
 
 	}
 	//chiude il pannello, apre il box di prima.
-	private void closeButtonAction(JPanel pannello,String panel) { // gestisce tutti i pulsanti di chiusura ! forse pattern
+	/*private void closeButtonAction(JPanel pannello,String panel) { // gestisce tutti i pulsanti di chiusura ! forse pattern
 		switch(panel) {
 		case "articoli":
-			pannello.setVisible(false); //
+			pannello.setVisible(false); 
 			PanelMainArt.setVisible(true);
 			break;
 		case "negozi":
-			pannello.setVisible(false); //
+			pannello.setVisible(false);
 			PanelMainNeg.setVisible(true);
 
 		}
 
 
-	}
+	}*/
 
 
 
@@ -2503,7 +2402,6 @@ public class GUI extends JFrame {
 		btnEliminaArt.setVisible(false);
 		btnModificaArticolo.setVisible(false);
 		btnAggiungiArticolo.setVisible(false);
-		btnDettagli.setVisible(false);
 		
 		btnCreaNuovoOrd.setEnabled(false);
 
@@ -2514,6 +2412,7 @@ public class GUI extends JFrame {
 		btnCambiaPos.setVisible(false);
 		btnNuovoIngresso.setEnabled(false);
 		btnCreaNuovoOrd.setEnabled(false);
+		btnGeneraUscita.setEnabled(false);
 	}
 	private void panelResponsabile(){
 		panelComuni();
@@ -2523,6 +2422,7 @@ public class GUI extends JFrame {
 		btnGeneraUscita.setEnabled(false);
 		btnUscite.setEnabled(false);
 		btnStorico.setEnabled(false);
+		btnEliminaOrdine.setEnabled(false);
 	}
 
 	private void panelComuni(){ // pannelli in comune per tutti e 3 i tipi di user
@@ -2548,15 +2448,12 @@ public class GUI extends JFrame {
 
 		switch(type) {
 		case "articoli":
-			dettaglioArticolo(act, tableArticoli.getSelectedRow()); // prende la riga dell'articolo selezionato, solo 1 alla volta
 			btnCambiaPos.setEnabled(true);
-			btnDettagli.setEnabled(true);
 			btnModificaArticolo.setEnabled(true);
 			btnEliminaArt.setEnabled(true);
 			break;
 
 		case "negozi":
-			dettaglioNegozio(act, tableNegozi.getSelectedRow());
 			btnModNegozio.setEnabled(true);
 			btnEliminaNegozio.setEnabled(true);
 			break;
@@ -2564,48 +2461,6 @@ public class GUI extends JFrame {
 
 		}
 	}
-	//GENERAZIONE DEI DETTAGLI NEI PANEL DETTAGLI
-	private void dettaglioArticolo(boolean act, int row) {
-		//DEBUG BOX
-		//act -- se è 1 visualizza il box, se 0 salva solo la riga selezionata
-		if(act == true) {
-			PanelDettagli.setVisible(true);
-			PanelMainArt.setVisible(false);
-
-
-
-			Component[] comp = InfoPanel.getComponents();
-			JLabel l0 = (JLabel) comp[0];
-			JLabel l1 = (JLabel) comp[1];
-			JLabel l2 = (JLabel) comp[2];
-			JLabel l3 = (JLabel) comp[3];
-			JLabel l4 = (JLabel) comp[4];
-			JLabel l5 = (JLabel) comp[5];
-			JLabel l6 = (JLabel) comp[6];
-
-			Articolo temp = warehouse.getArticolo(row); 
-			l0.setText(""+temp.hashCode());
-			l1.setText(""+temp.getTipoArticolo().getName());
-			l2.setText(""+temp.getTipoArticolo().getSports());
-			l3.setText(""+temp.getTipoArticolo().getMaterial());
-			l4.setText(""+temp.getTipoArticolo().getDescription());
-			l5.setText("€ "+temp.getPrezzo());
-			l6.setText(""+temp.getDataInString());
-
-
-		}
-
-		DEBUG.setText("Details "+row);
-
-	}
-
-	private void dettaglioNegozio(boolean act,int row) {
-
-
-	}
-
-
-
 
 	//modifica la posizione di un articolo
 	private void modificaPosizioneArticolo(ActionEvent evt, int row) {                                                                   
@@ -2646,7 +2501,6 @@ public class GUI extends JFrame {
 				}
 			}
 			btnCambiaPos.setEnabled(false);
-			btnDettagli.setEnabled(false);;
 			btnEliminaArt.setEnabled(false);
 			btnModificaArticolo.setEnabled(false);
 			break;
@@ -2666,7 +2520,7 @@ public class GUI extends JFrame {
 			for(Ordine o : warehouse.getOrdineList()) {
 				System.out.println(o.toString());
 				//	Sistemare per il checkbox come si mette? sistemare il num articoli
-				model.addRow(new Object[]{o.getIDtoString(),o.getDataInString(),o.getTotalPrice(),o.getNegozio().getNome(),o.getCorriere(), o.getIfShipped(), o.articoliSize()});
+				model.addRow(new Object[]{abs(o.getID()),o.getDataInString(),o.getTotalPrice(),o.getNegozio().getNome(),o.getCorriere(), o.getIfShipped(), o.articoliSize()});
 			}
 
 
@@ -2698,7 +2552,6 @@ public class GUI extends JFrame {
 			for(Component c: compList) {
 				if(c instanceof JTextField)
 					((JTextField) c).setText("");
-
 				if(c instanceof JRadioButton && ((JRadioButton) c).isSelected())
 					group_btn.clearSelection();
 
@@ -2821,11 +2674,11 @@ public class GUI extends JFrame {
 				}
 				//if(p[0].equals("")) return 0; // se il nome dell' articolo è vuoto non va bene, torno 0
 
-				TipoArticolo tempTipo = new TipoArticolo(p[0], p[4], TipoArticolo.sportArray2Num(p[6]), TipoArticolo.materialArray2Num(p[5]));
+				TipoArticolo tempTipo = new TipoArticolo(p[0], p[3], TipoArticolo.sportArray2Num(p[5]), TipoArticolo.materialArray2Num(p[4]));
 				String[] split = p[2].split("/"); // per avere giorno, mese, anno divisi
 				Articolo temp = new Articolo(Float.parseFloat(p[1]),Integer.valueOf(split[0]),Integer.valueOf(split[1]),Integer.valueOf(split[2]), tempTipo);
 				warehouse.addArticolo(temp); // aggiungo l'articolo
-				warehouse.setQuantity(temp,Integer.valueOf(p[3])); // setto la quantità
+				warehouse.setQuantity(temp,0); // setto la quantità
 				break;
 
 			case "negozio":

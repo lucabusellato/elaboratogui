@@ -41,8 +41,8 @@ public class Main implements Serializable{
 	    java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	}
 
-	Object[] options = {"Importa DB", "Inizializza"};
-	int buttonPressed = JOptionPane.showOptionDialog(null, "Seleziona un' opzione per continuare?", "", 0, JOptionPane.WARNING_MESSAGE, null, options, null);
+	Object[] options = {"Importa DB", "DB di prova"};
+	int buttonPressed = JOptionPane.showOptionDialog(null, "Seleziona un' opzione per continuare?", "", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
 	if (buttonPressed == 0) {
 	    
